@@ -1,1 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./style-var.scss";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+
+  background-color: $page-background-color;
+
+  &.has-toolbar {
+    padding-top: $toolbar-height;
+    min-height: calc(100vh - #{$toolbar-height});
+  }
+
+  > app-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    height: $toolbar-height;
+    width: 100vw;
+  }
+
+  > .main-container {
+    padding: $main-container-padding;
+
+    width: calc(100% - 2 *#{$main-container-padding});
+    max-width: calc(
+      #{$main-container-max-width} - 2 *#{$main-container-padding}
+    );
+  }
+}
+
+.error-snackar {
+  background-color: $warn-color;
+}
+
+.confirmation-dialog {
+  transition: all 0.1s linear;
+  border-radius: 35px;
+
+  & > mat-dialog-container {
+    border-radius: 35px;
+  }
+
+  &.mobile {
+    &:not(.mobile-full) {
+      & > mat-dialog-container {
+        border-radius: 15px;
+      }
+    }
+
+    &.mobile-full {
+      & > mat-dialog-container {
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+.basic-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > .basic-form-title {
+    font-size: 1.4rem;
+  }
+
+  > .basic-form-inputs {
+    display: flex;
+    flex-direction: column;
+
+    > .basic-form-input {
+      &:not(:first-of-type) {
+        margin-top: 10px;
+      }
+    }
+  }
+
+  > .basic-form-button {
+    border-radius: 100px;
+  }
+}

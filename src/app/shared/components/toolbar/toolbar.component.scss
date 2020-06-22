@@ -1,0 +1,28 @@
+@import "./../../../../style-var.scss";
+
+$padding-horizontal: 50px;
+
+$background-color: #ffffff;
+
+#toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 $padding-horizontal;
+  width: calc(100% - 2 *#{$padding-horizontal});
+  height: 100%;
+
+  background-color: #ffffff;
+  border-bottom: 1px solid $grey-clear-color;
+
+  > #toolbar-left-elements,
+  > #toolbar-right-elements {
+    display: flex;
+    align-items: center;
+
+    > * {
+      margin: 0 5px;
+    }
+  }
+}

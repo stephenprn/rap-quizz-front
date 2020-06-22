@@ -1,0 +1,11 @@
+$articles-space-between: 20px;
+
+#home {
+  > #articles-list-container {
+    > app-article-item {
+      &:not(:first-of-type) {
+        margin-top: $articles-space-between;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+<div id="add-article" class="page-container has-toolbar">
+  <app-toolbar></app-toolbar>
+  <form
+    id="add-article-form"
+    class="basic-form main-container"
+    [formGroup]="addArticleFormGroup"
+  >
+    <h1 class="basic-form-title">Add article</h1>
+
+    <mat-form-field class="basic-form-input">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error>
+        Title must be between {{ TITLE_MIN_LENGTH }} and
+        {{ TITLE_MAX_LENGTH }} characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="basic-form-input">
+      <mat-label>Content</mat-label>
+      <textarea matInput rows="6" formControlName="body"></textarea>
+      <mat-error>
+        Please enter a content
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      class="basic-form-button"
+      mat-flat-button
+      color="primary"
+      (click)="addArticle()"
+      [disabled]="addArticleFormGroup.invalid"
+    >
+      Add article
+    </button>
+  </form>
+</div>

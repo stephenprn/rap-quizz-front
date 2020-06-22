@@ -1,0 +1,21 @@
+@import "./../../../../style-var.scss";
+
+$background-color: #ffffff;
+
+$padding-vertical: 20px;
+$padding-horizontal: 50px;
+
+.article-item {
+  padding: $padding-vertical $padding-horizontal;
+  width: calc(100% - 2 *#{$padding-horizontal});
+
+  background-color: $background-color;
+  border: 1px solid $grey-clear-color;
+
+  transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: $base-shadow;
+  }
+}

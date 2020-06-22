@@ -1,0 +1,19 @@
+<div id="home" class="page-container has-toolbar">
+  <app-toolbar></app-toolbar>
+
+  <div id="articles-list-container" class="main-container" *ngIf="!loading">
+    <app-article-item
+      [article]="article"
+      *ngFor="let article of articles"
+      (click)="openArticle(article.url)"
+    ></app-article-item>
+
+    <div *ngIf="loadingMore">
+      LOADING MORE
+    </div>
+  </div>
+
+  <div class="main-container" *ngIf="loading">
+    LOADING GENERAL
+  </div>
+</div>

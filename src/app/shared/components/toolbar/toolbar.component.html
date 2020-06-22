@@ -1,0 +1,39 @@
+<header id="toolbar">
+  <div id="toolbar-left-elements">
+    <button (click)="goHome()" mat-icon-button aria-label="Go home">
+      <i class="fa fa-newspaper-o"></i>
+    </button>
+    <div id="toolbar-title">
+      Articles app
+    </div>
+  </div>
+
+  <div id="toolbar-right-elements">
+    <button
+      (click)="goAddArticle()"
+      *ngIf="userConnected"
+      mat-icon-button
+      aria-label="Add article"
+    >
+      <i class="fa fa-plus"></i>
+    </button>
+
+    <button
+      (click)="openLogin()"
+      *ngIf="!userConnected"
+      mat-icon-button
+      aria-label="Log in"
+    >
+      <i class="fa fa-user"></i>
+    </button>
+
+    <button
+      (click)="logout()"
+      *ngIf="userConnected"
+      mat-icon-button
+      aria-label="Log out"
+    >
+      <i class="fa fa-sign-out"></i>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,37 @@
+<div id="login">
+  <form id="login-form" class="basic-form" [formGroup]="loginFormGroup">
+    <h1 class="basic-form-title">Login</h1>
+
+    <div class="basic-form-inputs">
+      <mat-form-field class="basic-form-input">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error>
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basic-form-input">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error>
+          Password must be at least {{ PASSWORD_MIN_LENGTH }} characters long
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-checkbox class="basic-form-checkbox" formControlName="rememberMe"
+      >Remember me</mat-checkbox
+    >
+
+    <button
+      class="basic-form-button"
+      mat-flat-button
+      color="primary"
+      (click)="login()"
+      [disabled]="loginFormGroup.invalid"
+    >
+      Log in
+    </button>
+  </form>
+</div>

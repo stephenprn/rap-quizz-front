@@ -1,0 +1,31 @@
+@import "./../../../style-var.scss";
+
+$background-color: #ffffff;
+$main-margin-vertical: 50px;
+
+$article-title-padding-vertical: 40px;
+
+#article-details {
+  > #article-container {
+    margin: $main-margin-vertical 0;
+
+    background-color: $background-color;
+    box-shadow: $base-shadow;
+
+    > #article-title {
+      margin: 0;
+      margin-top: calc(-#{$main-container-padding});
+      margin-left: calc(-#{$main-container-padding});
+
+      padding: $article-title-padding-vertical $main-container-padding;
+
+      width: 100%;
+
+      border-bottom: 1px solid $page-background-color;
+    }
+
+    > #article-body {
+      padding: $article-title-padding-vertical 0;
+    }
+  }
+}

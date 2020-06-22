@@ -1,0 +1,14 @@
+<div id="article-details" class="page-container has-toolbar">
+  <app-toolbar></app-toolbar>
+
+  <div id="article-container" class="main-container" *ngIf="!loading">
+    <h1 id="article-title">{{ article.title }}</h1>
+    <div id="article-body">
+      {{ article.body }}
+    </div>
+  </div>
+
+  <div class="main-container" *ngIf="loading">
+    LOADING GENERAL
+  </div>
+</div>
