@@ -19,7 +19,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class RegisterDialogComponent implements OnInit {
   public readonly PASSWORD_MIN_LENGTH = 6;
   public readonly PASSWORD_MAX_LENGTH = 20;
-  public readonly USERNAME_MIN_LENGTH = 8;
+  public readonly USERNAME_MIN_LENGTH = 4;
   public readonly USERNAME_MAX_LENGTH = 100;
 
   public readonly USERNAME_CHECK_REFRESH_DELAY = 250;
@@ -27,7 +27,10 @@ export class RegisterDialogComponent implements OnInit {
 
   public registerFormGroup: FormGroup;
 
-  public usernameExists = false;
+  public usernameExists = {
+    loading: false,
+    state: false,
+  };
 
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogComponent>,
@@ -53,12 +56,12 @@ export class RegisterDialogComponent implements OnInit {
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(this.PASSWORD_MIN_LENGTH),
-          Validators.minLength(this.PASSWORD_MAX_LENGTH),
+          Validators.maxLength(this.PASSWORD_MAX_LENGTH),
         ]),
         passwordConfirmation: new FormControl('', [
           Validators.required,
           Validators.minLength(this.PASSWORD_MIN_LENGTH),
-          Validators.minLength(this.PASSWORD_MAX_LENGTH),
+          Validators.maxLength(this.PASSWORD_MAX_LENGTH),
         ]),
       },
       this.passwordMatch.bind(this)
@@ -80,31 +83,43 @@ export class RegisterDialogComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
-          this.authenticationService.setToken(
-            res.access_token,
-            this.registerFormGroup.get('rememberMe').value
-          );
-          this.uiService.displayToast('You are now connected!');
+          this.uiService.displayToast('You are now registered!');
           this.dialogRef.close();
         },
         (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error.description, true);
+          this.uiService.displayToast(err.error, true);
         }
       );
   }
 
-  public checkUsername(username: string) {
-    this.registerFormGroup.get('username').setErrors({ invalid: true });
+  private checkUsername(username: string) {
+    if (this.checkUsernameTimeOut != null) {
+      clearTimeout(this.checkUsernameTimeOut);
+    }
+
+    if (
+      username.length < this.USERNAME_MIN_LENGTH ||
+      username.length > this.USERNAME_MAX_LENGTH
+    ) {
+      return;
+    }
 
     this.checkUsernameTimeOut = setTimeout(() => {
+      this.usernameExists.loading = true;
       this.checkUsernameTimeOut = null;
+
       this.authenticationApiService.checkUsername(username).subscribe(
         () => {
-          this.usernameExists = false;
-          this.registerFormGroup.get('username').setErrors({ invalid: false });
+          this.usernameExists.state = false;
+          this.registerFormGroup.get('username').setErrors(null);
+          console.log(this.registerFormGroup.get('username'));
         },
         () => {
-          this.usernameExists = true;
+          this.registerFormGroup.get('username').setErrors({ invalid: true });
+          this.usernameExists.state = true;
+        },
+        () => {
+          this.usernameExists.loading = false;
         }
       );
     }, this.USERNAME_CHECK_REFRESH_DELAY);

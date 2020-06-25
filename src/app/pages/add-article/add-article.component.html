@@ -16,13 +16,8 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="basic-form-input">
-      <mat-label>Content</mat-label>
-      <textarea matInput rows="6" formControlName="body"></textarea>
-      <mat-error>
-        Please enter a content
-      </mat-error>
-    </mat-form-field>
+    <quill-editor formControlName="body" [styles]="{height: '200px'}"></quill-editor>
+
 
     <button
       class="basic-form-button"

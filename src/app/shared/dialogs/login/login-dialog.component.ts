@@ -55,7 +55,7 @@ export class LoginDialogComponent implements OnInit {
           this.dialogRef.close();
         },
         (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error.description, true);
+          this.uiService.displayToast(err.error, true);
         }
       );
   }

@@ -20,12 +20,20 @@ import { UtilsService } from './services/utils.service';
 import { CommonModule } from '@angular/common';
 import { LoggedGuard } from './guards/logged.guard';
 import { OutInterceptor } from './interceptors/out.interceptor';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { RegisterDialogComponent } from './dialogs/register/register-dialog.component';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 
 @NgModule({
-  declarations: [ToolbarComponent, ArticleItemComponent, LoginDialogComponent, RegisterDialogComponent],
+  declarations: [
+    ToolbarComponent,
+    ArticleItemComponent,
+    LoginDialogComponent,
+    RegisterDialogComponent,
+
+    SanitizeHtmlPipe,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -38,9 +46,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatInputModule,
     MatCheckboxModule,
     MatMenuModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
-  exports: [ToolbarComponent, ArticleItemComponent],
+  exports: [ToolbarComponent, ArticleItemComponent, SanitizeHtmlPipe],
   providers: [
     UiService,
     AuthenticationService,
@@ -49,6 +57,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
     ArticlesApiService,
     AuthenticationApiService,
+
+    SanitizeHtmlPipe,
 
     LoggedGuard,
 

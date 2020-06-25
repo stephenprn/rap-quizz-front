@@ -49,7 +49,7 @@ export class AddArticleComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error.description, true);
+          this.uiService.displayToast(err.error, true);
         }
       );
   }

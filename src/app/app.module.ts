@@ -1,7 +1,9 @@
+import { MatQuillModule } from '@webacad/ng-mat-quill';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './pages/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { QuillModule } from 'ngx-quill';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +16,7 @@ import { ArticleDetailsComponent } from './pages/article-details/article-details
 import { AddArticleComponent } from './pages/add-article/add-article.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 
 @NgModule({
   declarations: [
@@ -34,11 +37,13 @@ import { MatInputModule } from '@angular/material/input';
 
     SharedModule,
 
+    QuillModule.forRoot(),
+    MatQuillModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

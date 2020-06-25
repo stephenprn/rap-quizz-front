@@ -36,6 +36,8 @@ export class InInterceptor implements HttpInterceptor {
               this.uiService.displayToast(
                 'Your session has expired, please login again'
               );
+
+              this.router.navigate(['/']);
             }
           }
         }
