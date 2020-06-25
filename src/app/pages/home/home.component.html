@@ -4,7 +4,7 @@
   <div id="articles-list-container" class="main-container" *ngIf="!loading">
     <app-article-item
       [article]="article"
-      *ngFor="let article of articles"
+      *ngFor="let article of articles; let i = index"
       (click)="openArticle(article.url)"
     ></app-article-item>
 

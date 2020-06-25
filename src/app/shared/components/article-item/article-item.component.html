@@ -1,3 +1,13 @@
 <div class="article-item">
-  {{ article.title }}
+  <h2 class="article-item-title">{{ article.title }}</h2>
+  <div class="article-infos">
+    <div class="article-item-author">
+      <i class="fa fa-user"></i>
+      {{ article.user?.username }}
+    </div>
+    <div class="article-item-date">
+      <i class="fa fa-calendar-o"></i>
+      {{ article.creation_date | date }}
+    </div>
+  </div>
 </div>

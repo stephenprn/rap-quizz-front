@@ -1,0 +1,62 @@
+<div id="register">
+  <form id="register-form" class="basic-form" [formGroup]="registerFormGroup">
+    <h1 class="basic-form-title">Register</h1>
+
+    <div class="basic-form-inputs">
+      <mat-form-field class="basic-form-input">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error>
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basic-form-input">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error>
+          Username must be between {{ USERNAME_MIN_LENGTH }} and
+          {{ USERNAME_MAX_LENGTH }} characters long
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basic-form-input">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error>
+          Password must be between {{ PASSWORD_MIN_LENGTH }} and
+          {{ PASSWORD_MAX_LENGTH }} characters long
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basic-form-input">
+        <mat-label>Password confirmation</mat-label>
+        <input
+          matInput
+          formControlName="passwordConfirmation"
+          type="password"
+        />
+        <mat-error>
+          Password confirmation must be identical to password
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="basic-form-buttons-container"
+      [matTooltip]="
+        registerFormGroup.invalid ? 'At least one field is invalid' : null
+      "
+    >
+      <button
+        class="basic-form-button"
+        mat-flat-button
+        color="primary"
+        (click)="register()"
+        [disabled]="registerFormGroup.invalid"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</div>

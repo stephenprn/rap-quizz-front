@@ -1,10 +1,21 @@
+@import "./../../../style-var.scss";
+
 $articles-space-between: 20px;
 
 #home {
   > #articles-list-container {
     > app-article-item {
-      &:not(:first-of-type) {
+      display: block;
+
+      transition: box-shadow 0.3s ease-in-out;
+      cursor: pointer;
+
+      &:not(:first-child) {
         margin-top: $articles-space-between;
+      }
+
+      &:hover {
+        box-shadow: $base-shadow;
       }
     }
   }

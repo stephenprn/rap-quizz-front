@@ -19,13 +19,18 @@
     </button>
 
     <button
-      (click)="openLogin()"
       *ngIf="!userConnected"
+      [matMenuTriggerFor]="menu"
       mat-icon-button
-      aria-label="Log in"
+      aria-label="Open menu connection"
     >
       <i class="fa fa-user"></i>
     </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openLogin()">Log in</button>
+      <button mat-menu-item (click)="openRegister()">Register</button>
+    </mat-menu>
 
     <button
       (click)="logout()"

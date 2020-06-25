@@ -31,12 +31,14 @@ body {
   }
 
   > .main-container {
-    padding: $main-container-padding;
+    width: 100%;
+    max-width: $main-container-max-width;
 
-    width: calc(100% - 2 *#{$main-container-padding});
-    max-width: calc(
-      #{$main-container-max-width} - 2 *#{$main-container-padding}
-    );
+    margin: $main-container-margin-vertical 0;
+
+    @media only screen and (max-width: $main-container-max-width) {
+      margin-top: 0;
+    }
   }
 }
 
@@ -87,7 +89,10 @@ body {
     }
   }
 
-  > .basic-form-button {
-    border-radius: 100px;
+  > .basic-form-buttons-container {
+    > .basic-form-button {
+      width: 100%;
+      border-radius: 100px;
+    }
   }
 }

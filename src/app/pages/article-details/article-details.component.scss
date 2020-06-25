@@ -1,23 +1,24 @@
 @import "./../../../style-var.scss";
 
 $background-color: #ffffff;
-$main-margin-vertical: 50px;
+$main-padding: 50px;
 
 $article-title-padding-vertical: 40px;
 
 #article-details {
   > #article-container {
-    margin: $main-margin-vertical 0;
+    padding: $main-padding;
+    max-width: calc(#{$main-container-max-width} - 2 *#{$main-padding});
 
     background-color: $background-color;
     box-shadow: $base-shadow;
 
     > #article-title {
       margin: 0;
-      margin-top: calc(-#{$main-container-padding});
-      margin-left: calc(-#{$main-container-padding});
+      margin-top: calc(-#{$main-padding});
+      margin-left: calc(-#{$main-padding});
 
-      padding: $article-title-padding-vertical $main-container-padding;
+      padding: $article-title-padding-vertical $main-padding;
 
       width: 100%;
 

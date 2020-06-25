@@ -2,20 +2,31 @@
 
 $background-color: #ffffff;
 
+$border-width: 1px;
+
 $padding-vertical: 20px;
 $padding-horizontal: 50px;
 
 .article-item {
   padding: $padding-vertical $padding-horizontal;
-  width: calc(100% - 2 *#{$padding-horizontal});
+  width: calc(100% - 2 *#{$padding-horizontal} - 2*#{$border-width});
 
   background-color: $background-color;
-  border: 1px solid $grey-clear-color;
+  border: $border-width solid $grey-clear-color;
 
-  transition: box-shadow 0.3s ease-in-out;
-  cursor: pointer;
+  > .article-item-title {
+  }
 
-  &:hover {
-    box-shadow: $base-shadow;
+  > .article-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    > .article-item-date {
+      margin-left: 20px;
+    }
+
+    > .article-item-author {
+    }
   }
 }
