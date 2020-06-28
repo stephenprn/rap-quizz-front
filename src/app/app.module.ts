@@ -17,7 +17,7 @@ import { ArticleDetailsComponent } from './pages/article-details/article-details
 import { AddArticleComponent } from './pages/add-article/add-article.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler';
     MatInputModule,
     MatButtonModule,
     MatTooltipModule,
-
+    MatProgressSpinnerModule,
+    
     SharedModule,
 
     QuillModule.forRoot(),
@@ -46,6 +47,6 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler';
     }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

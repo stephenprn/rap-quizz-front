@@ -25,6 +25,7 @@ import { RegisterDialogComponent } from './dialogs/register/register-dialog.comp
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation
     MatCheckboxModule,
     MatMenuModule,
     MatTooltipModule,
+    CdkScrollableModule
   ],
   exports: [ToolbarComponent, ArticleItemComponent, SanitizeHtmlPipe],
   providers: [

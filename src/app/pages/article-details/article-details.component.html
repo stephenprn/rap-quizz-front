@@ -1,7 +1,11 @@
 <div id="article-details" class="page-container has-toolbar">
   <app-toolbar></app-toolbar>
 
-  <div id="article-container" class="main-container white-block" *ngIf="!loading">
+  <div
+    id="article-container"
+    class="main-container white-block"
+    *ngIf="!loading"
+  >
     <app-article-item
       id="article-header"
       [article]="article"
@@ -10,6 +14,6 @@
   </div>
 
   <div class="main-container" *ngIf="loading">
-    LOADING GENERAL
+    <mat-spinner diameter="50"></mat-spinner>  
   </div>
 </div>

@@ -6,22 +6,25 @@
 
     <app-article-item
       [article]="article"
-      *ngFor="let article of articles; let i = index"
+      *ngFor="let article of articles; let i = index; trackBy: trackByFn"
       (click)="openEditArticle(article.url)"
       [editionMode]="true"
       (editClicked)="goEditArticle(article)"
       (deleteClicked)="openDeleteConfirmation(article, i)"
+      (displayClicked)="openArticle(article.url)"
     >
     </app-article-item>
 
-    <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">You have no published articles yet.</p>
+    <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">
+      You have no published articles yet.
+    </p>
 
     <div *ngIf="loadingMore">
-      LOADING MORE
+      <mat-spinner diameter="25"></mat-spinner>
     </div>
   </div>
 
   <div class="main-container" *ngIf="loading">
-    LOADING GENERAL
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 </div>

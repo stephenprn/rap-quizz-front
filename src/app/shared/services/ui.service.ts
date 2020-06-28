@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Overlay } from '@angular/cdk/overlay';
+import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable()
 export class UiService {
   screenMode$ = new BehaviorSubject<'desktop' | 'mobile' | 'tablet'>(null);
+  windowScroll$ = new BehaviorSubject<number>(null);
 
   constructor(
     private matSnackBar: MatSnackBar,
     public dialog: MatDialog,
-    private overlay: Overlay
+    private overlay: Overlay,
+    private scrollDispatcher: ScrollDispatcher
   ) {
     this.initScreenMode();
+    this.initScrollListener();
   }
 
   private initScreenMode() {
@@ -29,6 +32,14 @@ export class UiService {
     } else {
       this.setScreenMode('desktop');
     }
+  }
+
+  private initScrollListener() {
+    this.scrollDispatcher.scrolled().subscribe(() => {
+      const distanceFromBottom =
+        document.body.scrollHeight - window.innerHeight - window.scrollY;
+      this.windowScroll$.next(distanceFromBottom);
+    });
   }
 
   public displayToast(message, error = false) {

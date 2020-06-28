@@ -32,5 +32,12 @@
     >
       <i class="fa fa-pencil"></i>
     </button>
+    <button
+      mat-icon-button
+      (click)="displayClicked.next(); $event.stopPropagation()"
+      matTooltip="Display article"
+    >
+      <i class="fa fa-file-o"></i>
+    </button>
   </div>
 </div>

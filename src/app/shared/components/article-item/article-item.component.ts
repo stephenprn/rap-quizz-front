@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Article } from '../../classes/article.class';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-item',
@@ -19,6 +18,9 @@ export class ArticleItemComponent {
 
   @Output()
   editClicked = new EventEmitter<void>();
+
+  @Output()
+  displayClicked = new EventEmitter<void>();
 
   constructor() {
   }

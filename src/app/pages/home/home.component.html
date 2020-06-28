@@ -4,7 +4,7 @@
   <div id="articles-list-container" class="main-container" *ngIf="!loading">
     <app-article-item
       [article]="article"
-      *ngFor="let article of articles; let i = index"
+      *ngFor="let article of articles; let i = index; trackBy: trackByFn"
       (click)="openArticle(article.url)"
     ></app-article-item>
 
@@ -13,11 +13,11 @@
     </p>
 
     <div *ngIf="loadingMore">
-      LOADING MORE
+      <mat-spinner diameter="25"></mat-spinner>
     </div>
   </div>
 
   <div class="main-container" *ngIf="loading">
-    LOADING GENERAL
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 </div>
