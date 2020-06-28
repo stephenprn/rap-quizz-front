@@ -61,6 +61,19 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public logout() {
     this.authenticationService.removeToken();
+    this.uiService.displayToast('You have been logged out');
+
+    // check if current route require auth
+    const currentRouteConfig = this.router.config.find(
+      (f) => f.path === this.router.url.substr(1)
+    );
+    if (currentRouteConfig != null && currentRouteConfig.canActivate != null) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  public goDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   public goAddArticle() {

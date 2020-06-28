@@ -2,31 +2,37 @@
 
 $background-color: #ffffff;
 
-$border-width: 1px;
-
 $padding-vertical: 20px;
 $padding-horizontal: 50px;
 
 .article-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
   padding: $padding-vertical $padding-horizontal;
-  width: calc(100% - 2 *#{$padding-horizontal} - 2*#{$border-width});
+  width: calc(100% - 2 *#{$padding-horizontal});
 
   background-color: $background-color;
-  border: $border-width solid $grey-clear-color;
 
-  > .article-item-title {
+  > .article-item-content {
+    > .article-item-title {
+    }
+
+    > .article-infos {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      > .article-info {
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
+      }
+    }
   }
 
-  > .article-infos {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    > .article-item-date {
-      margin-left: 20px;
-    }
-
-    > .article-item-author {
-    }
+  > .article-controls {
   }
 }

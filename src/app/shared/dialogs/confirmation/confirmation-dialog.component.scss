@@ -1,0 +1,21 @@
+#confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  height: 100%;
+
+  > #confirmation-text {
+  }
+
+  > #confirmation-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    > .basic-button {
+      width: 45%;
+    }
+  }
+}

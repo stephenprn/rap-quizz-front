@@ -1,3 +1,4 @@
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatQuillModule } from '@webacad/ng-mat-quill';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './pages/home/home.component';
@@ -34,6 +35,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 
     MatInputModule,
     MatButtonModule,
+    MatTooltipModule,
 
     SharedModule,
 

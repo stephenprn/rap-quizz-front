@@ -1,16 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Article } from '../../classes/article.class';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-item',
   templateUrl: './article-item.component.html',
   styleUrls: ['./article-item.component.scss'],
 })
-export class ArticleItemComponent implements OnInit {
+export class ArticleItemComponent {
   @Input()
   article: Article;
 
-  constructor() {}
+  @Input()
+  editionMode: boolean;
 
-  ngOnInit(): void {}
+  @Output()
+  deleteClicked = new EventEmitter<void>();
+
+  @Output()
+  editClicked = new EventEmitter<void>();
+
+  constructor() {
+  }
 }

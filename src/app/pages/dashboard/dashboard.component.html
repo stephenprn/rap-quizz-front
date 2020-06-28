@@ -1,1 +1,27 @@
-<p>dashboard works!</p>
+<div id="dashboard" class="page-container has-toolbar">
+  <app-toolbar></app-toolbar>
+
+  <div id="articles-list-container" class="main-container" *ngIf="!loading">
+    <h1 class="main-title">Your published articles</h1>
+
+    <app-article-item
+      [article]="article"
+      *ngFor="let article of articles; let i = index"
+      (click)="openEditArticle(article.url)"
+      [editionMode]="true"
+      (editClicked)="goEditArticle(article)"
+      (deleteClicked)="openDeleteConfirmation(article, i)"
+    >
+    </app-article-item>
+
+    <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">You have no published articles yet.</p>
+
+    <div *ngIf="loadingMore">
+      LOADING MORE
+    </div>
+  </div>
+
+  <div class="main-container" *ngIf="loading">
+    LOADING GENERAL
+  </div>
+</div>

@@ -49,27 +49,7 @@ export class RestService {
     parameters?: RestParameter[],
     pagination?: RestPagination
   ): Observable<any> {
-    let httpParams = new HttpParams();
-
-    if (parameters != null) {
-      parameters.forEach((param: any) => {
-        httpParams = httpParams.append(param.name, param.value);
-      });
-    }
-
-    if (pagination != null) {
-      httpParams = httpParams.append(
-        this.PAGINATION_KEYS_NAMES.pageNbr,
-        String(pagination.pageNbr)
-      );
-
-      if (pagination.nbrResults != null) {
-        httpParams = httpParams.append(
-          this.PAGINATION_KEYS_NAMES.nbrResults,
-          String(pagination.nbrResults)
-        );
-      }
-    }
+    const httpParams = this.getParams(parameters, pagination);
 
     return this.http.get(environment.apiUrl + path, {
       params: httpParams,
@@ -82,6 +62,26 @@ export class RestService {
     parameters?: RestParameter[],
     pagination?: RestPagination
   ): Observable<any> {
+    const httpParams = this.getParams(parameters, pagination);
+
+    return this.http.post(environment.apiUrl + path, body, {
+      params: httpParams,
+    });
+  }
+
+  public delete(
+    path: string,
+    parameters?: RestParameter[],
+    pagination?: RestPagination
+  ) {
+    const httpParams = this.getParams(parameters, pagination);
+
+    return this.http.delete(environment.apiUrl + path, {
+      params: httpParams,
+    });
+  }
+
+  private getParams(parameters?: RestParameter[], pagination?: RestPagination) {
     let httpParams = new HttpParams();
 
     if (parameters != null) {
@@ -104,8 +104,6 @@ export class RestService {
       }
     }
 
-    return this.http.post(environment.apiUrl + path, body, {
-      params: httpParams,
-    });
+    return httpParams;
   }
 }

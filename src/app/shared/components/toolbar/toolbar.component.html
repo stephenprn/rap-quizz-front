@@ -1,6 +1,6 @@
 <header id="toolbar">
   <div id="toolbar-left-elements">
-    <button (click)="goHome()" mat-icon-button aria-label="Go home">
+    <button (click)="goHome()" mat-icon-button matTooltip="Go home">
       <i class="fa fa-newspaper-o"></i>
     </button>
     <div id="toolbar-title">
@@ -10,10 +10,19 @@
 
   <div id="toolbar-right-elements">
     <button
+      (click)="goDashboard()"
+      *ngIf="userConnected"
+      mat-icon-button
+      matTooltip="View dashboard"
+    >
+      <i class="fa fa-list"></i>
+    </button>
+
+    <button
       (click)="goAddArticle()"
       *ngIf="userConnected"
       mat-icon-button
-      aria-label="Add article"
+      matTooltip="Add article"
     >
       <i class="fa fa-plus"></i>
     </button>
@@ -22,7 +31,7 @@
       *ngIf="!userConnected"
       [matMenuTriggerFor]="menu"
       mat-icon-button
-      aria-label="Open menu connection"
+      matTooltip="Open menu connection"
     >
       <i class="fa fa-user"></i>
     </button>
@@ -36,7 +45,7 @@
       (click)="logout()"
       *ngIf="userConnected"
       mat-icon-button
-      aria-label="Log out"
+      matTooltip="Log out"
     >
       <i class="fa fa-sign-out"></i>
     </button>

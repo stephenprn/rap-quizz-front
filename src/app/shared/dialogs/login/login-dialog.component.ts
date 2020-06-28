@@ -7,7 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dialog-login',
+  selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.scss'],
 })
@@ -55,7 +55,7 @@ export class LoginDialogComponent implements OnInit {
           this.dialogRef.close();
         },
         (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error, true);
+          this.uiService.displayToast(err.error.description, true);
         }
       );
   }

@@ -10,6 +10,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+button.basic-button {
+  border-radius: 100px !important;
+}
+
 .page-container {
   display: flex;
   justify-content: center;
@@ -28,6 +32,8 @@ body {
 
     height: $toolbar-height;
     width: 100vw;
+
+    z-index: 1000;
   }
 
   > .main-container {
@@ -36,8 +42,33 @@ body {
 
     margin: $main-container-margin-vertical 0;
 
+    &.white-block {
+      padding: $main-container-white-block-padding;
+      max-width: calc(
+        #{$main-container-max-width} - 2 *#{$main-container-white-block-padding}
+      );
+      height: fit-content;
+
+      background-color: #ffffff;
+      box-shadow: $base-shadow;
+    }
+
+    > .main-title {
+      margin: 16px 0;
+    }
+
     @media only screen and (max-width: $main-container-max-width) {
       margin-top: 0;
+
+      > h1 {
+        text-align: center;
+      }
+
+      > p {
+        padding: $main-container-margin-vertical;
+        
+        text-align: center;
+      }
     }
   }
 }
@@ -83,16 +114,16 @@ body {
     flex-direction: column;
 
     > .basic-form-input {
-      &:not(:first-of-type) {
+      &:not(:first-child) {
         margin-top: 10px;
       }
     }
   }
 
   > .basic-form-buttons-container {
-    > .basic-form-button {
+    > .basic-button {
+      margin-top: 10px;
       width: 100%;
-      border-radius: 100px;
     }
   }
 }

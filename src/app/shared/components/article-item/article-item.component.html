@@ -1,13 +1,36 @@
 <div class="article-item">
-  <h2 class="article-item-title">{{ article.title }}</h2>
-  <div class="article-infos">
-    <div class="article-item-author">
-      <i class="fa fa-user"></i>
-      {{ article.user?.username }}
+  <div class="article-item-content">
+    <h2 class="article-item-title">{{ article.title }}</h2>
+    <div class="article-infos">
+      <div class="article-info" *ngIf="article.user != null">
+        <i class="fa fa-user"></i>
+        {{ article.user?.username }}
+      </div>
+      <div class="article-info" *ngIf="article.creation_date != null">
+        <i class="fa fa-calendar-o"></i>
+        {{ article.creation_date | date }}
+      </div>
+      <div class="article-info" *ngIf="article.nbr_views != null">
+        <i class="fa fa-eye"></i>
+        {{ article.nbr_views }}
+      </div>
     </div>
-    <div class="article-item-date">
-      <i class="fa fa-calendar-o"></i>
-      {{ article.creation_date | date }}
-    </div>
+  </div>
+  <div class="article-controls" *ngIf="editionMode">
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="deleteClicked.next(); $event.stopPropagation()"
+      matTooltip="Delete article"
+    >
+      <i class="fa fa-trash"></i>
+    </button>
+    <button
+      mat-icon-button
+      (click)="editClicked.next(); $event.stopPropagation()"
+      matTooltip="Edit article"
+    >
+      <i class="fa fa-pencil"></i>
+    </button>
   </div>
 </div>

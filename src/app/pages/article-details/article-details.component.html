@@ -1,8 +1,11 @@
 <div id="article-details" class="page-container has-toolbar">
   <app-toolbar></app-toolbar>
 
-  <div id="article-container" class="main-container" *ngIf="!loading">
-    <h1 id="article-title">{{ article.title }}</h1>
+  <div id="article-container" class="main-container white-block" *ngIf="!loading">
+    <app-article-item
+      id="article-header"
+      [article]="article"
+    ></app-article-item>
     <div id="article-body" [innerHtml]="article.body | sanitizeHtml"></div>
   </div>
 

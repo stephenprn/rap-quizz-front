@@ -24,13 +24,16 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RegisterDialogComponent } from './dialogs/register/register-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
+import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
     ArticleItemComponent,
+
     LoginDialogComponent,
     RegisterDialogComponent,
+    ConfirmationDialogComponent,
 
     SanitizeHtmlPipe,
   ],
@@ -66,6 +69,10 @@ import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
     { provide: HTTP_INTERCEPTORS, useClass: InInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: OutInterceptor, multi: true },
   ],
-  entryComponents: [LoginDialogComponent, RegisterDialogComponent],
+  entryComponents: [
+    LoginDialogComponent,
+    RegisterDialogComponent,
+    ConfirmationDialogComponent,
+  ],
 })
 export class SharedModule {}

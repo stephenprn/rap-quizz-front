@@ -8,6 +8,10 @@
       (click)="openArticle(article.url)"
     ></app-article-item>
 
+    <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">
+      There is no available articles yet.
+    </p>
+
     <div *ngIf="loadingMore">
       LOADING MORE
     </div>

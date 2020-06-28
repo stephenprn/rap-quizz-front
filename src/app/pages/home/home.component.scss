@@ -11,11 +11,21 @@ $articles-space-between: 20px;
       cursor: pointer;
 
       &:not(:first-child) {
-        margin-top: $articles-space-between;
+        border-top: 1px solid $grey-clear-color;
+      }
+
+      @media only screen and (min-width: $main-container-max-width) {
+        &:not(:first-child) {
+          margin-top: $articles-space-between;
+          border-top: none;
+        }
       }
 
       &:hover {
         box-shadow: $base-shadow;
+
+        z-index: 10;
+        transform: scale(1); // trick to show shadow 
       }
     }
   }

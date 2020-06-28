@@ -6,6 +6,7 @@ export class Article {
   url?: string;
   creation_date?: string;
   user?: User;
+  nbr_views?: number;
 
   constructor(title: string, body?: string) {
     this.title = title;

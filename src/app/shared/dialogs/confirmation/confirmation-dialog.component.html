@@ -1,0 +1,24 @@
+<div id="confirmation">
+  <p id="confirmation-text">
+    {{ texts.main }}
+  </p>
+
+  <div id="confirmation-buttons">
+    <button
+      class="basic-button"
+      mat-stroked-button
+      [color]="warning ? 'warn' : 'primary'"
+      (click)="close(false)"
+    >
+      {{ texts.no }}
+    </button>
+    <button
+      class="basic-button"
+      mat-flat-button
+      [color]="warning ? 'warn' : 'primary'"
+      (click)="close(true)"
+    >
+      {{ texts.yes }}
+    </button>
+  </div>
+</div>
