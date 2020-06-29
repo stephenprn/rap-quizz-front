@@ -10,11 +10,10 @@ $background-color: #ffffff;
   justify-content: space-between;
 
   padding: 0 $padding-horizontal;
-  width: calc(100% - 2 *#{$padding-horizontal});
   height: 100%;
 
-  background-color: #ffffff;
-  border-bottom: 1px solid $grey-clear-color;
+  background-color: mat-color($mat-primary, main);
+  border-bottom: 1px solid mat-color($mat-accent, lighter);
 
   > #toolbar-left-elements,
   > #toolbar-right-elements {

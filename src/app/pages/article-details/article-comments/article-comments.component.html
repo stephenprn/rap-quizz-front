@@ -1,0 +1,57 @@
+<div id="comments-section">
+  <h3>Comments</h3>
+
+  <div id="comments" *ngIf="!loading && comments.length > 0">
+    <div
+      class="comment"
+      *ngFor="let comment of comments; let i = index; trackBy: trackByFn"
+    >
+      <div class="comment-header">
+        <h4 class="comment-username">{{ comment.user.username }}</h4>
+        <p class="comment-date">{{ comment.creation_date | date }}</p>
+      </div>
+      <p class="comment-body">{{ comment.body }}</p>
+    </div>
+  </div>
+  <div id="comments" *ngIf="!loading && comments.length === 0">
+    <p>
+      There is no comments for this article yet.
+    </p>
+  </div>
+
+  <div id="comments" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <form id="comment-form" class="basic-form" [formGroup]="commentFormGroup">
+    <h3 class="basic-form-title">Leave a comment</h3>
+
+    <div class="basic-form-inputs">
+      <mat-form-field class="basic-form-input">
+        <mat-label>Comment</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+        <mat-error>
+          Content must be between {{ BODY_MIN_LENGTH }} and
+          {{ BODY_MAX_LENGTH }} characters long
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="basic-form-buttons-container"
+      [matTooltip]="
+        commentFormGroup.invalid ? 'You comment is too small or too long' : null
+      "
+    >
+      <button
+        class="basic-button"
+        mat-flat-button
+        color="primary"
+        (click)="sendCommentClicked()"
+        [disabled]="commentFormGroup.invalid || sendingComment"
+      >
+        Send comment
+      </button>
+    </div>
+  </form>
+</div>

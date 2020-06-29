@@ -26,6 +26,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SanitizeHtmlPipe } from './pipes/sanitize-html.pipe';
 import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation-dialog.component';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { Title } from '@angular/platform-browser';
+import { CommentsApiService } from './services/api/comments-api.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
     MatCheckboxModule,
     MatMenuModule,
     MatTooltipModule,
-    CdkScrollableModule
+    MatToolbarModule,
+
+    CdkScrollableModule,
   ],
   exports: [ToolbarComponent, ArticleItemComponent, SanitizeHtmlPipe],
   providers: [
@@ -62,6 +67,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
     ArticlesApiService,
     AuthenticationApiService,
+    CommentsApiService,
 
     SanitizeHtmlPipe,
 
@@ -70,6 +76,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: InInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: OutInterceptor, multi: true },
+    Title,
   ],
   entryComponents: [
     LoginDialogComponent,

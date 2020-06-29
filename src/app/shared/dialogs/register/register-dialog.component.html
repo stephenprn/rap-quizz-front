@@ -2,6 +2,8 @@
   <form id="register-form" class="basic-form" [formGroup]="registerFormGroup">
     <h1 class="basic-form-title">Register</h1>
 
+    <p>Already have an account? <a (click)="openLoginDialog()">Log in</a></p>
+
     <div class="basic-form-inputs">
       <mat-form-field class="basic-form-input">
         <mat-label>Email</mat-label>

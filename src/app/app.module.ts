@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { ArticleCommentsComponent } from './pages/article-details/article-comments/article-comments.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     HomeComponent,
     ArticleDetailsComponent,
     AddArticleComponent,
+    ArticleCommentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    
+
     SharedModule,
 
     QuillModule.forRoot(),

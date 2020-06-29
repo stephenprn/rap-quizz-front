@@ -11,9 +11,13 @@
       [article]="article"
     ></app-article-item>
     <div id="article-body" [innerHtml]="article.body | sanitizeHtml"></div>
+
+    <div id="comments-container">
+      <app-article-comments [articleUrl]="articleUrl"></app-article-comments>
+    </div>
   </div>
 
   <div class="main-container" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>  
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 </div>

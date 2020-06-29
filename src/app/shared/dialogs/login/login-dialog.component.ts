@@ -5,6 +5,7 @@ import { AuthenticationApiService } from '../../services/api/authentication-api.
 import { AuthenticationService } from '../../services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
+import { RegisterDialogComponent } from '../register/register-dialog.component';
 
 @Component({
   selector: 'app-login-dialog',
@@ -58,5 +59,13 @@ export class LoginDialogComponent implements OnInit {
           this.uiService.displayToast(err.error.description, true);
         }
       );
+  }
+
+  public openRegisterDialog() {
+    this.uiService.displayDialog(RegisterDialogComponent, {
+      width: '600px',
+      height: '600px',
+    });
+    this.dialogRef.close();
   }
 }

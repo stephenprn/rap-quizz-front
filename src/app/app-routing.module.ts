@@ -7,12 +7,12 @@ import { LoggedGuard } from './shared/guards/logged.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'article-details/:url', component: ArticleDetailsComponent },
+  { path: '', component: HomeComponent, data: { title: 'Article app' } },
+  { path: 'article-details/:url', component: ArticleDetailsComponent, data: { title: 'View article' } },
 
-  { path: 'add-article', component: AddArticleComponent, canActivate: [LoggedGuard] },
-  { path: 'edit-article/:url', component: AddArticleComponent, canActivate: [LoggedGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [LoggedGuard] },
+  { path: 'add-article', component: AddArticleComponent, data: { title: 'Add an article' }, canActivate: [LoggedGuard] },
+  { path: 'edit-article/:url', component: AddArticleComponent, data: { title: 'Edit an article' }, canActivate: [LoggedGuard] },
+  { path: 'dashboard', component: DashboardComponent, data: { title: 'My dashboard' }, canActivate: [LoggedGuard] },
 ];
 
 @NgModule({

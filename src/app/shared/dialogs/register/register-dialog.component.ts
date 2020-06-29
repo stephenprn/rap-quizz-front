@@ -10,6 +10,7 @@ import { AuthenticationApiService } from '../../services/api/authentication-api.
 import { AuthenticationService } from '../../services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
+import { LoginDialogComponent } from '../login/login-dialog.component';
 
 @Component({
   selector: 'app-register-dialog',
@@ -123,6 +124,14 @@ export class RegisterDialogComponent implements OnInit {
         }
       );
     }, this.USERNAME_CHECK_REFRESH_DELAY);
+  }
+
+  public openLoginDialog() {
+    this.uiService.displayDialog(LoginDialogComponent, {
+      width: '600px',
+      height: '400px',
+    });
+    this.dialogRef.close();
   }
 
   private passwordMatch(c: AbstractControl): { invalid: boolean } {

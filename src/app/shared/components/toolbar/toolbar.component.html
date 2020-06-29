@@ -1,4 +1,4 @@
-<header id="toolbar">
+<mat-toolbar id="toolbar">
   <div id="toolbar-left-elements">
     <button (click)="goHome()" mat-icon-button matTooltip="Go home">
       <i class="fa fa-newspaper-o"></i>
@@ -13,7 +13,8 @@
       (click)="goDashboard()"
       *ngIf="userConnected"
       mat-icon-button
-      matTooltip="View dashboard"
+      matTooltip="View my dashboard"
+      class="mobile-hidden"
     >
       <i class="fa fa-list"></i>
     </button>
@@ -23,9 +24,45 @@
       *ngIf="userConnected"
       mat-icon-button
       matTooltip="Add article"
+      class="mobile-hidden"
     >
       <i class="fa fa-plus"></i>
     </button>
+
+    <button
+      (click)="logout()"
+      *ngIf="userConnected"
+      mat-icon-button
+      matTooltip="Log out"
+      class="mobile-hidden"
+    >
+      <i class="fa fa-sign-out"></i>
+    </button>
+
+    <button
+      *ngIf="userConnected"
+      [matMenuTriggerFor]="mobileMenu"
+      mat-icon-button
+      class="mobile-showed"
+    >
+      <i class="fa fa-bars"></i>
+    </button>
+
+    <mat-menu #mobileMenu="matMenu" class="mobile-showed">
+      <button (click)="goDashboard()" *ngIf="userConnected" mat-menu-item>
+        <i class="fa fa-list"></i>
+        View my dashboard
+      </button>
+      <button (click)="goAddArticle()" *ngIf="userConnected" mat-menu-item>
+        <i class="fa fa-plus"></i>
+        Add article
+      </button>
+
+      <button (click)="logout()" *ngIf="userConnected" mat-menu-item>
+        <i class="fa fa-sign-out"></i>
+        Log out
+      </button>
+    </mat-menu>
 
     <button
       *ngIf="!userConnected"
@@ -37,17 +74,14 @@
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openLogin()">Log in</button>
-      <button mat-menu-item (click)="openRegister()">Register</button>
+      <button mat-menu-item (click)="openLogin()">
+        <i class="fa fa fa-sign-in"></i>
+        Log in
+      </button>
+      <button mat-menu-item (click)="openRegister()">
+        <i class="fa fa fa-user-plus"></i>
+        Register
+      </button>
     </mat-menu>
-
-    <button
-      (click)="logout()"
-      *ngIf="userConnected"
-      mat-icon-button
-      matTooltip="Log out"
-    >
-      <i class="fa fa-sign-out"></i>
-    </button>
   </div>
-</header>
+</mat-toolbar>

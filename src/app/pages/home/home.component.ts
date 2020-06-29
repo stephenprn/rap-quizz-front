@@ -38,8 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.initPromises();
     this.getArticles(true);
+    this.initPromises();
   }
 
   ngOnDestroy(): void {

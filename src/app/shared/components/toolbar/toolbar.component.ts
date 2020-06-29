@@ -48,7 +48,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   public openRegister() {
     this.uiService.displayDialog(RegisterDialogComponent, {
       width: '600px',
-      height: '400px',
+      height: '600px',
     });
   }
 

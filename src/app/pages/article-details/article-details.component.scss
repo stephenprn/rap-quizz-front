@@ -2,6 +2,8 @@
 
 $background-color: #ffffff;
 
+$comments-divider-color: mat-color($mat-accent, lighter);
+
 #article-details {
   > #article-container {
     > #article-header {
@@ -12,11 +14,32 @@ $background-color: #ffffff;
 
       width: calc(100% + 2 *#{$main-container-white-block-padding});
 
-      border-bottom: 1px solid $page-background-color;
+      border-bottom: 1px solid mat-color($mat-accent, lighter);
     }
 
     > #article-body {
       padding-top: $main-container-white-block-padding;
+    }
+
+    > #comments-container {
+      position: relative;
+
+      margin-top: $main-container-white-block-padding;
+      padding-top: $main-container-white-block-padding;
+
+      &::before {
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+        left: calc(-#{$main-container-white-block-padding});
+
+        width: calc(100% + 2*#{$main-container-white-block-padding});
+        height: 1px;
+
+        background-color: $comments-divider-color;
+      }
     }
   }
 }
