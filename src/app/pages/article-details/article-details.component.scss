@@ -2,7 +2,7 @@
 
 $background-color: #ffffff;
 
-$comments-divider-color: mat-color($mat-accent, lighter);
+$comments-divider-color: $secondary-color;
 
 #article-details {
   > #article-container {
@@ -14,7 +14,7 @@ $comments-divider-color: mat-color($mat-accent, lighter);
 
       width: calc(100% + 2 *#{$main-container-white-block-padding});
 
-      border-bottom: 1px solid mat-color($mat-accent, lighter);
+      border-bottom: 1px solid $secondary-color;
     }
 
     > #article-body {

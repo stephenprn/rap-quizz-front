@@ -1,11 +1,10 @@
 import { UiService } from './../../services/ui.service';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { LoginDialogComponent } from '../../dialogs/login/login-dialog.component';
 import { AuthenticationService } from '../../services/authentication.service';
 import { UtilsService } from '../../services/utils.service';
 import { Router } from '@angular/router';
-import { RegisterDialogComponent } from '../../dialogs/register/register-dialog.component';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -24,6 +23,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
 
+    private authenticationUiService: AuthenticationUiService,
     private uiService: UiService,
     private utilsService: UtilsService,
     private authenticationService: AuthenticationService
@@ -46,17 +46,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   public openRegister() {
-    this.uiService.displayDialog(RegisterDialogComponent, {
-      width: '600px',
-      height: '600px',
-    });
+    this.authenticationUiService.displayRegisterDialog();
   }
 
   public openLogin() {
-    this.uiService.displayDialog(LoginDialogComponent, {
-      width: '600px',
-      height: '400px',
-    });
+    this.authenticationUiService.displayLoginDialog();
   }
 
   public logout() {

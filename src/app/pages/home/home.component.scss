@@ -11,7 +11,7 @@ $articles-space-between: 20px;
       cursor: pointer;
 
       &:not(:first-child) {
-        border-top: 1px solid mat-color($mat-accent, lighter);
+        border-top: 1px solid $secondary-color;
       }
 
       @media only screen and (min-width: $main-container-max-width) {

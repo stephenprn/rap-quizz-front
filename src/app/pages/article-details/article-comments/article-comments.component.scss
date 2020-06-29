@@ -1,6 +1,6 @@
 @import "./../../../../style-var.scss";
 
-$comment-username-color: mat-color($mat-primary, main);
+$comment-username-color: $primary-color;
 
 #comments-section {
     > #comments {
@@ -27,7 +27,7 @@ $comment-username-color: mat-color($mat-primary, main);
             }
 
             &:not(:first-child) {
-                border-top: 1px solid mat-color($mat-accent, lighter);
+                border-top: 1px solid $secondary-color;
             }
         }
     }

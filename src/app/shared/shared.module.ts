@@ -29,6 +29,7 @@ import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Title } from '@angular/platform-browser';
 import { CommentsApiService } from './services/api/comments-api.service';
+import { AuthenticationUiService } from './services/ui/authentication-ui.service';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { CommentsApiService } from './services/api/comments-api.service';
     AuthenticationService,
     RestService,
     UtilsService,
+    AuthenticationUiService,
 
     ArticlesApiService,
     AuthenticationApiService,
