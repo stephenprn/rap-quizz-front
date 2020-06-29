@@ -33,7 +33,7 @@ export class ArticleCommentsComponent implements OnInit {
   public loadingMore: boolean; // indicator for loading more results
   private noMore: boolean;
 
-  public sendingComment: boolean;
+  public submitting: boolean;
 
   constructor(
     private commentsApiService: CommentsApiService,
@@ -102,7 +102,7 @@ export class ArticleCommentsComponent implements OnInit {
       return;
     }
 
-    this.sendingComment = true;
+    this.submitting = true;
 
     this.commentsApiService
       .commentArticle(this.articleUrl, this.commentFormGroup.get('body').value)
@@ -117,7 +117,7 @@ export class ArticleCommentsComponent implements OnInit {
           this.uiService.displayToast(err.error, true);
         },
         () => {
-          this.sendingComment = false;
+          this.submitting = false;
         }
       );
   }

@@ -16,8 +16,10 @@ export class AddArticleComponent implements OnInit {
   public readonly TITLE_MAX_LENGTH = 100;
 
   public addArticleFormGroup: FormGroup;
-  public loading: boolean;
   public url: string;
+
+  public loading: boolean;
+  public submitting: boolean;
 
   constructor(
     private router: Router,
@@ -69,6 +71,8 @@ export class AddArticleComponent implements OnInit {
   }
 
   private addArticle() {
+    this.submitting = true;
+
     this.articlesApiService
       .addArticle(
         this.addArticleFormGroup.get('title').value,
@@ -81,11 +85,16 @@ export class AddArticleComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           this.uiService.displayToast(err.error, true);
+        },
+        () => {
+          this.submitting = false;
         }
       );
   }
 
   private updateArticle() {
+    this.submitting = true;
+
     this.articlesApiService
       .updateArticle(
         this.addArticleFormGroup.get('title').value,
@@ -99,6 +108,9 @@ export class AddArticleComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           this.uiService.displayToast(err.error, true);
+        },
+        () => {
+          this.submitting = false;
         }
       );
   }

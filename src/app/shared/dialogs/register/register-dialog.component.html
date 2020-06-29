@@ -58,7 +58,7 @@
         mat-flat-button
         color="primary"
         (click)="register()"
-        [disabled]="registerFormGroup.invalid || usernameExists.loading"
+        [disabled]="registerFormGroup.invalid || usernameExists.loading || submitting"
       >
         Register
       </button>

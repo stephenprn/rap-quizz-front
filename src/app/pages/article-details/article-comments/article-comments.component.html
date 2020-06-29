@@ -48,7 +48,7 @@
         mat-flat-button
         color="primary"
         (click)="sendCommentClicked()"
-        [disabled]="commentFormGroup.invalid || sendingComment"
+        [disabled]="commentFormGroup.invalid || submitting"
       >
         Send comment
       </button>

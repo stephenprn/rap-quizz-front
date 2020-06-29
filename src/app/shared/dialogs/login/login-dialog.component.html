@@ -35,7 +35,7 @@
         mat-flat-button
         color="primary"
         (click)="login()"
-        [disabled]="loginFormGroup.invalid"
+        [disabled]="loginFormGroup.invalid || submitting"
       >
         Log in
       </button>

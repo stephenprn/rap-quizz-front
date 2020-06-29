@@ -316,6 +316,7 @@ button.basic-button {
       max-width: calc(
         #{$main-container-max-width} - 2 *#{$main-container-white-block-padding}
       );
+      width: calc(100% - 2*#{$main-container-white-block-padding});
       height: fit-content;
 
       background-color: #ffffff;

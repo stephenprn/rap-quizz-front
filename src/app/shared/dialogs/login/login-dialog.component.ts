@@ -17,6 +17,8 @@ export class LoginDialogComponent implements OnInit {
 
   public loginFormGroup: FormGroup;
 
+  public submitting: boolean;
+
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
 
@@ -42,6 +44,8 @@ export class LoginDialogComponent implements OnInit {
   }
 
   public login() {
+    this.submitting = true;
+
     this.authenticationApiService
       .login(
         this.loginFormGroup.get('email').value,
@@ -58,6 +62,9 @@ export class LoginDialogComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           this.uiService.displayToast(err.error.description, true);
+        },
+        () => {
+          this.submitting = false;
         }
       );
   }

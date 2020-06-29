@@ -7,10 +7,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { AuthenticationApiService } from '../../services/api/authentication-api.service';
-import { AuthenticationService } from '../../services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
-import { LoginDialogComponent } from '../login/login-dialog.component';
 import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
 
 @Component({
@@ -28,6 +26,8 @@ export class RegisterDialogComponent implements OnInit {
   private checkUsernameTimeOut: any;
 
   public registerFormGroup: FormGroup;
+
+  public submitting: boolean;
 
   public usernameExists = {
     loading: false,
@@ -77,6 +77,8 @@ export class RegisterDialogComponent implements OnInit {
   }
 
   public register() {
+    this.submitting = true;
+
     this.authenticationApiService
       .register(
         this.registerFormGroup.get('email').value,
@@ -90,6 +92,9 @@ export class RegisterDialogComponent implements OnInit {
         },
         (err: HttpErrorResponse) => {
           this.uiService.displayToast(err.error, true);
+        },
+        () => {
+          this.submitting = false;
         }
       );
   }
