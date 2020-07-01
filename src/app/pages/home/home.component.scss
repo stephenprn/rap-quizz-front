@@ -1,32 +1,6 @@
 @import "./../../../style-var.scss";
 
-$articles-space-between: 20px;
-
 #home {
   > #articles-list-container {
-    > app-article-item {
-      display: block;
-
-      transition: box-shadow 0.3s ease-in-out;
-      cursor: pointer;
-
-      &:not(:first-child) {
-        border-top: 1px solid $secondary-color;
-      }
-
-      @media only screen and (min-width: $main-container-max-width) {
-        &:not(:first-child) {
-          margin-top: $articles-space-between;
-          border-top: none;
-        }
-      }
-
-      &:hover {
-        box-shadow: $base-shadow;
-
-        z-index: 10;
-        transform: scale(1); // trick to show shadow 
-      }
-    }
   }
 }

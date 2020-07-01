@@ -1,7 +1,7 @@
 <div id="home" class="page-container has-toolbar">
   <app-toolbar></app-toolbar>
 
-  <div id="articles-list-container" class="main-container" *ngIf="!loading">
+  <div id="articles-list-container" class="main-container articles-list" *ngIf="!loading">
     <app-article-item
       [article]="article"
       *ngFor="let article of articles; let i = index; trackBy: trackByFn"

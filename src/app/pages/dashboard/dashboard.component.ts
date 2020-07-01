@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
       this.loading = true;
       this.loadingMore = false;
       this.noMore = false;
-    } else if (this.noMore) {
+    } else if (this.noMore || this.loading || this.loadingMore) {
       return;
     } else {
       this.loadingMore = true;
