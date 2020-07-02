@@ -1,23 +1,19 @@
-<div id="home" class="page-container has-toolbar">
-  <app-toolbar></app-toolbar>
+<div id="articles-list-container" class="articles-list" *ngIf="!loading">
+  <app-article-item
+    [article]="article"
+    *ngFor="let article of articles; let i = index; trackBy: trackByFn"
+    (click)="openArticle(article.url)"
+  ></app-article-item>
 
-  <div id="articles-list-container" class="main-container articles-list" *ngIf="!loading">
-    <app-article-item
-      [article]="article"
-      *ngFor="let article of articles; let i = index; trackBy: trackByFn"
-      (click)="openArticle(article.url)"
-    ></app-article-item>
+  <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">
+    There is no available articles yet.
+  </p>
 
-    <p class="empty-paragraph" *ngIf="!loading && articles.length === 0">
-      There is no available articles yet.
-    </p>
-
-    <div *ngIf="loadingMore">
-      <mat-spinner diameter="25"></mat-spinner>
-    </div>
+  <div *ngIf="loadingMore">
+    <mat-spinner diameter="25"></mat-spinner>
   </div>
+</div>
 
-  <div class="main-container" *ngIf="loading">
-    <mat-spinner diameter="50"></mat-spinner>
-  </div>
+<div class="articles-list" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
 </div>

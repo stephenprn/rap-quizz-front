@@ -277,7 +277,7 @@ h3 {
 a {
   text-decoration: none;
   font-weight: 600;
-  color: $primary-color;
+  color: var(--primary-color);
 
   cursor: pointer;
 
@@ -317,63 +317,69 @@ button.basic-button {
     max-width: $main-container-max-width;
 
     margin: $main-container-margin-vertical 0;
+  }
+}
 
-    &.white-block {
-      padding: $main-container-white-block-padding;
-      max-width: calc(
-        #{$main-container-max-width} - 2 *#{$main-container-white-block-padding}
-      );
-      width: calc(100% - 2 *#{$main-container-white-block-padding});
-      height: fit-content;
+.articles-list {
+  > app-article-item {
+    display: block;
 
-      background-color: #ffffff;
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:not(:first-child) {
+      border-top: 1px solid var(--accent-color);
+    }
+
+    @media only screen and (min-width: $main-container-max-width) {
+      &:not(:first-child) {
+        margin-top: $articles-space-between;
+        border-top: none;
+      }
+    }
+
+    &:hover {
       box-shadow: $base-shadow;
+
+      z-index: 10;
+      transform: scale(1); // trick to show shadow
+    }
+  }
+
+  > .main-title {
+    margin: 16px 0;
+  }
+
+  @media only screen and (max-width: $main-container-max-width) {
+    margin: 0;
+
+    > h1 {
+      text-align: center;
     }
 
-    &.articles-list {
-      > app-article-item {
-        display: block;
+    > p {
+      padding: $main-container-margin-vertical;
 
-        transition: box-shadow 0.3s ease-in-out;
-        cursor: pointer;
-
-        &:not(:first-child) {
-          border-top: 1px solid $secondary-color;
-        }
-
-        @media only screen and (min-width: $main-container-max-width) {
-          &:not(:first-child) {
-            margin-top: $articles-space-between;
-            border-top: none;
-          }
-        }
-
-        &:hover {
-          box-shadow: $base-shadow;
-
-          z-index: 10;
-          transform: scale(1); // trick to show shadow
-        }
-      }
-
-      > .main-title {
-        margin: 16px 0;
-      }
-
-      @media only screen and (max-width: $main-container-max-width) {
-        margin: 0;
-
-        > h1 {
-          text-align: center;
-        }
-
-        > p {
-          padding: $main-container-margin-vertical;
-
-          text-align: center;
-        }
-      }
+      text-align: center;
     }
+  }
+}
+
+.white-block {
+  padding: $main-container-white-block-padding;
+  max-width: calc(
+    #{$main-container-max-width} - 2 *#{$main-container-white-block-padding}
+  );
+  width: calc(100% - 2 *#{$main-container-white-block-padding});
+  height: fit-content;
+
+  background-color: #ffffff;
+  box-shadow: $base-shadow;
+}
+
+#article-body {
+  * {
+    max-width: 100%;
   }
 }
 

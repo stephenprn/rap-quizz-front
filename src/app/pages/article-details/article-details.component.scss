@@ -2,23 +2,19 @@
 
 $background-color: #ffffff;
 
-$comments-divider-color: $secondary-color;
+$comments-divider-color: var(--accent-color);
 
 #article-details {
+  > #article-header {
+    display: block;
+
+    width: 100%;
+
+    border-bottom: 1px solid $comments-divider-color;
+  }
+
   > #article-container {
-    > #article-header {
-      display: block;
-
-      margin-top: calc(-#{$main-container-white-block-padding});
-      margin-left: calc(-#{$main-container-white-block-padding});
-
-      width: calc(100% + 2 *#{$main-container-white-block-padding});
-
-      border-bottom: 1px solid $secondary-color;
-    }
-
     > #article-body {
-      padding-top: $main-container-white-block-padding;
     }
 
     > #comments-container {
@@ -35,7 +31,7 @@ $comments-divider-color: $secondary-color;
         top: 0;
         left: calc(-#{$main-container-white-block-padding});
 
-        width: calc(100% + 2*#{$main-container-white-block-padding});
+        width: calc(100% + 2 *#{$main-container-white-block-padding});
         height: 1px;
 
         background-color: $comments-divider-color;

@@ -1,5 +1,5 @@
 import { UiService } from 'src/app/shared/services/ui.service';
-import { Article } from './../../shared/classes/article.class';
+import { Article } from '../../shared/classes/article.class';
 import { ArticlesApiService } from 'src/app/shared/services/api/articles-api.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';

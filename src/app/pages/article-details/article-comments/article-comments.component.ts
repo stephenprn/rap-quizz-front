@@ -1,5 +1,5 @@
 import { UiService } from 'src/app/shared/services/ui.service';
-import { AuthenticationService } from './../../../shared/services/authentication.service';
+import { AuthenticationService } from '../../../shared/services/authentication.service';
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { CommentsApiService } from 'src/app/shared/services/api/comments-api.service';
 import {

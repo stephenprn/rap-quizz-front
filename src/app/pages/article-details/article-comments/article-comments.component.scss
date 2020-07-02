@@ -1,6 +1,6 @@
 @import "./../../../../style-var.scss";
 
-$comment-username-color: $primary-color;
+$comment-username-color: var(--primary-color);
 
 #comments-section {
     > #comments {
@@ -27,7 +27,7 @@ $comment-username-color: $primary-color;
             }
 
             &:not(:first-child) {
-                border-top: 1px solid $secondary-color;
+                border-top: 1px solid var(--accent-color);
             }
         }
     }

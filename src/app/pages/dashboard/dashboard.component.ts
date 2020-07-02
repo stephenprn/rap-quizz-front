@@ -1,6 +1,6 @@
-import { UiService } from './../../shared/services/ui.service';
+import { UiService } from '../../shared/services/ui.service';
 import { Router } from '@angular/router';
-import { Article } from './../../shared/classes/article.class';
+import { Article } from '../../shared/classes/article.class';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   RestPagination,

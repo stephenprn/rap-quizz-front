@@ -1,45 +1,42 @@
-<div id="add-article" class="page-container has-toolbar">
-  <app-toolbar></app-toolbar>
-  <form
-    id="add-article-form"
-    class="basic-form main-container white-block"
-    [formGroup]="addArticleFormGroup"
+<form
+  id="add-article-form"
+  class="basic-form white-block"
+  [formGroup]="addArticleFormGroup"
+>
+  <h1 class="basic-form-title" *ngIf="url == null">Add article</h1>
+  <h1 class="basic-form-title" *ngIf="url != null">Edit article</h1>
+
+  <div class="basic-form-inputs">
+    <mat-form-field class="basic-form-input">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error>
+        Title must be between {{ TITLE_MIN_LENGTH }} and
+        {{ TITLE_MAX_LENGTH }} characters long
+      </mat-error>
+    </mat-form-field>
+
+    <quill-editor
+      class="basic-form-input"
+      formControlName="body"
+      [styles]="{ height: '200px' }"
+    ></quill-editor>
+  </div>
+
+  <div
+    class="basic-form-buttons-container"
+    [matTooltip]="
+      addArticleFormGroup.invalid ? 'At least one field is invalid' : null
+    "
   >
-    <h1 class="basic-form-title" *ngIf="url == null">Add article</h1>
-    <h1 class="basic-form-title" *ngIf="url != null">Edit article</h1>
-
-    <div class="basic-form-inputs">
-      <mat-form-field class="basic-form-input">
-        <mat-label>Title</mat-label>
-        <input matInput formControlName="title" />
-        <mat-error>
-          Title must be between {{ TITLE_MIN_LENGTH }} and
-          {{ TITLE_MAX_LENGTH }} characters long
-        </mat-error>
-      </mat-form-field>
-
-      <quill-editor
-        class="basic-form-input"
-        formControlName="body"
-        [styles]="{ height: '200px' }"
-      ></quill-editor>
-    </div>
-
-    <div
-      class="basic-form-buttons-container"
-      [matTooltip]="
-        addArticleFormGroup.invalid ? 'At least one field is invalid' : null
-      "
+    <button
+      class="basic-button"
+      mat-flat-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="addArticleFormGroup.invalid || submitting"
     >
-      <button
-        class="basic-button"
-        mat-flat-button
-        color="primary"
-        (click)="submit()"
-        [disabled]="addArticleFormGroup.invalid || submitting"
-      >
-        {{ url == null ? "Add article" : "Edit article" }}
-      </button>
-    </div>
-  </form>
-</div>
+      {{ url == null ? "Add article" : "Edit article" }}
+    </button>
+  </div>
+</form>
