@@ -70,8 +70,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     this.router.navigate(['/dashboard']);
   }
 
-  public goAddArticle() {
-    this.router.navigate(['/add-article']);
+  public goAddQuestion() {
+    this.router.navigate(['/add-question']);
   }
 
   public goHome() {

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://articles-publisher-back.herokuapp.com'
+  apiUrl: 'https://questions-publisher-back.herokuapp.com'
 };

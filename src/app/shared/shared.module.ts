@@ -1,4 +1,3 @@
-import { ArticleItemComponent } from './components/article-item/article-item.component';
 import { UiService } from './services/ui.service';
 import { NgModule } from '@angular/core';
 
@@ -8,7 +7,7 @@ import { RestService } from './services/rest.service';
 import { AuthenticationService } from './services/authentication.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { InInterceptor } from './interceptors/in.interceptor';
-import { ArticlesApiService } from './services/api/articles-api.service';
+import { QuestionsApiService } from './services/api/questions-api.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,13 +27,13 @@ import { ConfirmationDialogComponent } from './dialogs/confirmation/confirmation
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Title } from '@angular/platform-browser';
-import { CommentsApiService } from './services/api/comments-api.service';
 import { AuthenticationUiService } from './services/ui/authentication-ui.service';
+import { ResponseApiService } from './services/api/response-api.service';
+import { QuizApiService } from './services/api/quiz-api.service';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
-    ArticleItemComponent,
 
     LoginDialogComponent,
     RegisterDialogComponent,
@@ -59,17 +58,18 @@ import { AuthenticationUiService } from './services/ui/authentication-ui.service
 
     CdkScrollableModule,
   ],
-  exports: [ToolbarComponent, ArticleItemComponent, SanitizeHtmlPipe],
+  exports: [ToolbarComponent, SanitizeHtmlPipe],
   providers: [
     UiService,
     AuthenticationService,
     RestService,
     UtilsService,
     AuthenticationUiService,
+    ResponseApiService,
 
-    ArticlesApiService,
+    QuestionsApiService,
     AuthenticationApiService,
-    CommentsApiService,
+    QuizApiService,
 
     SanitizeHtmlPipe,
 

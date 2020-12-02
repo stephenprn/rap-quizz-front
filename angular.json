@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "skeleton-front": {
+    "rap-quizz-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/skeleton-front",
+            "outputPath": "dist/rap-quizz-front",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -30,9 +30,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css"
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           },
@@ -72,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "skeleton-front:build"
+            "browserTarget": "rap-quizz-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "skeleton-front:build:production"
+              "browserTarget": "rap-quizz-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "skeleton-front:build"
+            "browserTarget": "rap-quizz-front:build"
           }
         },
         "test": {
@@ -100,9 +98,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css"
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": []
           }
@@ -122,16 +118,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "skeleton-front:serve"
+            "devServerTarget": "rap-quizz-front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "skeleton-front:serve:production"
+              "devServerTarget": "rap-quizz-front:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "skeleton-front"
+  "defaultProject": "rap-quizz-front"
 }

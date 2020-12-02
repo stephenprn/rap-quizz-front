@@ -1,0 +1,75 @@
+<form
+  id="add-question-form"
+  class="basic-form white-block"
+  [formGroup]="addQuestionFormGroup"
+>
+  <h1 class="basic-form-title">Add question</h1>
+
+  <div class="basic-form-inputs">
+    <mat-form-field class="basic-form-input">
+      <mat-label>Label</mat-label>
+      <input matInput formControlName="label" />
+      <mat-error>
+        Label must be between {{ TITLE_MIN_LENGTH }} and
+        {{ TITLE_MAX_LENGTH }} characters long
+      </mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group
+      formControlName="responseType"
+      (change)="searchSuggestions(true)"
+    >
+      <mat-button-toggle *ngFor="let type of responseTypes" [value]="type">{{
+        type
+      }}</mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <div *ngIf="addQuestionFormGroup.get('responseSelected').value != null">
+      Selected: {{ addQuestionFormGroup.get("responseSelected").value.label }}
+    </div>
+
+    <mat-form-field class="basic-form-input">
+      <mat-label>Search response</mat-label>
+      <input
+        type="text"
+        matInput
+        #searchInput
+        (input)="searchTxt = $event.target.value; searchSuggestions()"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selectResponse($event.value)"
+      >
+        <mat-option
+          *ngFor="let res of matchingResponses"
+          [value]="res"
+          (click)="selectResponse(res)"
+          >{{ res.label }}</mat-option
+        >
+        <mat-option
+          *ngIf="searchTxt != null && searchTxt !== ''"
+          (click)="addNewResponse()"
+          >Add new response</mat-option
+        >
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div
+    class="basic-form-buttons-container"
+    [matTooltip]="
+      addQuestionFormGroup.invalid ? 'At least one field is invalid' : null
+    "
+  >
+    <button
+      class="basic-button"
+      mat-flat-button
+      color="primary"
+      (click)="submit()"
+      [disabled]="addQuestionFormGroup.invalid || submitting"
+    >
+      Add question
+    </button>
+  </div>
+</form>

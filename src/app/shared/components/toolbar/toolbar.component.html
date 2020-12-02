@@ -4,26 +4,16 @@
       <i class="fa fa-newspaper-o"></i>
     </button>
     <div id="toolbar-title">
-      Articles app
+      Questions app
     </div>
   </div>
 
   <div id="toolbar-right-elements">
     <button
-      (click)="goDashboard()"
+      (click)="goAddQuestion()"
       *ngIf="userConnected"
       mat-icon-button
-      matTooltip="View my dashboard"
-      class="mobile-hidden"
-    >
-      <i class="fa fa-list"></i>
-    </button>
-
-    <button
-      (click)="goAddArticle()"
-      *ngIf="userConnected"
-      mat-icon-button
-      matTooltip="Add article"
+      matTooltip="Add question"
       class="mobile-hidden"
     >
       <i class="fa fa-plus"></i>
@@ -53,9 +43,9 @@
         <i class="fa fa-list"></i>
         View my dashboard
       </button>
-      <button (click)="goAddArticle()" *ngIf="userConnected" mat-menu-item>
+      <button (click)="goAddQuestion()" *ngIf="userConnected" mat-menu-item>
         <i class="fa fa-plus"></i>
-        Add article
+        Add question
       </button>
 
       <button (click)="logout()" *ngIf="userConnected" mat-menu-item>
