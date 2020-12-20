@@ -20,8 +20,8 @@ const routes: Routes = [
     data: { title: 'Edit question' },
     canActivate: [LoggedGuard],
   },
-
-  { path: 'quiz', component: QuizComponent, data: { title: 'Quiz' } },
+  { path: 'quiz', component: QuizComponent, data: { title: 'New quiz' } },
+  { path: 'quiz/:quiz_url', component: QuizComponent, data: { title: 'Quiz' } },
 ];
 
 @NgModule({

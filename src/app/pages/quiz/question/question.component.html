@@ -1,0 +1,13 @@
+<div id="question-container">
+  <div id="question-label">
+    {{ question.label }}
+  </div>
+
+  <div id="question-responses">
+    <app-response
+      *ngFor="let questionResponse of question.responses"
+      [response]="questionResponse.response"
+      (selectResponse)="answer(questionResponse.response)"
+    ></app-response>
+  </div>
+</div>

@@ -5,6 +5,7 @@ import { UtilsService } from '../../services/utils.service';
 import { Router } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,14 +15,20 @@ import { AuthenticationUiService } from '../../services/ui/authentication-ui.ser
 export class ToolbarComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) connectionMenuTrigger: MatMenuTrigger;
 
+  private readonly MIN_DISTANCE_TOOLBAR_RED = 100;
+
   public userConnected: boolean;
+  public homeScrolled: boolean = false;
 
   private promises = {
     userConnected: null,
+    homeScrolled: null
   };
 
   constructor(
     private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
+
 
     private authenticationUiService: AuthenticationUiService,
     private uiService: UiService,
@@ -43,6 +50,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.userConnected = state;
       }
     );
+
+    this.promises.homeScrolled = this.uiService.windowScroll$.subscribe(({ top }) => {
+      this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_RED;
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   public openRegister() {

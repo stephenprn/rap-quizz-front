@@ -13,7 +13,7 @@ enum QuestionResponseStatus {
 }
 
 export class QuestionResponse {
-  status: QuestionResponseStatus;
+  status?: QuestionResponseStatus;
   response: Response;
 }
 

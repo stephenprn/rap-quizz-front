@@ -34,7 +34,7 @@ export class InInterceptor implements HttpInterceptor {
             } else if (err.status === 401) {
               this.authenticationService.removeToken();
               this.uiService.displayToast(
-                'Your session has expired, please login again'
+                'Please login to access this page'
               );
 
               this.router.navigate(['/']);

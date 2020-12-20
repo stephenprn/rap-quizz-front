@@ -12,8 +12,13 @@ $background-color: #ffffff;
   padding: 0 $padding-horizontal;
   height: 100%;
 
-  background-color: var(--primary-color);
-  border-bottom: 1px solid var(--accent-color);
+  background-color: var(--accent-lighter-color);
+
+  transition: background-color 0.3s ease-in-out;
+
+  &.red {
+    background-color: var(--primary-color);
+  }
 
   > #toolbar-left-elements,
   > #toolbar-right-elements {

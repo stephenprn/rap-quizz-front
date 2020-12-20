@@ -1,13 +1,18 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
+interface WindowScrollDistance {
+  top: number;
+  bottom: number;
+}
+
 @Injectable()
 export class UiService {
   screenMode$ = new BehaviorSubject<'desktop' | 'mobile' | 'tablet'>(null);
-  windowScroll$ = new BehaviorSubject<number>(null);
+  windowScroll$ = new EventEmitter<WindowScrollDistance>(null);
 
   constructor(
     private matSnackBar: MatSnackBar,
@@ -36,9 +41,13 @@ export class UiService {
 
   private initScrollListener() {
     this.scrollDispatcher.scrolled().subscribe(() => {
-      const distanceFromBottom =
-        document.body.scrollHeight - window.innerHeight - window.scrollY;
-      this.windowScroll$.next(distanceFromBottom);
+      const top = window.scrollY;
+      const bottom = document.body.scrollHeight - window.innerHeight - window.scrollY;
+      console.log('yoo');
+      this.windowScroll$.next({
+        top,
+        bottom
+      });
     });
   }
 

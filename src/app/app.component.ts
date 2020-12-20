@@ -1,7 +1,9 @@
+import { AuthenticationService } from './shared/services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
+import { AuthenticationApiService } from './shared/services/api/authentication-api.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +14,14 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    private authenticationService: AuthenticationService,
+    private authenticationApiService: AuthenticationApiService
   ) {}
 
   ngOnInit(): void {
     this.initTitleUpdator();
+    this.checkLogged();
   }
 
   private initTitleUpdator() {
@@ -26,10 +31,22 @@ export class AppComponent implements OnInit {
         const rt = this.getChild(this.activatedRoute);
 
         rt.data.subscribe((data) => {
-          console.log(data);
           this.titleService.setTitle(data.title);
         });
       });
+  }
+
+  private checkLogged() {
+    if (!this.authenticationService.userConnected$.value) {
+      return;
+    }
+
+    this.authenticationApiService.isLogged().subscribe(
+      () => {},
+      () => {
+        this.authenticationService.removeToken();
+      }
+    );
   }
 
   private getChild(activatedRoute: ActivatedRoute) {

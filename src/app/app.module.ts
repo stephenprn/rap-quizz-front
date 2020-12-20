@@ -1,3 +1,5 @@
+import { QuizComponent } from './pages/quiz/quiz.component';
+import { QuestionComponent } from './pages/quiz/question/question.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './pages/home/home.component';
@@ -16,9 +18,22 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ResponseComponent } from './pages/quiz/question/response/response.component';
+import { LoadingQuizComponent } from './pages/quiz/loading-quiz/loading-quiz.component';
+import { EndingQuizSummaryComponent } from './pages/quiz/ending-quiz-summary/ending-quiz-summary.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, AddQuestionComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AddQuestionComponent,
+
+    QuizComponent,
+    QuestionComponent,
+    ResponseComponent,
+    LoadingQuizComponent,
+    EndingQuizSummaryComponent
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

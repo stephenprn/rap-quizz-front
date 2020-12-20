@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
-import { Response } from 'src/app/shared/classes/response.class';
+import { Response } from 'src/app/shared/classes/models/response.class';
 import { RestService } from '../rest.service';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { QuestionsApiService } from 'src/app/shared/services/api/questions-api.s
 import { HttpErrorResponse } from '@angular/common/http';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { Router } from '@angular/router';
-import { Response, ResponseType } from 'src/app/shared/classes/response.class';
+import { Response, ResponseType } from 'src/app/shared/classes/models/response.class';
 import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
 
 @Component({

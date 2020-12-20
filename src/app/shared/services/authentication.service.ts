@@ -22,8 +22,6 @@ export class AuthenticationService {
     } else {
       this.token = null;
     }
-
-    console.log('token', this.token);
   }
 
   public setToken(token: string, rememberMe: boolean): void {

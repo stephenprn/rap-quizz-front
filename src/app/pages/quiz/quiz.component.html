@@ -1,1 +1,14 @@
-<div id="quiz-container">quiz</div>
+<div id="quiz-container">
+  <app-loading-quiz id="quiz-loading" *ngIf="quizStatus === QuizStatus.LOADING">
+
+  </app-loading-quiz>
+  
+  <app-question
+    *ngIf="currentQuestion != null && quizStatus === QuizStatus.ONGOING"
+    (selectResponse)="anwserResponse($event)"
+    [question]="currentQuestion"
+  ></app-question>
+
+  <app-ending-quiz-summary *ngIf="quizStatus === QuizStatus.FINISHED">
+  </app-ending-quiz-summary>
+</div>
