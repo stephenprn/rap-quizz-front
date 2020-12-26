@@ -11,7 +11,7 @@ export class QuizApiService {
   private BASE_URL = '/quiz/';
   private URLS = {
     generateQuiz: this.BASE_URL + 'generate-quiz',
-    getQuiz: this.BASE_URL + 'resume-quiz/',
+    joinQuiz: this.BASE_URL + 'join-quiz/',
     answerResponse: this.BASE_URL + 'answer-response/',
   };
 
@@ -21,8 +21,8 @@ export class QuizApiService {
     return this.restService.get(this.URLS.generateQuiz);
   }
 
-  public getQuiz(quizUrl: string): Observable<Quiz> {
-    return this.restService.get(this.URLS.getQuiz + quizUrl);
+  public joinQuiz(quizUrl: string): Observable<Quiz> {
+    return this.restService.get(this.URLS.joinQuiz + quizUrl);
   }
 
   public answerResponse(

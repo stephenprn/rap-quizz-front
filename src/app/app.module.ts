@@ -19,20 +19,32 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ResponseComponent } from './pages/quiz/question/response/response.component';
-import { LoadingQuizComponent } from './pages/quiz/loading-quiz/loading-quiz.component';
-import { EndingQuizSummaryComponent } from './pages/quiz/ending-quiz-summary/ending-quiz-summary.component';
+import { QuizInfosComponent } from './pages/quiz/quiz-infos/quiz-infos.component';
+import { QuizEndingSummaryComponent } from './pages/quiz/quiz-ending-summary/quiz-ending-summary.component';
+import { QuizLoadingComponent } from './pages/quiz/quiz-loading/quiz-loading.component';
+import { QuizWaitingRoomComponent } from './pages/quiz/quiz-waiting-room/quiz-waiting-room.component';
+import { QuizSocketService } from './shared/services/quiz-socket.service';
+import { QuizInitComponent } from './pages/home/quiz-init/quiz-init.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+
     HomeComponent,
+    QuizInitComponent,
+
+    QuizInfosComponent,
+
     AddQuestionComponent,
 
     QuizComponent,
+    QuizInfosComponent,
+    QuizLoadingComponent,
+    QuizWaitingRoomComponent,
+    QuizEndingSummaryComponent,
+
     QuestionComponent,
     ResponseComponent,
-    LoadingQuizComponent,
-    EndingQuizSummaryComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +66,7 @@ import { EndingQuizSummaryComponent } from './pages/quiz/ending-quiz-summary/end
       enabled: environment.production,
     }),
   ],
-  providers: [],
+  providers: [QuizSocketService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

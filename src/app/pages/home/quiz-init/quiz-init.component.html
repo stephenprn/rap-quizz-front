@@ -1,0 +1,20 @@
+<div id="quiz-init-container">
+  <div id="new-quiz-container">
+    <button (click)="newQuiz()" mat-flat-button matTooltip="Nouveau quiz">
+      <i class="fa fa-plus"></i>
+      Nouveau quiz
+    </button>
+  </div>
+  <div id="join-quiz-container">
+    <form [formGroup]="joinQuizFormGroup">
+      <div class="basic-form-inputs">
+        <mat-form-field class="basic-form-input">
+          <mat-label>Quiz url</mat-label>
+          <input matInput formControlName="quizUrl" />
+          <mat-error> Entrez une url </mat-error>
+        </mat-form-field>
+      </div>
+      <button (click)="joinQuiz()">Rejoindre quiz</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div id="quiz-waiting-room-container">
+  Waiting room
+  <div id="players-list" *ngIf="players != null">
+    players list
+    <div *ngFor="let player of players">
+      {{ player.user.username }} ({{ player.joinDate | date:'H:mm:ss' }})
+    </div>
+  </div>
+  <button id="start quiz" (click)="startQuiz.emit()">start quiz</button>
+</div>

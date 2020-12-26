@@ -19,7 +19,6 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {}
 
   public answer(response: Response) {
-    console.log('answer', response);
     this.selectResponse.emit(response);
   }
 }

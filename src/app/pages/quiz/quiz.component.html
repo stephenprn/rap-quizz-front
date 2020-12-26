@@ -1,14 +1,26 @@
 <div id="quiz-container">
-  <app-loading-quiz id="quiz-loading" *ngIf="quizStatus === QuizStatus.LOADING">
+  <app-quiz-loading
+    *ngIf="quizStatus === QuizStatus.LOADING"
+  ></app-quiz-loading>
 
-  </app-loading-quiz>
-  
-  <app-question
-    *ngIf="currentQuestion != null && quizStatus === QuizStatus.ONGOING"
-    (selectResponse)="anwserResponse($event)"
-    [question]="currentQuestion"
-  ></app-question>
+  <app-quiz-waiting-room
+    *ngIf="quizStatus === QuizStatus.WAITING"
+    (startQuiz)="startQuiz()"
+    [players]="players"
+  ></app-quiz-waiting-room>
 
-  <app-ending-quiz-summary *ngIf="quizStatus === QuizStatus.FINISHED">
-  </app-ending-quiz-summary>
+  <div *ngIf="quizStatus === QuizStatus.ONGOING">
+    <app-quiz-infos [quiz]="quiz" [score]="score"></app-quiz-infos>
+
+    <app-question
+      (selectResponse)="anwserResponse($event)"
+      [question]="currentQuestion"
+    ></app-question>
+  </div>
+
+  <app-quiz-ending-summary
+    *ngIf="quizStatus === QuizStatus.FINISHED"
+    [quiz]="quiz"
+    [score]="score"
+  ></app-quiz-ending-summary>
 </div>
