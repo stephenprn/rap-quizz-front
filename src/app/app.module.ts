@@ -25,6 +25,7 @@ import { QuizLoadingComponent } from './pages/quiz/quiz-loading/quiz-loading.com
 import { QuizWaitingRoomComponent } from './pages/quiz/quiz-waiting-room/quiz-waiting-room.component';
 import { QuizSocketService } from './shared/services/quiz-socket.service';
 import { QuizInitComponent } from './pages/home/quiz-init/quiz-init.component';
+import { QuizStartingComponent } from './pages/quiz/quiz-starting/quiz-starting.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { QuizInitComponent } from './pages/home/quiz-init/quiz-init.component';
     QuizInfosComponent,
     QuizLoadingComponent,
     QuizWaitingRoomComponent,
+    QuizStartingComponent,
     QuizEndingSummaryComponent,
 
     QuestionComponent,

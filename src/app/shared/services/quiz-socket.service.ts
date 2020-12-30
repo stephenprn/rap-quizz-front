@@ -1,9 +1,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { io } from 'socket.io-client/dist/socket.io';
 import { environment } from 'src/environments/environment';
+import { Question } from '../classes/models/question.class';
+import { Quiz } from '../classes/models/quiz.class';
 import { User } from '../classes/models/user.class';
+import { Answer } from '../classes/others/answer.class';
 import { SocketEvent } from '../classes/others/socket-event.class';
 import { AuthenticationService } from './authentication.service';
+import { Response } from '../classes/models/response.class';
 
 @Injectable()
 export class QuizSocketService {
@@ -21,11 +26,40 @@ export class QuizSocketService {
         this.userLeaved$.emit(new SocketEvent<User>(socketEvent));
       },
     },
+    {
+      name: 'started',
+      callback: (socketEvent: any) => {
+        this.quizStarted$.emit(new SocketEvent<Question>(socketEvent));
+      },
+    },
+    {
+      name: 'user_answered',
+      callback: (socketEvent: any) => {
+        this.userAnswered$.emit(new SocketEvent<Answer>(socketEvent));
+      },
+    },
+    {
+      name: 'question',
+      callback: (socketEvent: any) => {
+        this.question$.emit(new SocketEvent<Question>(socketEvent));
+      }
+    },
+    {
+      name: 'finished',
+      callback: () => {
+        this.quizFinished$.emit();
+      }
+
+    }
   ];
   private socket: any;
 
   public userJoined$ = new EventEmitter<SocketEvent<User>>();
   public userLeaved$ = new EventEmitter<SocketEvent<User>>();
+  public userAnswered$ = new EventEmitter<SocketEvent<Answer>>();
+  public quizStarted$ = new EventEmitter<SocketEvent<Question>>();
+  public question$ = new EventEmitter<SocketEvent<Question>>();
+  public quizFinished$ = new EventEmitter<SocketEvent<void>>();
 
   constructor(private authenticationService: AuthenticationService) {}
 
@@ -50,8 +84,27 @@ export class QuizSocketService {
     this.socket.emit('join', quizUuid);
   }
 
-  public leaveRoom() {
+  public leaveRoom(quizUuid: string) {
+    if (this.socket == null) {
+      return;
+    }
+
+    this.socket.emit('close', quizUuid);
     this.socket.close();
     this.socket = null;
+  }
+
+  public startQuiz(quizUuid: string) {
+    this.socket.emit('start', quizUuid);
+  }
+
+  public answerResponse(quiz: Quiz, question: Question, response: Response) {
+    const data: any = {};
+
+    data.quiz_uuid = quiz.uuid;
+    data.question_uuid = question.uuid;
+    data.response_uuid = response.uuid;
+
+    this.socket.emit('answer_response', data);
   }
 }

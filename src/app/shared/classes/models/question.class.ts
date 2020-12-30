@@ -5,7 +5,8 @@ import { User } from './user.class';
 export class Question extends BaseClass {
   label: string;
   responses: QuestionResponse[];
-  author: User;
+  author?: User;
+  type?: ResponseType;
 
   constructor(label: string) {
     super();

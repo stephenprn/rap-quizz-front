@@ -9,8 +9,12 @@
     [players]="players"
   ></app-quiz-waiting-room>
 
+  <div *ngIf="quizStatus === QuizStatus.STARTING">
+    <app-quiz-starting></app-quiz-starting>
+  </div>
+
   <div *ngIf="quizStatus === QuizStatus.ONGOING">
-    <app-quiz-infos [quiz]="quiz" [score]="score"></app-quiz-infos>
+    <app-quiz-infos [quiz]="quiz" [score]="score" [players]="players"></app-quiz-infos>
 
     <app-question
       (selectResponse)="anwserResponse($event)"

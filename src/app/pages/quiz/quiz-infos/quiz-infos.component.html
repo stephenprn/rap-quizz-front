@@ -4,4 +4,12 @@
   </h1>
   <div>score: {{ score }}</div>
   <div>avancement: {{ quiz.nbr_questions }}</div>
+  <div>
+    <div>Players</div>
+    <ul>
+      <li *ngFor="let player of players">
+        {{ player.user.username }}: {{ player.answerStatus }}
+      </li>
+    </ul>
+  </div>
 </div>

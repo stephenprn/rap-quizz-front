@@ -24,19 +24,4 @@ export class QuizApiService {
   public joinQuiz(quizUrl: string): Observable<Quiz> {
     return this.restService.get(this.URLS.joinQuiz + quizUrl);
   }
-
-  public answerResponse(
-    quiz: Quiz,
-    questionIndex: number,
-    question: Question,
-    response: Response
-  ): Observable<Answer> {
-    const formData = new FormData();
-
-    formData.append('question_index', String(questionIndex));
-    formData.append('question_uuid', question.uuid);
-    formData.append('response_uuid', response.uuid);
-
-    return this.restService.post(this.URLS.answerResponse + quiz.url, formData);
-  }
 }

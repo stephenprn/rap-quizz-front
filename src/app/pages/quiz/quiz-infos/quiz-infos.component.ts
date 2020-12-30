@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from 'src/app/shared/classes/models/quiz.class';
+import { Player } from 'src/app/shared/classes/others/player.class';
 
 @Component({
   selector: 'app-quiz-infos',
@@ -12,6 +13,9 @@ export class QuizInfosComponent implements OnInit {
 
   @Input()
   public score: number;
+
+  @Input()
+  public players: Player[];
 
   constructor() {}
 

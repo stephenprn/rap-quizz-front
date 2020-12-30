@@ -1,6 +1,6 @@
-import { Question } from '../models/question.class';
+import { User } from 'src/app/shared/classes/models/user.class';
 
 export class Answer {
-  answer_right: boolean;
-  next_question: Question;
+  answer_correct: boolean;
+  user: User;
 }
