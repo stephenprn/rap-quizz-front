@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 import { RestService } from '../rest.service';
+import { AuthUser } from '../authentication.service';
 
 @Injectable()
 export class AuthenticationApiService {
@@ -8,13 +9,14 @@ export class AuthenticationApiService {
   private URLS = {
     login: this.BASE_URL + 'login',
     register: this.BASE_URL + 'register',
+    refresh: this.BASE_URL + 'refresh',
     checkUsername: this.BASE_URL + 'check-username',
     isLogged: this.BASE_URL + 'check-logged',
   };
 
   constructor(private restService: RestService) {}
 
-  public login(email: string, password: string): Observable<any> {
+  public login(email: string, password: string): Observable<AuthUser> {
     const body = {
       email,
       password,
@@ -35,6 +37,10 @@ export class AuthenticationApiService {
     };
 
     return this.restService.post(this.URLS.register, body);
+  }
+
+  public refreshToken(): Observable<any> {
+    return this.restService.get(this.URLS.refresh);
   }
 
   public checkUsername(username: string) {

@@ -5,21 +5,27 @@ import cloneDeep from 'lodash/cloneDeep';
 export enum PlayerAnswerStatus {
   RIGHT = 'RIGHT',
   WRONG = 'WRONG',
-  NONE = 'NONE'
+  NONE = 'NONE',
 }
 
 export class Player {
   user: User;
   joinDate: Date;
-  status: UserQuizStatus;
+  admin: boolean;
   answerStatus: PlayerAnswerStatus;
   answerStatusHistory: PlayerAnswerStatus[];
+  score: number;
+  me?: boolean;
 
-  constructor(user: User, joinDate: Date) {
+  constructor(user: User, admin: boolean, joinDate: Date, me?: boolean) {
     this.user = user;
+    this.admin = !!admin;
     this.joinDate = joinDate;
     this.answerStatus = PlayerAnswerStatus.NONE;
     this.answerStatusHistory = [];
+    this.score = 0;
+
+    if (me != null) this.me = me;
   }
 
   public resetAnswerStatus() {

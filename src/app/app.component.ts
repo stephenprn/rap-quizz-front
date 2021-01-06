@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
     this.authenticationApiService.isLogged().subscribe(
       () => {},
       () => {
-        this.authenticationService.removeToken();
+        this.authenticationService.removeAuthData();
       }
     );
   }

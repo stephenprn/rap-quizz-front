@@ -3,7 +3,11 @@ import { Location } from '@angular/common';
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/shared/classes/models/question.class';
-import { Quiz, UserQuiz } from 'src/app/shared/classes/models/quiz.class';
+import {
+  Quiz,
+  UserQuiz,
+  UserQuizStatus,
+} from 'src/app/shared/classes/models/quiz.class';
 import { QuizApiService } from 'src/app/shared/services/api/quiz-api.service';
 import { Response } from 'src/app/shared/classes/models/response.class';
 import { QuizSocketService } from 'src/app/shared/services/quiz-socket.service';
@@ -17,6 +21,11 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { QuizConstants } from './quiz.contants';
 import { Answer } from 'src/app/shared/classes/others/answer.class';
+import { AuthenticationApiService } from 'src/app/shared/services/api/authentication-api.service';
+import {
+  AuthenticationService,
+  AuthUser,
+} from 'src/app/shared/services/authentication.service';
 
 enum QuizStatus {
   LOADING = 'LOADING',
@@ -35,7 +44,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   public quiz: Quiz;
   public currentQuestion: Question;
   private questionIndex: number;
-  public score: number;
+
+  public me: Player;
   public players: Player[] = [];
 
   public QuizStatus = QuizStatus;
@@ -46,12 +56,15 @@ export class QuizComponent implements OnInit, OnDestroy {
     userLeaved: null,
     quizStarted: null,
     question: null,
+    adminSet: null,
     userAnswered: null,
     quizFinished: null,
   };
 
   constructor(
     private quizApiService: QuizApiService,
+    private authenticationApiService: AuthenticationApiService,
+    private authenticationService: AuthenticationService,
     private quizSocketService: QuizSocketService,
     private location: Location,
     private route: ActivatedRoute,
@@ -61,6 +74,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.refreshToken();
     this.initPromises();
     this.initQuiz();
   }
@@ -71,10 +85,27 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quiz && this.quizSocketService.leaveRoom(this.quiz.uuid);
   }
 
+  private refreshToken() {
+    this.authenticationApiService.refreshToken().subscribe((res: AuthUser) => {
+      this.authenticationService.setAuthUser(res);
+    });
+  }
+
   private initPromises() {
     this.promises.userJoined = this.quizSocketService.userJoined$.subscribe(
-      (socketEvent: SocketEvent<User>) => {
-        this.players.push(new Player(socketEvent.body, socketEvent.timestamp));
+      (socketEvent: SocketEvent<{ user: User; admin: boolean }>) => {
+        const player = new Player(
+          socketEvent.body.user,
+          socketEvent.body.admin,
+          socketEvent.timestamp,
+          socketEvent.body.user.uuid === this.authenticationService.user.uuid
+        );
+
+        if (player.me) {
+          this.me = player;
+        }
+
+        this.players.push(player);
       }
     );
 
@@ -104,9 +135,12 @@ export class QuizComponent implements OnInit, OnDestroy {
           (p: Player) => p.user.uuid === socketEvent.body.user.uuid
         );
 
-        socketEvent.body.answer_correct
-          ? (player.answerStatus = PlayerAnswerStatus.RIGHT)
-          : (player.answerStatus = PlayerAnswerStatus.WRONG);
+        if (socketEvent.body.answer_correct) {
+          player.answerStatus = PlayerAnswerStatus.RIGHT;
+          player.score++;
+        } else {
+          player.answerStatus = PlayerAnswerStatus.WRONG;
+        }
       }
     );
 
@@ -115,6 +149,23 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.quiz.questions.push(socketEvent.body);
         this.resetUsersAnswersStatus();
         this.selectQuestion();
+      }
+    );
+
+    this.promises.adminSet = this.quizSocketService.adminSet$.subscribe(
+      (socketEvent: SocketEvent<User>) => {
+        const admin = this.players.find(
+          (player) => player.user.uuid === socketEvent.body.uuid
+        );
+
+        if (admin != null) {
+          admin.admin = true;
+          this.uiService.displayToast(
+            `${
+              admin.me ? 'You are' : admin.user.username + ' is'
+            } the new admin`
+          );
+        }
       }
     );
 
@@ -136,15 +187,20 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private generateQuiz() {
+    const questionDuration = this.route.snapshot.queryParams.question_duration;
+    const nbrQuestions = this.route.snapshot.queryParams.nbr_questions;
+
     this.quizStatus = QuizStatus.LOADING;
 
-    this.quizApiService.generateQuiz().subscribe((quiz: Quiz) => {
-      this.quizSocketService.initSocket();
-      this.quizSocketService.joinRoom(quiz.uuid);
-      this.quiz = quiz;
-      this.location.go(`${this.location.path()}/${this.quiz.url}`);
-      this.quizStatus = QuizStatus.WAITING;
-    });
+    this.quizApiService
+      .generateQuiz(nbrQuestions, questionDuration)
+      .subscribe((quiz: Quiz) => {
+        this.quizSocketService.initSocket();
+        this.quizSocketService.joinRoom(quiz.uuid);
+        this.quiz = quiz;
+        this.location.go(`${window.location.pathname}/${this.quiz.url}`);
+        this.quizStatus = QuizStatus.WAITING;
+      });
   }
 
   public startQuiz() {
@@ -170,7 +226,11 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.quiz = quiz;
         this.players = quiz.users.map(
           (userQuiz: UserQuiz) =>
-            new Player(userQuiz.user as User, new Date(userQuiz.creation_date))
+            new Player(
+              userQuiz.user as User,
+              userQuiz.status === UserQuizStatus.ADMIN,
+              new Date(userQuiz.creation_date)
+            )
         );
 
         this.quizStatus = QuizStatus.WAITING;

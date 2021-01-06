@@ -1,3 +1,4 @@
+import { AuthenticationApiService } from './../services/api/authentication-api.service';
 import {
   HttpErrorResponse,
   HttpEvent,
@@ -8,7 +9,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UiService } from '../services/ui.service';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService, AuthUser } from '../services/authentication.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 
@@ -17,6 +18,7 @@ export class InInterceptor implements HttpInterceptor {
   constructor(
     private uiService: UiService,
     private authenticationService: AuthenticationService,
+    private authenticationApiService: AuthenticationApiService,
     private router: Router
   ) {}
 
@@ -32,12 +34,22 @@ export class InInterceptor implements HttpInterceptor {
             if (err.status === 403) {
               this.router.navigate(['/']);
             } else if (err.status === 401) {
-              this.authenticationService.removeToken();
-              this.uiService.displayToast(
-                'Please login to access this page'
-              );
-
-              this.router.navigate(['/']);
+              if (this.authenticationService.userConnected$.value) {
+                this.authenticationApiService.refreshToken().subscribe(
+                  (res: AuthUser) => {
+                    this.authenticationService.setAuthUser(res);
+                  },
+                  (err: HttpErrorResponse) => {
+                    if (err.status === 401) {
+                      this.authenticationService.removeAuthData();
+                      this.uiService.displayToast(
+                        'Votre session a expiré, veuillez vous reconnecter'
+                      );
+                      this.router.navigate(['/']);
+                    }
+                  }
+                );
+              }
             }
           }
         }

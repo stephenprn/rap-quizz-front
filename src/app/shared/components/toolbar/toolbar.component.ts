@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { AuthenticationApiService } from '../../services/api/authentication-api.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -22,18 +23,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   private promises = {
     userConnected: null,
-    homeScrolled: null
+    homeScrolled: null,
   };
 
   constructor(
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
 
-
     private authenticationUiService: AuthenticationUiService,
     private uiService: UiService,
     private utilsService: UtilsService,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private authenticationApiService: AuthenticationApiService
   ) {}
 
   ngOnInit(): void {
@@ -51,10 +52,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.promises.homeScrolled = this.uiService.windowScroll$.subscribe(({ top }) => {
-      this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_RED;
-      this.changeDetectorRef.detectChanges();
-    });
+    this.promises.homeScrolled = this.uiService.windowScroll$.subscribe(
+      ({ top }) => {
+        this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_RED;
+        this.changeDetectorRef.detectChanges();
+      }
+    );
   }
 
   public openRegister() {
@@ -66,7 +69,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   public logout() {
-    this.authenticationService.removeToken();
+    this.authenticationService.removeAuthData();
     this.uiService.displayToast('You have been logged out');
 
     // check if current route require auth

@@ -1,10 +1,7 @@
 import { Quiz } from './../../classes/models/quiz.class';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
-import { RestService } from '../rest.service';
-import { Answer } from '../../classes/others/answer.class';
-import { Question } from '../../classes/models/question.class';
-import { Response } from '../../classes/models/response.class';
+import { RestParameter, RestService } from '../rest.service';
 
 @Injectable()
 export class QuizApiService {
@@ -12,13 +9,20 @@ export class QuizApiService {
   private URLS = {
     generateQuiz: this.BASE_URL + 'generate-quiz',
     joinQuiz: this.BASE_URL + 'join-quiz/',
-    answerResponse: this.BASE_URL + 'answer-response/',
   };
 
   constructor(private restService: RestService) {}
 
-  public generateQuiz(): Observable<Quiz> {
-    return this.restService.get(this.URLS.generateQuiz);
+  public generateQuiz(
+    nbrQuestions: string,
+    questionDuration: string
+  ): Observable<Quiz> {
+    const params: RestParameter[] = [
+      { name: 'question_duration', value: questionDuration },
+      { name: 'nbr_questions', value: nbrQuestions },
+    ];
+
+    return this.restService.get(this.URLS.generateQuiz, params);
   }
 
   public joinQuiz(quizUrl: string): Observable<Quiz> {

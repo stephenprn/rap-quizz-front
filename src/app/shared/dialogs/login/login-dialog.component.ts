@@ -2,7 +2,7 @@ import { UiService } from './../../services/ui.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationApiService } from '../../services/api/authentication-api.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService, AuthUser } from '../../services/authentication.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
@@ -52,11 +52,8 @@ export class LoginDialogComponent implements OnInit {
         this.loginFormGroup.get('password').value
       )
       .subscribe(
-        (res: any) => {
-          this.authenticationService.setToken(
-            res.access_token,
-            this.loginFormGroup.get('rememberMe').value
-          );
+        (res: AuthUser) => {
+          this.authenticationService.setAuthUser(res, this.loginFormGroup.get('rememberMe').value);
           this.uiService.displayToast('You are now connected!');
           this.dialogRef.close();
         },

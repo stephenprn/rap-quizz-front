@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="quizStatus === QuizStatus.ONGOING">
-    <app-quiz-infos [quiz]="quiz" [score]="score" [players]="players"></app-quiz-infos>
+    <app-quiz-infos [quiz]="quiz" [currentIndex]="currentQuestion.index" [score]="me.score" [players]="players"></app-quiz-infos>
 
     <app-question
       (selectResponse)="anwserResponse($event)"
@@ -25,6 +25,6 @@
   <app-quiz-ending-summary
     *ngIf="quizStatus === QuizStatus.FINISHED"
     [quiz]="quiz"
-    [score]="score"
+    [score]="me.score"
   ></app-quiz-ending-summary>
 </div>

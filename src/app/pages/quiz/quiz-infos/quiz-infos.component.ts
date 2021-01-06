@@ -15,6 +15,9 @@ export class QuizInfosComponent implements OnInit {
   public score: number;
 
   @Input()
+  public currentIndex: number;
+
+  @Input()
   public players: Player[];
 
   constructor() {}

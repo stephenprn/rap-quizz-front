@@ -10,24 +10,31 @@ import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class OutInterceptor implements HttpInterceptor {
+  private readonly URL_REFRESH_TOKEN = 'auth/refresh';
+
   constructor(private authenticationService: AuthenticationService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log("OUT INT");
-    console.log(this.authenticationService.userConnected$.value);
-    console.log(this.authenticationService.token);
-
     if (this.authenticationService.userConnected$.value) {
       if (this.authenticationService.token != null) {
-        request = request.clone({
-          headers: request.headers.set(
-            'Authorization',
-            `JWT ${this.authenticationService.token}`
-          ),
-        });
+        if (request.url.endsWith(this.URL_REFRESH_TOKEN)) {
+          request = request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${this.authenticationService.refreshToken}`
+            ),
+          });
+        } else {
+          request = request.clone({
+            headers: request.headers.set(
+              'Authorization',
+              `Bearer ${this.authenticationService.token}`
+            ),
+          });
+        }
       }
     }
 

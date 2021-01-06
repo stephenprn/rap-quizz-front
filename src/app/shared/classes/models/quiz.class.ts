@@ -3,7 +3,7 @@ import { Question } from './question.class';
 import { User } from './user.class';
 
 export enum UserQuizStatus {
-  CREATOR = "CREATOR",
+  ADMIN = "ADMIN",
   PLAYER = "PLAYER"
 }
 
@@ -17,6 +17,7 @@ export class Quiz extends BaseClass {
   description?: string;
   name: string;
   nbr_questions: number;
+  question_duration: number;
   url: string;
   questions?: Question[];
   users?: UserQuiz[];

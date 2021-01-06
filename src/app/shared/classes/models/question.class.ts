@@ -7,6 +7,7 @@ export class Question extends BaseClass {
   responses: QuestionResponse[];
   author?: User;
   type?: ResponseType;
+  index?: number;
 
   constructor(label: string) {
     super();

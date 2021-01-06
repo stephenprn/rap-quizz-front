@@ -1,5 +1,25 @@
-<div id="quiz-init-container">
+<div id="quiz-init-container" *ngIf="userConnected">
   <div id="new-quiz-container">
+    <form [formGroup]="newQuizFormGroup">
+      <mat-button-toggle-group formControlName="questionDuration">
+        <mat-button-toggle
+          *ngFor="let duration of questionDurations"
+          [value]="duration.value"
+          >{{ duration.name }}</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+
+      <div>
+        <div>Nombre de questions:</div>
+        <mat-button-toggle-group formControlName="nbrQuestions">
+          <mat-button-toggle
+            *ngFor="let nbr of nbrQuestions"
+            [value]="nbr.value"
+            >{{ nbr.name }}</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </div>
+    </form>
     <button (click)="newQuiz()" mat-flat-button matTooltip="Nouveau quiz">
       <i class="fa fa-plus"></i>
       Nouveau quiz
@@ -17,4 +37,7 @@
       <button (click)="joinQuiz()">Rejoindre quiz</button>
     </form>
   </div>
+</div>
+<div id="quiz-init-container" *ngIf="!userConnected">
+  Connect to join a quiz
 </div>
