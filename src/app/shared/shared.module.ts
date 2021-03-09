@@ -30,6 +30,9 @@ import { Title } from '@angular/platform-browser';
 import { AuthenticationUiService } from './services/ui/authentication-ui.service';
 import { ResponseApiService } from './services/api/response-api.service';
 import { QuizApiService } from './services/api/quiz-api.service';
+import { ProfileApiService } from './services/api/profile-api.service';
+import { BasicButtonComponent } from './components/basic-button/basic-button.component';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { QuizApiService } from './services/api/quiz-api.service';
     RegisterDialogComponent,
     ConfirmationDialogComponent,
 
+    BasicButtonComponent,
+
     SanitizeHtmlPipe,
+    DurationPipe,
   ],
   imports: [
     CommonModule,
@@ -58,7 +64,12 @@ import { QuizApiService } from './services/api/quiz-api.service';
 
     CdkScrollableModule,
   ],
-  exports: [ToolbarComponent, SanitizeHtmlPipe],
+  exports: [
+    ToolbarComponent,
+    BasicButtonComponent,
+    SanitizeHtmlPipe,
+    DurationPipe,
+  ],
   providers: [
     UiService,
     AuthenticationService,
@@ -70,8 +81,10 @@ import { QuizApiService } from './services/api/quiz-api.service';
     QuestionsApiService,
     AuthenticationApiService,
     QuizApiService,
+    ProfileApiService,
 
     SanitizeHtmlPipe,
+    DurationPipe,
 
     LoggedGuard,
 

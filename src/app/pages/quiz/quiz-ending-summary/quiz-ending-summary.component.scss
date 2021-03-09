@@ -1,0 +1,24 @@
+@import "./../../../../style-var.scss";
+
+#ending-quiz-summary-container {
+  > app-quiz-ending-medal {
+    display: block;
+    width: 30%;
+    min-width: 100px;
+    
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  > h2 {
+      margin-bottom: 20px;
+  }
+
+  > app-quiz-player {
+    display: block;
+
+    &:not(:last-of-type) {
+      margin-bottom: $space-between-players;
+    }
+  }
+}

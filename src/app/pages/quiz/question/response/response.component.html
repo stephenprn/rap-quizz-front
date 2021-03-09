@@ -1,5 +1,10 @@
 <div class="response-container">
-  <button (click)="selectResponse.emit()" class="response-button">
+  <app-basic-button
+    [customClass]="customClass"
+    (click)="answer()"
+    full="true"
+    [disabled]="answerStatus !== PlayerAnswerStatus.NONE"
+  >
     {{ response.label }}
-  </button>
+  </app-basic-button>
 </div>

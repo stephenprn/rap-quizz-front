@@ -1,9 +1,18 @@
-<div id="quiz-starting-container">
-  quiz starting
+<div id="quiz-starting-container" class="basic-card">
+  <div id="quiz-starting-countdown">
+    <div
+      id="quiz-starting-countdown-numbers"
+      [ngClass]="{ even: countdownCurrentSec % 2 === 0 }"
+    >
+      <h1 class="basic-title bordered">
+        {{ countdownCurrentSec }}
+      </h1>
+    </div>
+    <!-- <div id="quiz-starting-countdown-flames">
+      <img id="countdown-flames" [src]="flames[flameCurrentIndex]" >
+    </div> -->
+  </div>
 
-  <ul id="players-list">
-    <li class="player" *ngFor="let player of players">
-      {{ player.user.username }}
-    </li>
-  </ul>
+  <app-quiz-player *ngFor="let player of players" [player]="player">
+  </app-quiz-player>
 </div>

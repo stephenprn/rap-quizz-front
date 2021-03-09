@@ -1,13 +1,13 @@
 <form
   id="add-question-form"
-  class="basic-form white-block"
+  class="basic-form basic-card"
   [formGroup]="addQuestionFormGroup"
 >
-  <h1 class="basic-form-title">Add question</h1>
+  <h1 class="basic-title bordered">Proposer une question</h1>
 
   <div class="basic-form-inputs">
-    <mat-form-field class="basic-form-input">
-      <mat-label>Label</mat-label>
+    <mat-form-field appearance="outline" class="basic-form-input">
+      <mat-label>Question</mat-label>
       <input matInput formControlName="label" />
       <mat-error>
         Label must be between {{ TITLE_MIN_LENGTH }} and
@@ -15,21 +15,24 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-button-toggle-group
-      formControlName="responseType"
-      (change)="searchSuggestions(true)"
-    >
-      <mat-button-toggle *ngFor="let type of responseTypes" [value]="type">{{
-        type
-      }}</mat-button-toggle>
-    </mat-button-toggle-group>
+    <label for="responseType" class="basic-form-label">Type de réponse</label>
+    <mat-form-field appearance="outline" class="basic-form-input">
+      <mat-select
+        [formControl]="addQuestionFormGroup.controls['responseType']"
+        name="responseType"
+      >
+        <mat-option *ngFor="let type of responseTypes" [value]="type.value">{{
+          type.label
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <div *ngIf="addQuestionFormGroup.get('responseSelected').value != null">
       Selected: {{ addQuestionFormGroup.get("responseSelected").value.label }}
     </div>
 
-    <mat-form-field class="basic-form-input">
-      <mat-label>Search response</mat-label>
+    <mat-form-field appearance="outline" class="basic-form-input">
+      <mat-label>Chercher une réponse</mat-label>
       <input
         type="text"
         matInput
@@ -57,19 +60,16 @@
   </div>
 
   <div
-    class="basic-form-buttons-container"
     [matTooltip]="
       addQuestionFormGroup.invalid ? 'At least one field is invalid' : null
     "
   >
-    <button
-      class="basic-button"
-      mat-flat-button
-      color="primary"
+    <app-basic-button
       (click)="submit()"
       [disabled]="addQuestionFormGroup.invalid || submitting"
+      [icon]="ICONS.questionAdd"
     >
-      Add question
-    </button>
+      Ajouter
+    </app-basic-button>
   </div>
 </form>

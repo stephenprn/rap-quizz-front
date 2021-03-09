@@ -5,7 +5,7 @@
     <p>No account? <a (click)="openRegisterDialog()">Create one</a></p>
 
     <div class="basic-form-inputs">
-      <mat-form-field class="basic-form-input">
+      <mat-form-field appearance="outline" class="basic-form-input">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
         <mat-error>
@@ -13,7 +13,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field class="basic-form-input">
+      <mat-form-field appearance="outline" class="basic-form-input">
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" />
         <mat-error>
@@ -33,7 +33,6 @@
       <button
         class="basic-button"
         mat-flat-button
-        color="primary"
         (click)="login()"
         [disabled]="loginFormGroup.invalid || submitting"
       >

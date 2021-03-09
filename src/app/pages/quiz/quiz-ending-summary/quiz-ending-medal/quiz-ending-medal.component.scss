@@ -1,0 +1,15 @@
+#quiz-ending-medal {
+  position: relative;
+
+  > #rank-number {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+    margin-top: 30px;
+
+    font-weight: 600;
+    font-size: 3rem;
+  }
+}

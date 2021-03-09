@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Player } from 'src/app/shared/classes/others/player.class';
 
 @Component({
@@ -11,11 +7,52 @@ import { Player } from 'src/app/shared/classes/others/player.class';
   styleUrls: ['./quiz-starting.component.scss'],
 })
 export class QuizStartingComponent implements OnInit {
+  private readonly COUNTDOWN_SEC = 3;
+  private readonly FLAMES_TOTAL = 3;
+  private readonly FLAME_INYTERVAL_MS = 200;
+  private readonly FLAMES_ROOT_SRC = (i: number) =>
+    `assets/img/flames/flame${i}.svg`;
+
   @Input()
   public players: Player[];
 
-  constructor(
-  ) {}
+  @Output()
+  private countdownFinished = new EventEmitter();
 
-  ngOnInit() {}
+  public countdownCurrentSec = this.COUNTDOWN_SEC;
+  public flames: string[];
+  public flameCurrentIndex: number = 0;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.initCountdown();
+    this.initFlames();
+  }
+
+  private initFlames() {
+    this.flames = new Array(
+      this.FLAMES_TOTAL + 1
+    ).fill(null).map((value: any, i: number) => this.FLAMES_ROOT_SRC(i));
+    console.log(this.flames);
+      
+    setInterval(() => {
+      if (this.flameCurrentIndex === this.FLAMES_TOTAL) {
+        this.flameCurrentIndex = 0;
+      } else {
+        this.flameCurrentIndex++;
+      }
+    }, this.FLAME_INYTERVAL_MS);
+  }
+
+  private initCountdown() {
+    setInterval(() => {
+      if (this.countdownCurrentSec === 1) {
+        this.countdownFinished.emit();
+        return;
+      }
+
+      this.countdownCurrentSec -= 1;
+    }, 1000);
+  }
 }

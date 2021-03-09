@@ -11,7 +11,7 @@ import {
 import { QuizApiService } from 'src/app/shared/services/api/quiz-api.service';
 import { Response } from 'src/app/shared/classes/models/response.class';
 import { QuizSocketService } from 'src/app/shared/services/quiz-socket.service';
-import { User } from 'src/app/shared/classes/models/user.class';
+import { User, UserEvent } from 'src/app/shared/classes/models/user.class';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 import { SocketEvent } from 'src/app/shared/classes/others/socket-event.class';
 import {
@@ -19,7 +19,6 @@ import {
   PlayerAnswerStatus,
 } from 'src/app/shared/classes/others/player.class';
 import { HttpErrorResponse } from '@angular/common/http';
-import { QuizConstants } from './quiz.contants';
 import { Answer } from 'src/app/shared/classes/others/answer.class';
 import { AuthenticationApiService } from 'src/app/shared/services/api/authentication-api.service';
 import {
@@ -93,7 +92,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   private initPromises() {
     this.promises.userJoined = this.quizSocketService.userJoined$.subscribe(
-      (socketEvent: SocketEvent<{ user: User; admin: boolean }>) => {
+      (socketEvent: SocketEvent<UserEvent>) => {
         const player = new Player(
           socketEvent.body.user,
           socketEvent.body.admin,
@@ -119,13 +118,9 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     this.promises.quizStarted = this.quizSocketService.quizStarted$.subscribe(
       (socketEvent: SocketEvent<Question>) => {
+        this.initUsersAnswerStatus(this.quiz.nbr_questions);
         this.quizStatus = QuizStatus.STARTING;
         this.quiz.questions = [socketEvent.body];
-
-        setTimeout(() => {
-          this.selectQuestion(0);
-          this.quizStatus = QuizStatus.ONGOING;
-        }, QuizConstants.QUIZ_STARTING_TIMEOUT_MS);
       }
     );
 
@@ -146,8 +141,9 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     this.promises.question = this.quizSocketService.question$.subscribe(
       (socketEvent: SocketEvent<Question>) => {
+        this.resetUsersAnswersStatus(this.quiz.questions.length - 1);
+        this.sortPlayersAndSetRank();
         this.quiz.questions.push(socketEvent.body);
-        this.resetUsersAnswersStatus();
         this.selectQuestion();
       }
     );
@@ -171,6 +167,7 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     this.promises.quizFinished = this.quizSocketService.quizFinished$.subscribe(
       () => {
+        this.sortPlayersAndSetRank();
         this.quizStatus = QuizStatus.FINISHED;
       }
     );
@@ -184,6 +181,11 @@ export class QuizComponent implements OnInit, OnDestroy {
     } else {
       this.joinQuiz(quizUrl);
     }
+  }
+
+  public startCountdownFinished() {
+    this.selectQuestion(0);
+    this.quizStatus = QuizStatus.ONGOING;
   }
 
   private generateQuiz() {
@@ -205,7 +207,6 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public startQuiz() {
     this.quizSocketService.startQuiz(this.quiz.uuid);
-    this.resetUsersAnswersStatus();
   }
 
   public anwserResponse(response: Response) {
@@ -237,7 +238,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       },
       (err: HttpErrorResponse) => {
         if (err.status === 409) {
-          this.uiService.displayToast('Tu participes déjà à ce quiz.');
+          this.uiService.displayToast(err.error.description);
           this.router.navigate(['/']);
         }
       }
@@ -254,9 +255,27 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.currentQuestion = this.quiz.questions[this.questionIndex];
   }
 
-  private resetUsersAnswersStatus() {
+  private resetUsersAnswersStatus(previousQuestionIndex: number) {
     this.players.forEach((player: Player) => {
-      player.resetAnswerStatus();
+      player.resetAnswerStatus(previousQuestionIndex);
+    });
+  }
+
+  private initUsersAnswerStatus(nbrQuestions: number) {
+    this.players.forEach((player: Player) => {
+      player.initAnswerStatus(nbrQuestions);
+    });
+  }
+
+  private sortPlayersAndSetRank() {
+    this.players = this.players.sort((p1: Player, p2: Player) => {
+      return (
+        p1.score - p2.score || p1.user.username.localeCompare(p2.user.username)
+      );
+    });
+
+    this.players.forEach((p: Player, i: number) => {
+      p.rank = i + 1;
     });
   }
 }

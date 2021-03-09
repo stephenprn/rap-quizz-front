@@ -1,0 +1,157 @@
+@import "./../../../../style-var.scss";
+
+$height: 50px;
+$padding-vertical: 5px;
+$padding-horizontal: 15px;
+$bottom-part-height: 10px;
+$border-radius: 4px;
+$border-thick: 1px;
+
+$border-color: var(--secondary-lighter-color);
+$bottom-part-color: var(--secondary-lightest-color);
+$background-color: #ffffff;
+$text-color: var(--primary-darker-color);
+$hover-color: #fffaf6;
+$opacity-disabled: 0.75;
+
+$transition-duration: 150ms;
+$transition-type: cubic-bezier(0, 0, 0.58, 1);
+
+// custom classes variables
+$border-right-color: var(--right-color);
+$bottom-part-right-color: #6dc756;
+$background-right-color: #a4d69b;
+
+$border-wrong-color: var(--wrong-color);
+$bottom-part-wrong-color: #c96060;
+$background-wrong-color: #d69191;
+
+div.basic-button-wrapper {
+  display: inline-block;
+  transition: opacity 150ms, visibility 0s 150ms;
+
+  > button.basic-button {
+    cursor: pointer;
+
+    position: relative;
+
+    border: $border-thick solid $border-color;
+    background-color: $bottom-part-color;
+
+    text-transform: uppercase;
+    font-weight: 1000;
+
+    color: $text-color;
+
+    border-radius: $border-radius;
+    height: $height;
+    margin-top: $bottom-part-height;
+
+    z-index: 0;
+
+    font-family: inherit;
+    text-transform: uppercase;
+    font-weight: 1000;
+
+    padding: $padding-vertical $padding-horizontal;
+    padding-bottom: 25px;
+
+    transition: transform $transition-duration $transition-type,
+      box-shadow $transition-duration $transition-type;
+
+    box-sizing: border-box;
+
+    &::after {
+      z-index: -1;
+      display: block;
+      background-color: $background-color;
+      border: $border-thick solid $border-color;
+
+      border-radius: $border-radius;
+      height: 100%;
+      width: 100%;
+
+      content: "";
+
+      bottom: $bottom-part-height;
+      left: calc(-#{$border-thick});
+
+      position: absolute;
+    }
+
+    > .basic-button-body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    & > .basic-button-body,
+    &::after {
+      transition: transform $transition-duration cubic-bezier(0, 0, 0.58, 1),
+        box-shadow $transition-duration cubic-bezier(0, 0, 0.58, 1);
+    }
+
+    &:hover {
+      &::after,
+      & > .basic-button-body {
+        background-color: $hover-color;
+        transform: translate(0, calc(#{$bottom-part-height}/ 2));
+      }
+    }
+
+    &:active {
+      &::after,
+      & > .basic-button-body {
+        transform: translate(0, $bottom-part-height);
+      }
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    i.fa {
+      color: var(--secondary-color);
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: $opacity-disabled;
+  }
+
+  &.full {
+    width: 100%;
+
+    > button.basic-button {
+      width: 100%;
+    }
+  }
+
+  // custom classes
+  &.right {
+    > button.basic-button {
+      border-color: $border-right-color;
+      background-color: $bottom-part-right-color;
+
+      &::after {
+        border-color: $border-right-color;
+        background-color: $background-right-color;
+      }
+    }
+  }
+
+  &.wrong {
+    > button.basic-button {
+      border-color: $border-wrong-color;
+      background-color: $bottom-part-wrong-color;
+
+      &::after {
+        border-color: $border-wrong-color;
+        background-color: $background-wrong-color;
+      }
+    }
+  }
+}

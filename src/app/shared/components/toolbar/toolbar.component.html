@@ -1,9 +1,8 @@
-<mat-toolbar class="chien" id="toolbar" [class.red]="homeScrolled">
-  <div id="toolbar-left-elements">
-    <button (click)="goHome()" mat-icon-button matTooltip="Go home">
-      <i class="fa fa-music"></i>
-    </button>
-    <div id="toolbar-title">Questions app</div>
+<mat-toolbar class="chien" id="toolbar" [class.scrolled]="homeScrolled">
+  <div id="toolbar-left-elements"></div>
+
+  <div id="toolbar-middle-elements">
+    <img id="toolbar-logo" src="assets/img/logo.png" (click)="goHome()" />
   </div>
 
   <div id="toolbar-right-elements">
@@ -11,30 +10,30 @@
       (click)="goDashboard()"
       *ngIf="userConnected"
       mat-icon-button
-      matTooltip="View my dashboard"
+      matTooltip="Mes parties"
       class="mobile-hidden"
     >
-      <i class="fa fa-list"></i>
+      <i class="fa fa-list bordered-icon"></i>
     </button>
 
     <button
       (click)="goAddQuestion()"
       *ngIf="userConnected"
       mat-icon-button
-      matTooltip="Add question"
+      matTooltip="Proposer une question"
       class="mobile-hidden"
     >
-      <i class="fa fa-plus"></i>
+      <i class="fa fa-plus bordered-icon"></i>
     </button>
 
     <button
       (click)="logout()"
       *ngIf="userConnected"
       mat-icon-button
-      matTooltip="Log out"
+      matTooltip="Se déconnecter"
       class="mobile-hidden"
     >
-      <i class="fa fa-sign-out"></i>
+      <i class="fa fa-sign-out bordered-icon"></i>
     </button>
 
     <button
@@ -43,21 +42,21 @@
       mat-icon-button
       class="mobile-showed"
     >
-      <i class="fa fa-bars"></i>
+      <i class="fa fa-bars bordered-icon"></i>
     </button>
 
     <mat-menu #mobileMenu="matMenu" class="mobile-showed">
       <button (click)="goDashboard()" *ngIf="userConnected" mat-menu-item>
         <i class="fa fa-list"></i>
-        View my dashboard
+        Mes parties
       </button>
       <button (click)="goAddQuestion()" *ngIf="userConnected" mat-menu-item>
         <i class="fa fa-plus"></i>
-        Add question
+        Proposer une question
       </button>
       <button (click)="logout()" *ngIf="userConnected" mat-menu-item>
         <i class="fa fa-sign-out"></i>
-        Log out
+        Se déconnecter
       </button>
     </mat-menu>
 
@@ -67,14 +66,10 @@
       mat-icon-button
       matTooltip="Open menu connection"
     >
-      <i class="fa fa-user"></i>
+      <i class="fa fa-user bordered-icon"></i>
     </button>
 
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="goDashboard()">
-        <i class="fa fa-list"></i>
-        View my dashboard
-      </button>
       <button mat-menu-item (click)="openLogin()">
         <i class="fa fa-sign-in"></i>
         Log in

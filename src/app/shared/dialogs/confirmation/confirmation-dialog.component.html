@@ -5,16 +5,17 @@
 
   <div id="confirmation-buttons">
     <button
+    class="basic-button"
+    mat-flat-button
       class="basic-button"
-      mat-stroked-button
       [color]="warning ? 'warn' : 'primary'"
       (click)="close(false)"
     >
       {{ texts.no }}
     </button>
     <button
-      class="basic-button"
-      mat-flat-button
+    class="basic-button"
+    mat-flat-button
       [color]="warning ? 'warn' : 'primary'"
       (click)="close(true)"
     >

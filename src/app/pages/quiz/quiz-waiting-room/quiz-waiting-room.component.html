@@ -1,12 +1,43 @@
-<div id="quiz-waiting-room-container">
-  Waiting room
-  <div id="players-list" *ngIf="players != null">
-    players list
-    <div *ngFor="let player of players">
-      {{ player.user.username }} (join date:
-      {{ player.joinDate | date: "H:mm:ss" }}) {{ player.me ? " (ME) " : "" }}
-      {{ player.admin ? " - ADMIN" : "" }}
+<div id="quiz-waiting-room-container" class="basic-card">
+  <h1 class="basic-title bordered">Nouveau quiz</h1>
+
+  <div id="waiting-room-body">
+    <div id="players-list" class="basic-card-section" *ngIf="players != null">
+      <h2 class="basic-title bordered">Joueurs</h2>
+
+      <app-quiz-player
+        *ngFor="let player of players"
+        withDate="true"
+        [player]="player"
+      >
+      </app-quiz-player>
+    </div>
+
+    <div id="waiting-room-right-section">
+      <div class="quiz-param">
+        <i class="fa {{ ICONS.questionNbr }} quiz-param-icon"></i>
+        <div class="quiz-param-label">{{ quiz.nbr_questions }} questions</div>
+      </div>
+      <div class="quiz-param">
+        <i class="fa {{ ICONS.questionDuration }} quiz-param-icon"></i>
+        <div class="quiz-param-label">
+          {{ quiz.question_duration | duration }} par question
+        </div>
+      </div>
+
+      <div id="quiz-controls">
+        <app-basic-button (click)="shareLink()" [icon]="ICONS.shareQuiz">
+          Inviter
+        </app-basic-button>
+
+        <app-basic-button
+          (click)="startQuiz.emit()"
+          [icon]="ICONS.questionAdd"
+          *ngIf="admin"
+        >
+          Commencer le quiz
+        </app-basic-button>
+      </div>
     </div>
   </div>
-  <button id="start quiz" (click)="startQuiz.emit()">start quiz</button>
 </div>

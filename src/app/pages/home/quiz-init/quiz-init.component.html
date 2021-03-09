@@ -1,42 +1,62 @@
 <div id="quiz-init-container" *ngIf="userConnected">
   <div id="new-quiz-container">
-    <form [formGroup]="newQuizFormGroup">
-      <mat-button-toggle-group formControlName="questionDuration">
-        <mat-button-toggle
-          *ngFor="let duration of questionDurations"
-          [value]="duration.value"
-          >{{ duration.name }}</mat-button-toggle
+    <form [formGroup]="newQuizFormGroup" class="basic-form">
+      <div class="basic-form-inputs">
+        <label
+          for="questionDuration"
+          class="basic-form-label"
+          ><i class="fa {{ ICONS.questionDuration }} basic-label-icon" Nombre de questions></i
+          >Durée des questions</label
         >
-      </mat-button-toggle-group>
-
-      <div>
-        <div>Nombre de questions:</div>
-        <mat-button-toggle-group formControlName="nbrQuestions">
-          <mat-button-toggle
-            *ngFor="let nbr of nbrQuestions"
-            [value]="nbr.value"
-            >{{ nbr.name }}</mat-button-toggle
+        <mat-form-field appearance="outline" class="basic-form-input">
+          <mat-select
+            [formControl]="newQuizFormGroup.controls['questionDuration']"
+            name="questionDuration"
           >
-        </mat-button-toggle-group>
+            <!-- [formControl]="newQuizFormGroup.controls['questionDuration']" -->
+            <mat-option
+              *ngFor="let duration of questionDurations"
+              [value]="duration"
+              >{{ duration | duration }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <label for="nbrQuestions" class="basic-form-label"
+          ><i class="fa {{ ICONS.questionNbr }} basic-label-icon" Nombre de questions></i>Nombre
+          de questions</label
+        >
+        <mat-form-field appearance="outline" class="basic-form-input">
+          <mat-select
+            [formControl]="newQuizFormGroup.controls['nbrQuestions']"
+            name="nbrQuestions"
+          >
+            <mat-option *ngFor="let nbr of nbrQuestions" [value]="nbr">{{
+              nbr
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </form>
-    <button (click)="newQuiz()" mat-flat-button matTooltip="Nouveau quiz">
-      <i class="fa fa-plus"></i>
+
+    <app-basic-button (click)="newQuiz()" [icon]="ICONS.questionAdd">
       Nouveau quiz
-    </button>
+    </app-basic-button>
   </div>
-  <div id="join-quiz-container">
+  <!-- <div id="join-quiz-container">
     <form [formGroup]="joinQuizFormGroup">
       <div class="basic-form-inputs">
-        <mat-form-field class="basic-form-input">
+        <mat-form-field appearance="outline" class="basic-form-input">
           <mat-label>Quiz url</mat-label>
           <input matInput formControlName="quizUrl" />
           <mat-error> Entrez une url </mat-error>
         </mat-form-field>
       </div>
-      <button (click)="joinQuiz()">Rejoindre quiz</button>
+      <button class="basic-button" mat-flat-button (click)="joinQuiz()">
+        Rejoindre quiz
+      </button>
     </form>
-  </div>
+  </div> -->
 </div>
 <div id="quiz-init-container" *ngIf="!userConnected">
   Connect to join a quiz

@@ -26,6 +26,11 @@ import { QuizWaitingRoomComponent } from './pages/quiz/quiz-waiting-room/quiz-wa
 import { QuizSocketService } from './shared/services/quiz-socket.service';
 import { QuizInitComponent } from './pages/home/quiz-init/quiz-init.component';
 import { QuizStartingComponent } from './pages/quiz/quiz-starting/quiz-starting.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { QuizPlayerComponent } from './pages/quiz/quiz-player/quiz-player.component';
+import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-ending-medal/quiz-ending-medal.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +49,10 @@ import { QuizStartingComponent } from './pages/quiz/quiz-starting/quiz-starting.
     QuizWaitingRoomComponent,
     QuizStartingComponent,
     QuizEndingSummaryComponent,
+    QuizEndingMedalComponent,
+    QuizPlayerComponent,
+
+    DashboardComponent,
 
     QuestionComponent,
     ResponseComponent,
@@ -56,11 +65,13 @@ import { QuizStartingComponent } from './pages/quiz/quiz-starting/quiz-starting.
     BrowserAnimationsModule,
 
     MatInputModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     MatButtonToggleModule,
+    MatSelectModule,
 
     SharedModule,
 

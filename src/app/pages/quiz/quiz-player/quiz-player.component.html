@@ -1,0 +1,25 @@
+<div class="player">
+  <div class="player-rank" *ngIf="withRank" >{{ player.rank }}</div>
+
+  <div class="player-icon">
+    <i class="fa {{ ICONS.player }} player-icon"></i>
+  </div>
+  <div class="player-infos">
+    <div class="player-infos-left-section">
+      <h3 class="player-username">{{ player.user.username }}</h3>
+      <h4 class="player-join-date" *ngIf="withDate">
+        <i class="fa {{ ICONS.joinDate }}"></i>
+        {{ player.joinDate | date: "H:mm:ss" }}
+      </h4>
+    </div>
+    <div class="player-infos-right-section">
+      <div class="player-admin-icon" *ngIf="!withScore">
+        <i class="fa {{ ICONS.playerAdmin }}" *ngIf="player.admin"></i>
+      </div>
+
+      <div class="player-score" *ngIf="withScore">
+        {{ player.score }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,22 +10,24 @@
 
 // Fonts
 @import "https://fonts.googleapis.com/css?family=Material+Icons";
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
+
+// @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap");
 
 $fontConfig: (
-  display-4: mat-typography-level(112px, 112px, 300, "Roboto", -0.0134em),
-  display-3: mat-typography-level(56px, 56px, 400, "Roboto", -0.0089em),
-  display-2: mat-typography-level(45px, 48px, 400, "Roboto", 0em),
-  display-1: mat-typography-level(34px, 40px, 400, "Roboto", 0.0074em),
-  headline: mat-typography-level(24px, 32px, 400, "Roboto", 0em),
-  title: mat-typography-level(20px, 32px, 500, "Roboto", 0.0075em),
-  subheading-2: mat-typography-level(16px, 28px, 400, "Roboto", 0.0094em),
-  subheading-1: mat-typography-level(15px, 24px, 500, "Roboto", 0.0067em),
-  body-2: mat-typography-level(14px, 24px, 500, "Roboto", 0.0179em),
-  body-1: mat-typography-level(14px, 20px, 400, "Roboto", 0.0179em),
-  button: mat-typography-level(14px, 14px, 500, "Roboto", 0.0893em),
-  caption: mat-typography-level(12px, 20px, 400, "Roboto", 0.0333em),
-  input: mat-typography-level(inherit, 1.125, 400, "Roboto", 1.5px),
+  display-4: mat-typography-level(112px, 112px, 300, "Nunito", -0.0134em),
+  display-3: mat-typography-level(56px, 56px, 400, "Nunito", -0.0089em),
+  display-2: mat-typography-level(45px, 48px, 400, "Nunito", 0em),
+  display-1: mat-typography-level(34px, 40px, 400, "Nunito", 0.0074em),
+  headline: mat-typography-level(24px, 32px, 400, "Nunito", 0em),
+  title: mat-typography-level(20px, 32px, 500, "Nunito", 0.0075em),
+  subheading-2: mat-typography-level(16px, 28px, 400, "Nunito", 0.0094em),
+  subheading-1: mat-typography-level(15px, 24px, 500, "Nunito", 0.0067em),
+  body-2: mat-typography-level(14px, 24px, 500, "Nunito", 0.0179em),
+  body-1: mat-typography-level(14px, 20px, 400, "Nunito", 0.0179em),
+  button: mat-typography-level(14px, 14px, 500, "Nunito", 0.0893em),
+  caption: mat-typography-level(12px, 20px, 400, "Nunito", 0.0333em),
+  input: mat-typography-level(inherit, 1.125, 400, "Nunito", 1.5px),
 );
 
 // Foreground Elements
@@ -148,21 +150,44 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-  --primary-color: #e9786a;
-  --primary-lighter-color: #f6a59a;
-  --primary-darker-color: #d8453e;
+  --primary-color: #4c15c3;
+  --primary-lighter-color: #6e44ca;
+  --primary-lightest-color: #9e82db;
+  --primary-darker-color: #3d0aac;
+  --primary-darkest-color: #1e015c;
+
+  --secondary-color: #df965f;
+  --secondary-lighter-color: #e9c1a3;
+  --secondary-lightest-color: #ffdfc7;
+  --secondary-darker-color: #e67728;
+
   --text-primary-color: #{$dark-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$dark-primary-text};
+
+  --accent-color: #b0bec5;
+  --accent-lighter-color: #e7ecee;
+  --accent-darker-color: #97a7b0;
+
+  --transparency-light: rgba(255, 255, 255, 0.25);
+  --transparency-middle: rgba(255, 255, 255, 0.5);
+  --transparency-dark: rgba(255, 255, 255, 0.75);
+
+  --text-accent-color: #{$dark-primary-text};
+  --text-accent-lighter-color: #{$dark-primary-text};
+  --text-accent-darker-color: #{$dark-primary-text};
+
+  --right-color: #42b442;
+  --wrong-color: #bd4b4b;
 }
 
 $mat-primary: (
-  main: #e9786a,
-  lighter: #f6a59a,
-  darker: #d8453e,
-  200: #e9786a,
+  main: #4c15c3,
+  lighter: #aa88ff,
+  darker: #4a0979,
+  200: #4c15c3,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -171,22 +196,13 @@ $mat-primary: (
 );
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
-body {
-  --accent-color: #b0bec5;
-  --accent-lighter-color: #e7ecee;
-  --accent-darker-color: #97a7b0;
-  --text-accent-color: #{$dark-primary-text};
-  --text-accent-lighter-color: #{$dark-primary-text};
-  --text-accent-darker-color: #{$dark-primary-text};
-}
-
 $mat-accent: (
   main: #b0bec5,
   lighter: #e7ecee,
   darker: #97a7b0,
   200: #b0bec5,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
@@ -210,7 +226,7 @@ $mat-warn: (
   darker: #970013,
   200: #b00020,
   // For slide toggle,
-    contrast:
+  contrast:
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
@@ -229,49 +245,49 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   @include angular-material-theme($altTheme);
 }
 
-// Specific component overrides, pieces that are not in line with the general theming
-
-// Handle buttons appropriately, with respect to line-height
-.mat-raised-button,
-.mat-stroked-button,
-.mat-flat-button {
-  padding: 0 1.15em;
-  margin: 0 0.65em;
-  min-width: 3em;
-  line-height: 36.4px;
-}
-
-.mat-standard-chip {
-  padding: 0.5em 0.85em;
-  min-height: 2.5em;
-}
-
-.material-icons {
-  font-size: 24px;
-  font-family: "Material Icons", "Material Icons";
-  .mat-badge-content {
-    font-family: "Roboto";
-  }
-}
-
 html,
 body {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Nunito, "Helvetica Neue", sans-serif;
 }
 
-h1 {
-  font-size: 1.4rem;
+h1.basic-title {
+  font-size: 1.6rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 1000;
+  color: #ffffff;
+
+  &.bordered {
+    @include orange-border;
+  }
 }
 
-h3 {
-  font-size: 1rem;
-  font-weight: 600;
+h2.basic-title {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 1000;
+  color: var(--secondary-color);
 
-  color: mat-color($mat-accent, darker);
+  &.bordered {
+    text-shadow: #ffffff 3px 0px 0px, #ffffff 2.83487px 0.981584px 0px,
+      #ffffff 2.35766px 1.85511px 0px, #ffffff 1.62091px 2.52441px 0px,
+      #ffffff 0.705713px 2.91581px 0px, #ffffff -0.287171px 2.98622px 0px,
+      #ffffff -1.24844px 2.72789px 0px, #ffffff -2.07227px 2.16926px 0px,
+      #ffffff -2.66798px 1.37182px 0px, #ffffff -2.96998px 0.42336px 0px,
+      #ffffff -2.94502px -0.571704px 0px, #ffffff -2.59586px -1.50383px 0px,
+      #ffffff -1.96093px -2.27041px 0px, #ffffff -1.11013px -2.78704px 0px,
+      #ffffff -0.137119px -2.99686px 0px, #ffffff 0.850987px -2.87677px 0px,
+      #ffffff 1.74541px -2.43999px 0px, #ffffff 2.44769px -1.73459px 0px,
+      #ffffff 2.88051px -0.838247px 0px;
+  }
+}
+
+.bordered-icon {
+  @include orange-border;
 }
 
 a {
@@ -286,15 +302,42 @@ a {
   }
 }
 
-button.basic-button {
-  border-radius: 100px !important;
+.basic-card {
+  border-radius: 30px;
+  padding: 40px;
+
+  display: block;
+
+  background-color: var(--transparency-middle);
+  border: 1px solid var(--accent-lighter-color);
+  box-shadow: $base-shadow;
+
+  .basic-card-section {
+    background-color: var(--transparency-light);
+    border-radius: $basic-card-element-radius;
+    padding: 20px;
+  }
+
+  > .basic-title {
+    margin-bottom: 40px;
+  }
+}
+
+i.fa {
+  color: #ffffff;
 }
 
 .page-container {
   display: flex;
   justify-content: center;
 
-  background-color: mat-color($mat-accent, lighter);
+  background: #4a0979;
+  background: linear-gradient(
+    45deg,
+    mat-color($mat-primary, darker) 0%,
+    mat-color($mat-primary, lighter),
+    100%
+  );
 
   &.has-toolbar {
     padding-top: $toolbar-height;
@@ -318,48 +361,6 @@ button.basic-button {
 
     margin: $main-container-margin-vertical 0;
   }
-}
-
-.questions-list {
-  > .main-title {
-    margin: 16px 0;
-  }
-
-  @media only screen and (max-width: $main-container-max-width) {
-    margin: 0;
-
-    > h1 {
-      text-align: center;
-    }
-
-    > p {
-      padding: $main-container-margin-vertical;
-
-      text-align: center;
-    }
-  }
-}
-
-.white-block {
-  padding: $main-container-white-block-padding;
-  max-width: calc(
-    #{$main-container-max-width} - 2 *#{$main-container-white-block-padding}
-  );
-  width: calc(100% - 2 *#{$main-container-white-block-padding});
-  height: fit-content;
-
-  background-color: #ffffff;
-  box-shadow: $base-shadow;
-}
-
-#question-body {
-  * {
-    max-width: 100%;
-  }
-}
-
-.error-snackar {
-  background-color: mat-color($mat-warn, main);
 }
 
 .confirmation-dialog {
@@ -397,19 +398,51 @@ button.basic-button {
     display: flex;
     flex-direction: column;
 
+    > label.basic-form-label {
+      display: block;
+
+      font-size: 1em;
+      font-weight: 900;
+      color: #ffffff;
+      text-transform: uppercase;
+
+      > i.basic-label-icon {
+        margin-right: 10px;
+      }
+    }
+
     > .basic-form-input {
       &:not(:first-child) {
         margin-top: 10px;
       }
     }
   }
+}
 
-  > .basic-form-buttons-container {
-    > .basic-button {
-      margin-top: 10px;
-      width: 100%;
-    }
-  }
+// utils
+
+.error-snackar {
+  background-color: mat-color($mat-warn, main);
+}
+
+// material custom theme
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: var(--transparency-middle);
+
+  background-color: var(--transparency-light);
+  border-radius: 5px;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--transparency-middle);
+
+  background-color: var(--transparency-light);
+  border-radius: 5px;
+}
+
+.mat-toolbar {
+  background: unset;
 }
 
 mat-spinner {
@@ -417,7 +450,30 @@ mat-spinner {
   margin-top: 50px;
 }
 
+.mat-raised-button,
+.mat-stroked-button,
+.mat-flat-button {
+  padding: 0 1.15em;
+  margin: 0 0.65em;
+  min-width: 3em;
+  line-height: 36.4px;
+}
+
+.mat-standard-chip {
+  padding: 0.5em 0.85em;
+  min-height: 2.5em;
+}
+
+.material-icons {
+  font-size: 24px;
+  font-family: "Material Icons", "Material Icons";
+  .mat-badge-content {
+    font-family: "Nunito";
+  }
+}
+
 // responsive
+
 .mobile-showed {
   display: none !important;
 }

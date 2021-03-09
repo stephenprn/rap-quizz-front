@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PlayerAnswerStatus } from 'src/app/shared/classes/others/player.class';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Response } from 'src/app/shared/classes/models/response.class';
 
 @Component({
@@ -6,15 +14,44 @@ import { Response } from 'src/app/shared/classes/models/response.class';
   templateUrl: './response.component.html',
   styleUrls: ['./response.component.scss'],
 })
-export class ResponseComponent implements OnInit {
+export class ResponseComponent implements OnChanges {
   @Input()
-  response: Response;
+  public response: Response;
 
   @Output()
-  selectResponse = new EventEmitter<void>();
+  public selectResponse = new EventEmitter<void>();
 
-  constructor() {
+  @Input()
+  public answerStatus: PlayerAnswerStatus;
+
+  public PlayerAnswerStatus = PlayerAnswerStatus;
+  public customClass: 'right' | 'wrong' | null;
+  private selected: boolean;
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (changes.answerStatus && changes.answerStatus.currentValue) {
+      this.getCustomClass();
+    }
   }
 
-  ngOnInit() {}
+  public answer() {
+    this.selected = true;
+    this.selectResponse.emit();
+  }
+
+  public getCustomClass() {
+    if (this.selected && this.answerStatus === PlayerAnswerStatus.WRONG) {
+      this.customClass = 'wrong';
+    } else if (
+      this.selected &&
+      this.answerStatus === PlayerAnswerStatus.RIGHT
+    ) {
+      this.customClass = 'right';
+    } else {
+      this.customClass = null;
+    }
+
+    console.log(this.customClass);
+  }
 }

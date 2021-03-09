@@ -1,3 +1,4 @@
+import { AppConstants } from './../../app.constants';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { QuestionsApiService } from 'src/app/shared/services/api/questions-api.service';
@@ -23,10 +24,17 @@ export class AddQuestionComponent implements OnInit {
   public matchingResponses: Response[] = [];
   private matchingTimeout: any = null;
 
-  public responseTypes = Object.keys(ResponseType);
+  public responseTypes: { value: string, label: string }[] = [
+    {label: "Artiste", value: ResponseType.ARTIST},
+    {label: "Album", value: ResponseType.ALBUM},
+    {label: "Date", value: ResponseType.DATE},
+    {label: "Autre", value: ResponseType.OTHER}
+  ];
 
   public loading: boolean;
   public submitting: boolean;
+
+  public ICONS = AppConstants.ICONS;
 
   @ViewChild('searchInput') searchInput: ElementRef;
 

@@ -10,3 +10,8 @@ export class User extends BaseClass {
     this.uuid = uuid;
   }
 }
+
+export class UserEvent {
+  user: User;
+  admin: boolean;
+}

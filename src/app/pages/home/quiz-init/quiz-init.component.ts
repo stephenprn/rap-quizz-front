@@ -1,3 +1,4 @@
+import { AppConstants } from './../../../app.constants';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Params, Router } from '@angular/router';
@@ -15,21 +16,10 @@ export class QuizInitComponent implements OnInit {
   public userConnected: boolean;
 
   private readonly QUESTION_DURATION_DEFAULT = 30;
-  public questionDurations: { value: number; name: string }[] = [
-    { value: 5, name: '5 secondes' },
-    { value: 10, name: '10 secondes' },
-    { value: 30, name: '30 secondes' },
-    { value: 60, name: '1 minute' },
-    { value: 0, name: 'illimité' },
-  ];
+  public questionDurations: number[] = [5, 10, 30, 60, 0];
   private readonly NBR_QUESTIONS_DEFAULT = 20;
-  public nbrQuestions: { value: number; name: string }[] = [
-    { value: 5, name: '5' },
-    { value: 10, name: '10' },
-    { value: 20, name: '20' },
-    { value: 30, name: '30' },
-    { value: 50, name: '50' },
-  ];
+  public nbrQuestions: number[] = [5, 10, 20, 30, 50];
+  public ICONS = AppConstants.ICONS;
 
   private promises = {
     userConnected: null,

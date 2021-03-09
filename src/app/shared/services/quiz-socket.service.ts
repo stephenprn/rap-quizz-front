@@ -5,7 +5,7 @@ import { io } from 'socket.io-client/dist/socket.io';
 import { environment } from 'src/environments/environment';
 import { Question } from '../classes/models/question.class';
 import { Quiz } from '../classes/models/quiz.class';
-import { User } from '../classes/models/user.class';
+import { User, UserEvent } from '../classes/models/user.class';
 import { Answer } from '../classes/others/answer.class';
 import { SocketEvent } from '../classes/others/socket-event.class';
 import { AuthenticationService } from './authentication.service';
@@ -18,9 +18,7 @@ export class QuizSocketService {
     {
       name: 'user_joined',
       callback: (socketEvent: any) => {
-        this.userJoined$.emit(
-          new SocketEvent<{ user: User; admin: boolean }>(socketEvent)
-        );
+        this.userJoined$.emit(new SocketEvent<UserEvent>(socketEvent));
       },
     },
     {
@@ -62,9 +60,7 @@ export class QuizSocketService {
   ];
   private socket: any;
 
-  public userJoined$ = new EventEmitter<
-    SocketEvent<{ user: User; admin: boolean }>
-  >();
+  public userJoined$ = new EventEmitter<SocketEvent<UserEvent>>();
   public userLeaved$ = new EventEmitter<SocketEvent<User>>();
   public userAnswered$ = new EventEmitter<SocketEvent<Answer>>();
   public quizStarted$ = new EventEmitter<SocketEvent<Question>>();

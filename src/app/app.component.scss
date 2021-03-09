@@ -4,7 +4,12 @@
   display: flex;
   justify-content: center;
 
-  background-color: var(--accent-lighter-color);
+  background: #4a0979;
+  background: linear-gradient(
+    45deg,
+    var(--primary-darker-color) 0%,
+    var(--primary-lighter-color) 100%
+  );
 
   padding-top: $toolbar-height;
   min-height: calc(100vh - #{$toolbar-height});
@@ -25,13 +30,15 @@
     max-width: $main-container-max-width;
 
     margin: $main-container-margin-vertical 0;
+
+    padding: 0 40px;
   }
 
   @media only screen and (max-width: $main-container-max-width) {
     margin: 0;
 
     > #main-container {
-        margin: 0;
+      margin: 0;
     }
 
     > h1 {

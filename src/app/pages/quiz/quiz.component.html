@@ -7,18 +7,28 @@
     *ngIf="quizStatus === QuizStatus.WAITING"
     (startQuiz)="startQuiz()"
     [players]="players"
+    [quiz]="quiz"
+    [admin]="me && me.admin"
   ></app-quiz-waiting-room>
 
-  <div *ngIf="quizStatus === QuizStatus.STARTING">
-    <app-quiz-starting></app-quiz-starting>
-  </div>
+  <app-quiz-starting
+    *ngIf="quizStatus === QuizStatus.STARTING"
+    [players]="players"
+    (countdownFinished)="startCountdownFinished()"
+  ></app-quiz-starting>
 
-  <div *ngIf="quizStatus === QuizStatus.ONGOING">
-    <app-quiz-infos [quiz]="quiz" [currentIndex]="currentQuestion.index" [score]="me.score" [players]="players"></app-quiz-infos>
+  <div *ngIf="quizStatus === QuizStatus.ONGOING" class="basic-card">
+    <app-quiz-infos
+      [quiz]="quiz"
+      [currentIndex]="currentQuestion.index"
+      [me]="me"
+      [players]="players"
+    ></app-quiz-infos>
 
     <app-question
       (selectResponse)="anwserResponse($event)"
       [question]="currentQuestion"
+      [me]="me"
     ></app-question>
   </div>
 
@@ -26,5 +36,7 @@
     *ngIf="quizStatus === QuizStatus.FINISHED"
     [quiz]="quiz"
     [score]="me.score"
+    [players]="players"
+    [me]="me"
   ></app-quiz-ending-summary>
 </div>

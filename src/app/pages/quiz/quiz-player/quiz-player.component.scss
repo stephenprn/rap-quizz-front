@@ -1,0 +1,59 @@
+
+$player-color: var(--transparency-light);
+$player-radius: 5px;
+$player-padding-horizontal: 15px;
+$player-padding-vertical: 25px;
+
+.player {
+  display: flex;
+
+  padding: $player-padding-horizontal $player-padding-vertical;
+  background-color: $player-color;
+  border-radius: $player-radius;
+
+  justify-content: center;
+  align-items: center;
+
+  > .player-rank {
+    margin-right: 25px;
+
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+
+  > .player-icon {
+    display: flex;
+    align-items: center;
+
+    margin-right: $player-padding-horizontal;
+  }
+
+  > .player-infos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 0;
+
+    > .player-infos-left-section {
+      > h3.player-username {
+        font-size: 1rem;
+        font-weight: 900;
+
+        margin: 0;
+      }
+
+      > h4.player-join-date {
+        line-height: 15px;
+        font-size: 0.7rem;
+
+        margin: 0;
+      }
+    }
+
+    > .player-infos-right-section {
+      > .player-admin-icon {
+        margin-left: $player-padding-horizontal;
+      }
+    }
+  }
+}

@@ -21,11 +21,25 @@ export class UtilsService {
     }
   }
 
-  public getCurrentUrl(withoutParams: boolean) {
-    if (withoutParams) {
-      return window.location.protocol + '//' + window.location.host + window.location.pathname;
+  public getCurrentUrl(withoutParams?: boolean) {
+    if (!!withoutParams) {
+      return (
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        window.location.pathname
+      );
     } else {
       return window.location.href;
     }
+  }
+
+  public copyToClipboard(text: string) {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
   }
 }

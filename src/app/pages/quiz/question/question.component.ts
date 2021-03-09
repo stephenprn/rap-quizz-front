@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Question } from 'src/app/shared/classes/models/question.class';
 import { Response } from 'src/app/shared/classes/models/response.class';
+import { Player, PlayerAnswerStatus } from 'src/app/shared/classes/others/player.class';
 
 @Component({
   selector: 'app-question',
@@ -13,6 +14,9 @@ export class QuestionComponent implements OnInit {
 
   @Output()
   selectResponse = new EventEmitter<Response>();
+
+  @Input()
+  me: Player;
 
   constructor() {}
 

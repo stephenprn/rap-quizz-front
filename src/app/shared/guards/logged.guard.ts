@@ -7,15 +7,11 @@ import { Observable } from 'rxjs/internal/Observable';
 @Injectable()
 export class LoggedGuard implements CanActivate {
   constructor(
-    private authenticationApiService: AuthenticationApiService,
     private authenticationService: AuthenticationService
   ) {}
 
   canActivate(): Observable<boolean> | boolean {
-    if (this.authenticationService.userConnected$.value) {
-      return this.authenticationApiService.isLogged();
-    } else {
-      return false;
-    }
+    console.log('user connected', this.authenticationService.userConnected$.value);
+    return this.authenticationService.userConnected$.value;
   }
 }

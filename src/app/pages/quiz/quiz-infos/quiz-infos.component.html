@@ -1,15 +1,48 @@
 <div id="quiz-infos">
-  <h1>
-    {{ quiz.name }}
-  </h1>
-  <div>score: {{ score }}</div>
-  <div>avancement: {{ currentIndex }} / {{ quiz.nbr_questions }}</div>
-  <div>
-    <div>Players</div>
-    <ul>
-      <li *ngFor="let player of players">
-        {{ player.user.username }} {{player.me ? ' (ME) ': ''}}: {{ player.answerStatus }}
-      </li>
-    </ul>
+  <div id="quiz-infos-section-top">
+    <h2 id="quiz-progression" class="basic-title bordered">
+      {{ currentIndex }} / {{ quiz.nbr_questions }}
+    </h2>
+    <div id="players">
+      <div
+        *ngFor="let player of players"
+        class="player"
+        [matTooltip]="player.user.username + ' : ' + player.score + ' pts'"
+        [ngClass]="{
+          'right': player.answerStatus === PlayerAnswerStatus.RIGHT,
+          'wrong': player.answerStatus === PlayerAnswerStatus.WRONG
+        }"
+      >
+        <i class="fa {{ ICONS.player }} player-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="quiz-score-bar"
+    [matTooltip]="'score: ' + me.score"
+    matTooltipPosition="above"
+  >
+    <div
+      class="quiz-score-bullet"
+      *ngFor="let answer of me.answerStatusHistory"
+      [ngClass]="{
+        right: answer === PlayerAnswerStatus.RIGHT,
+        wrong: answer === PlayerAnswerStatus.WRONG,
+        answering: answer === PlayerAnswerStatus.ANSWERING,
+        none: answer === PlayerAnswerStatus.NONE
+      }"
+    ></div>
+  </div>
+
+  <div
+    id="quiz-time-bar"
+    *ngIf="quiz.question_duration !== 0"
+    [ngClass]="{ even: currentIndex % 2 === 0 }"
+  >
+    <div
+      id="quiz-time-bar-inner"
+      [ngStyle]="{ 'animation-duration': quiz.question_duration + 's' }"
+    ></div>
   </div>
 </div>

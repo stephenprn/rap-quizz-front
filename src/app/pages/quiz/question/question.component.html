@@ -8,6 +8,7 @@
       *ngFor="let questionResponse of question.responses"
       [response]="questionResponse.response"
       (selectResponse)="answer(questionResponse.response)"
+      [answerStatus]="me.answerStatus"
     ></app-response>
   </div>
 </div>

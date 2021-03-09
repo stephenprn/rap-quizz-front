@@ -9,7 +9,7 @@ export class Question extends BaseClass {
   type?: ResponseType;
   index?: number;
 
-  constructor(label: string) {
+  constructor({ label }: { label: string }) {
     super();
 
     if (label != null) {

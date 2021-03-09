@@ -1,0 +1,28 @@
+@import "./../../../style-var.scss";
+
+#history-table {
+  width: 100%;
+  background-color: var(--transparency-light);
+  border-radius: $basic-card-element-radius;
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--transparency-light);
+    color: white;
+
+    &:last-of-type {
+      border-top-right-radius: $basic-card-element-radius;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: $basic-card-element-radius;
+    }
+  }
+
+  th,
+  td {
+    padding: 8px;
+  }
+}

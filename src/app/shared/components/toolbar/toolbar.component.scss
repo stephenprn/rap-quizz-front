@@ -1,6 +1,8 @@
 @import "./../../../../style-var.scss";
 
 $padding-horizontal: 50px;
+$logo-padding: 20px;
+$button-size: 60px;
 
 $background-color: #ffffff;
 
@@ -12,21 +14,60 @@ $background-color: #ffffff;
   padding: 0 $padding-horizontal;
   height: 100%;
 
-  background-color: var(--accent-lighter-color);
-
   transition: background-color 0.3s ease-in-out;
 
-  &.red {
-    background-color: var(--primary-color);
+  &.scrolled {
+    background-color: var(--transparency-middle);
+    border-bottom: 1px solid var(--transparency-dark);
   }
 
   > #toolbar-left-elements,
-  > #toolbar-right-elements {
+  > #toolbar-right-elements,
+  > #toolbar-middle-elements {
+    height: 100%;
     display: flex;
     align-items: center;
+    flex: 1;
 
     > * {
       margin: 0 5px;
+    }
+  }
+
+  > #toolbar-left-elements {
+    justify-content: flex-start;
+  }
+
+  > #toolbar-middle-elements {
+    justify-content: center;
+  }
+
+  > #toolbar-right-elements {
+    justify-content: flex-end;
+
+    button {
+      height: $button-size;
+      width: $button-size;
+
+      i {
+        font-size: 1.4rem;
+      }     
+    }
+  }
+
+  #toolbar-logo {
+    cursor: pointer;
+
+    height: 100%;
+    box-sizing: border-box;
+    padding: $logo-padding;
+
+    box-shadow: 0;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      filter: drop-shadow(0 0 3px #ffffff);
+      transform: scale(1.02);
     }
   }
 }

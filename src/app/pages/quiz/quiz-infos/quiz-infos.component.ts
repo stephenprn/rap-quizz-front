@@ -1,6 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AppConstants } from './../../../app.constants';
+import {
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Quiz } from 'src/app/shared/classes/models/quiz.class';
-import { Player } from 'src/app/shared/classes/others/player.class';
+import { Player, PlayerAnswerStatus } from 'src/app/shared/classes/others/player.class';
 
 @Component({
   selector: 'app-quiz-infos',
@@ -12,13 +17,16 @@ export class QuizInfosComponent implements OnInit {
   public quiz: Quiz;
 
   @Input()
-  public score: number;
-
-  @Input()
   public currentIndex: number;
 
   @Input()
   public players: Player[];
+
+  @Input()
+  public me: Player;
+
+  public PlayerAnswerStatus = PlayerAnswerStatus;
+  public ICONS = AppConstants.ICONS;
 
   constructor() {}
 

@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { AuthenticationUiService } from '../../services/ui/authentication-ui.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { AuthenticationApiService } from '../../services/api/authentication-api.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -16,7 +15,7 @@ import { AuthenticationApiService } from '../../services/api/authentication-api.
 export class ToolbarComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) connectionMenuTrigger: MatMenuTrigger;
 
-  private readonly MIN_DISTANCE_TOOLBAR_RED = 100;
+  private readonly MIN_DISTANCE_TOOLBAR_OPAQUE = 20;
 
   public userConnected: boolean;
   public homeScrolled: boolean = false;
@@ -33,8 +32,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private authenticationUiService: AuthenticationUiService,
     private uiService: UiService,
     private utilsService: UtilsService,
-    private authenticationService: AuthenticationService,
-    private authenticationApiService: AuthenticationApiService
+    private authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +52,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     this.promises.homeScrolled = this.uiService.windowScroll$.subscribe(
       ({ top }) => {
-        this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_RED;
+        this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_OPAQUE;
         this.changeDetectorRef.detectChanges();
       }
     );
