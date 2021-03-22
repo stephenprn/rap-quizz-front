@@ -44,7 +44,7 @@ div.basic-button-wrapper {
     color: $text-color;
 
     border-radius: $border-radius;
-    height: $height;
+    min-height: $height;
     margin-top: $bottom-part-height;
 
     z-index: 0;

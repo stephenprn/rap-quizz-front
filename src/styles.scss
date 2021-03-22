@@ -308,9 +308,14 @@ a {
 
   display: block;
 
-  background-color: var(--transparency-middle);
+  // background-color: var(--transparency-middle);
   border: 1px solid var(--accent-lighter-color);
-  box-shadow: $base-shadow;
+  // box-shadow: $base-shadow;
+
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 
   .basic-card-section {
     background-color: var(--transparency-light);
@@ -331,13 +336,14 @@ i.fa {
   display: flex;
   justify-content: center;
 
-  background: #4a0979;
-  background: linear-gradient(
-    45deg,
-    mat-color($mat-primary, darker) 0%,
-    mat-color($mat-primary, lighter),
-    100%
-  );
+  // background: #4a0979;
+  // background: linear-gradient(
+  //   45deg,
+  //   mat-color($mat-primary, darker) 0%,
+  //   mat-color($mat-primary, lighter),
+  //   100%
+  // );
+  background-image: linear-gradient( 135deg, #D056AD 10%, #2D26FB 100%);
 
   &.has-toolbar {
     padding-top: $toolbar-height;

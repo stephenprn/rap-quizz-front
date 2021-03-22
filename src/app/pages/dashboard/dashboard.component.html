@@ -1,6 +1,9 @@
 <div id="dashboard-container" class="basic-card">
   <h1 class="basic-title bordered">Historique des parties</h1>
-  <table id="history-table">
+  <div  *ngIf="history.data.length === 0">
+    Pas de parties jouées pour l'instant.
+  </div>
+  <table id="history-table" *ngIf="history.data.length > 0">
     <thead>
       <tr>
         <th>Date</th>
