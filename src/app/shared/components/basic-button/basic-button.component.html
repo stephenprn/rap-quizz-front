@@ -4,7 +4,7 @@
   'right': customClass === 'right',
   'wrong': customClass === 'wrong'
 }">
-  <button class="basic-button" (click)="clicked.emit()" [disabled]="disabled">
+  <button class="basic-button" (click)="buttonClicked()" [disabled]="disabled">
     <div class="basic-button-body">
       <i class="fa {{icon}}" *ngIf="icon"></i>
       <ng-content></ng-content>

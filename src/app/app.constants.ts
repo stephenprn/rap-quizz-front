@@ -8,6 +8,8 @@ export class AppConstants {
     shareQuiz: 'fa-link',
     player: 'fa-user',
     playerAdmin: 'fa-star',
-    joinDate: 'fa-clock'
+    joinDate: 'fa-clock',
+    login: 'fa-sign-in-alt',
+    register: 'fa-pen'
   }
 }

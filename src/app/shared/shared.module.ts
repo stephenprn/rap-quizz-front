@@ -33,6 +33,7 @@ import { QuizApiService } from './services/api/quiz-api.service';
 import { ProfileApiService } from './services/api/profile-api.service';
 import { BasicButtonComponent } from './components/basic-button/basic-button.component';
 import { DurationPipe } from './pipes/duration.pipe';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { DurationPipe } from './pipes/duration.pipe';
     DurationPipe,
 
     LoggedGuard,
+    AdminGuard,
 
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: InInterceptor, multi: true },

@@ -1,0 +1,65 @@
+<div id="register-container">
+  <form id="register-form" class="basic-form" [formGroup]="registerFormGroup">
+    <h1 class="basic-title bordered">Register</h1>
+
+    <p>Already have an account? <a (click)="openLoginDialog()">Log in</a></p>
+
+    <div class="basic-form-inputs">
+      <mat-form-field appearance="outline" class="basic-form-input">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error> Please enter a valid email address </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="basic-form-input">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error *ngIf="!usernameExists.state">
+          Username must be between {{ USERNAME_MIN_LENGTH }} and
+          {{ USERNAME_MAX_LENGTH }} characters long
+        </mat-error>
+        <mat-error *ngIf="usernameExists.state">
+          This username already exists
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="basic-form-input">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" />
+        <mat-error>
+          Password must be between {{ PASSWORD_MIN_LENGTH }} and
+          {{ PASSWORD_MAX_LENGTH }} characters long
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="basic-form-input">
+        <mat-label>Password confirmation</mat-label>
+        <input
+          matInput
+          formControlName="passwordConfirmation"
+          type="password"
+        />
+        <mat-error>
+          Password confirmation must be identical to password
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="basic-form-buttons-container"
+      [matTooltip]="
+        registerFormGroup.invalid ? 'At least one field is invalid' : null
+      "
+    >
+      <app-basic-button
+        (clicked)="register()"
+        [disabled]="
+          registerFormGroup.invalid || usernameExists.loading || submitting
+        "
+        [icon]="ICONS.register"
+      >
+        S'enregistrer
+      </app-basic-button>
+    </div>
+  </form>
+</div>

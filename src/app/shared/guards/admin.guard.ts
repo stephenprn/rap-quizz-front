@@ -3,14 +3,15 @@ import { AuthenticationApiService } from './../services/api/authentication-api.s
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
+import { UserRole } from '../classes/models/user.class';
 
 @Injectable()
-export class LoggedGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(
-    private authenticationService: AuthenticationService
+    private authenticationApiService: AuthenticationApiService
   ) {}
 
-  canActivate(): Observable<boolean> | boolean {
-    return this.authenticationService.userConnected$.value;
+  canActivate(): Observable<boolean> {
+    return this.authenticationApiService.hasRole(UserRole.ADMIN);
   }
 }

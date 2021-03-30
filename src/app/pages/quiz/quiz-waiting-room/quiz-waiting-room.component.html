@@ -26,12 +26,12 @@
       </div>
 
       <div id="quiz-controls">
-        <app-basic-button (click)="shareLink()" [icon]="ICONS.shareQuiz">
+        <app-basic-button (clicked)="shareLink()" [icon]="ICONS.shareQuiz">
           Inviter
         </app-basic-button>
 
         <app-basic-button
-          (click)="startQuiz.emit()"
+          (clicked)="startQuiz.emit()"
           [icon]="ICONS.questionAdd"
           *ngIf="admin"
         >

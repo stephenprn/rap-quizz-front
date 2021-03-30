@@ -29,7 +29,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
 
-    private authenticationUiService: AuthenticationUiService,
     private uiService: UiService,
     private utilsService: UtilsService,
     private authenticationService: AuthenticationService
@@ -59,11 +58,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   public openRegister() {
-    this.authenticationUiService.displayRegisterDialog();
+    this.router.navigate(['/register']);
   }
 
   public openLogin() {
-    this.authenticationUiService.displayLoginDialog();
+    this.router.navigate(['/login']);
   }
 
   public logout() {

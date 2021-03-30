@@ -1,8 +1,14 @@
 import { BaseClass } from './base.class';
 
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
+
 export class User extends BaseClass {
   username?: string;
   uuid?: string;
+  role?: UserRole;
 
   constructor(username?: string, uuid?: string) {
     super();

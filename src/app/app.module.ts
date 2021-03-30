@@ -1,3 +1,7 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RegisterComponent } from './pages/login-register/register/register.component';
+import { LoginComponent } from './pages/login-register/login/login.component';
+import { LoginRegisterComponent } from './pages/login-register/login-register.component';
 import { QuizComponent } from './pages/quiz/quiz.component';
 import { QuestionComponent } from './pages/quiz/question/question.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -31,6 +35,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { QuizPlayerComponent } from './pages/quiz/quiz-player/quiz-player.component';
 import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-ending-medal/quiz-ending-medal.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { QuestionsListComponent } from './pages/admin/questions-list/questions-list.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +44,15 @@ import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-
 
     HomeComponent,
     QuizInitComponent,
+    LoginRegisterComponent,
+    AdminComponent,
 
     QuizInfosComponent,
 
     AddQuestionComponent,
+
+    LoginComponent,
+    RegisterComponent,
 
     QuizComponent,
     QuizInfosComponent,
@@ -56,6 +67,8 @@ import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-
 
     QuestionComponent,
     ResponseComponent,
+
+    QuestionsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,6 +85,7 @@ import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-
     MatAutocompleteModule,
     MatButtonToggleModule,
     MatSelectModule,
+    MatCheckboxModule,
 
     SharedModule,
 

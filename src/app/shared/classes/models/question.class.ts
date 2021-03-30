@@ -8,6 +8,7 @@ export class Question extends BaseClass {
   author?: User;
   type?: ResponseType;
   index?: number;
+  hidden?: boolean;
 
   constructor({ label }: { label: string }) {
     super();

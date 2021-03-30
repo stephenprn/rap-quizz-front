@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 import { RestService } from '../rest.service';
 import { AuthUser } from '../authentication.service';
+import { UserRole } from '../../classes/models/user.class';
 
 @Injectable()
 export class AuthenticationApiService {
@@ -12,6 +13,7 @@ export class AuthenticationApiService {
     refresh: this.BASE_URL + 'refresh',
     checkUsername: this.BASE_URL + 'check-username',
     isLogged: this.BASE_URL + 'check-logged',
+    hasRole: this.BASE_URL + 'has-role/',
   };
 
   constructor(private restService: RestService) {}
@@ -53,5 +55,9 @@ export class AuthenticationApiService {
 
   public isLogged() {
     return this.restService.get(this.URLS.isLogged);
+  }
+
+  public hasRole(role: UserRole) {
+    return this.restService.get(this.URLS.hasRole + role);
   }
 }

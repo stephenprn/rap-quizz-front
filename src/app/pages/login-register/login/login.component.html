@@ -1,6 +1,6 @@
-<div id="login">
+<div id="login-container">
   <form id="login-form" class="basic-form" [formGroup]="loginFormGroup">
-    <h1 class="basic-form-title">Login</h1>
+    <h1 class="basic-title bordered">Login</h1>
 
     <p>No account? <a (click)="openRegisterDialog()">Create one</a></p>
 
@@ -18,11 +18,11 @@
           Password must be at least {{ PASSWORD_MIN_LENGTH }} characters long
         </mat-error>
       </mat-form-field>
-    </div>
 
-    <mat-checkbox class="basic-form-checkbox" formControlName="rememberMe"
-      >Remember me</mat-checkbox
-    >
+      <mat-checkbox class="basic-form-checkbox" formControlName="rememberMe"
+        >Remember me</mat-checkbox
+      >
+    </div>
 
     <div
       class="basic-form-buttons-container"
@@ -30,14 +30,13 @@
         loginFormGroup.invalid ? 'At least one field is invalid' : null
       "
     >
-      <button
-        class="basic-button"
-        mat-flat-button
-        (click)="login()"
+      <app-basic-button
+        (clicked)="login()"
         [disabled]="loginFormGroup.invalid || submitting"
+        [icon]="ICONS.login"
       >
-        Log in
-      </button>
+        Se connecter
+      </app-basic-button>
     </div>
   </form>
 </div>

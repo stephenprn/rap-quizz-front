@@ -1,0 +1,19 @@
+<div id="questions-list-container" class="basic-card">
+  <h1 class="basic-title bordered">Questions</h1>
+  <table class="basic-table" id="questions-table">
+    <thead>
+      <tr>
+        <th>Creation</th>
+        <th>Label</th>
+        <th>Cachée</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of questions.data">
+        <td>{{question.creation_date | date: 'dd/MM/yyyy (hh:mm)'}}</td>
+        <td>{{question.label}}</td>
+        <td class="center"><mat-checkbox (change)="setHidden(question, $event.checked)" [(ngModel)]="question.hidden"></mat-checkbox></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

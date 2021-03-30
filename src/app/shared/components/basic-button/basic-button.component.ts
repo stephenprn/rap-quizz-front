@@ -28,4 +28,12 @@ export class BasicButtonComponent {
 
   @Input()
   customClass: string;
+
+  public buttonClicked() {
+    if (this.disabled) {
+      return;
+    }
+    
+    this.clicked.emit();
+  }
 }

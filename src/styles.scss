@@ -302,8 +302,41 @@ a {
   }
 }
 
+
+.basic-table {
+  width: 100%;
+  background-color: var(--transparency-light);
+  border-radius: $basic-card-element-radius;
+
+  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--transparency-light);
+    color: white;
+
+    &:last-of-type {
+      border-top-right-radius: $basic-card-element-radius;
+    }
+
+    &:first-of-type {
+      border-top-left-radius: $basic-card-element-radius;
+    }
+  }
+
+  th,
+  td {
+    padding: 8px;
+
+    &.center {
+      text-align: center;
+    }
+  }
+}
+
+
 .basic-card {
-  border-radius: 30px;
+  border-radius: $basic-card-radius;
   padding: 40px;
 
   display: block;
@@ -323,7 +356,7 @@ a {
     padding: 20px;
   }
 
-  > .basic-title {
+  .basic-title {
     margin-bottom: 40px;
   }
 }
@@ -343,6 +376,10 @@ i.fa {
   //   mat-color($mat-primary, lighter),
   //   100%
   // );
+  // background-image: 
+  //   radial-gradient(at top left, #D056AD, transparent),
+  //   radial-gradient(at top right, #2D26FB, transparent),
+  //   radial-gradient(at bottom left, #703cff, transparent);
   background-image: linear-gradient( 135deg, #D056AD 10%, #2D26FB 100%);
 
   &.has-toolbar {
@@ -371,19 +408,13 @@ i.fa {
 
 .confirmation-dialog {
   transition: all 0.1s linear;
-  border-radius: 35px;
+  border-radius: $basic-card-radius;
 
   & > mat-dialog-container {
-    border-radius: 35px;
+    border-radius: $basic-card-radius;
   }
 
   &.mobile {
-    &:not(.mobile-full) {
-      & > mat-dialog-container {
-        border-radius: 15px;
-      }
-    }
-
     &.mobile-full {
       & > mat-dialog-container {
         border-radius: 0;
@@ -421,6 +452,14 @@ i.fa {
       &:not(:first-child) {
         margin-top: 10px;
       }
+
+      &.solid {
+
+      }
+    }
+
+    > .basic-form-checkbox {
+      margin-bottom: 10px;
     }
   }
 }
@@ -446,6 +485,7 @@ i.fa {
   background-color: var(--transparency-light);
   border-radius: 5px;
 }
+
 
 .mat-toolbar {
   background: unset;
