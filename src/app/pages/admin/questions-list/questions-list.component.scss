@@ -1,0 +1,20 @@
+#questions-table {
+    margin-bottom: 20px;
+}
+
+.edit-label-container {
+    display: flex;
+
+    > .edit-label-input {
+        flex: 1;
+    }
+}
+
+.label-container {
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    
+    &:hover {
+        background-color: rgba(255,255,255,0.75);
+    }
+}

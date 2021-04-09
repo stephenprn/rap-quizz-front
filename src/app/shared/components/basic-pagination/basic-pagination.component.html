@@ -1,0 +1,24 @@
+<div class="basic-pagination-container" *ngIf="pagination.pageMax !== 0">
+  <button
+    (click)="goPage.emit(pagination.pageNbr - 1)"
+    mat-icon-button
+    matTooltip="Page précédente"
+    [disabled]="pagination.pageNbr === 0"
+  >
+    <i class="fa {{ ICONS.pagePrevious }}"></i>
+  </button>
+  <div id="pages">
+    <span class="page" *ngFor="let page of pages; let last = last">
+      <a [ngClass]="{ 'current': p -1 === pagination.pageNbr }" *ngFor="let p of page" (click)="goPage.emit(p - 1)">{{ p }}</a>
+      {{ !last ? "...": "" }}
+    </span>
+  </div>
+  <button
+    (click)="goPage.emit(pagination.pageNbr + 1)"
+    mat-icon-button
+    matTooltip="Page suivante"
+    [disabled]="pagination.pageNbr === pagination.pageMax"
+  >
+    <i class="fa {{ ICONS.pageNext }}"></i>
+  </button>
+</div>

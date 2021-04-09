@@ -29,7 +29,6 @@ export class ResponseComponent implements OnChanges {
   private selected: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.answerStatus && changes.answerStatus.currentValue) {
       this.getCustomClass();
     }

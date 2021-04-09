@@ -15,19 +15,19 @@
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" />
         <mat-error>
-          Password must be at least {{ PASSWORD_MIN_LENGTH }} characters long
+          Le mot de passe doit contenir {{ PASSWORD_MIN_LENGTH }} caractères minimum
         </mat-error>
       </mat-form-field>
 
       <mat-checkbox class="basic-form-checkbox" formControlName="rememberMe"
-        >Remember me</mat-checkbox
+        >Se souvenir de moi</mat-checkbox
       >
     </div>
 
     <div
       class="basic-form-buttons-container"
       [matTooltip]="
-        loginFormGroup.invalid ? 'At least one field is invalid' : null
+        loginFormGroup.invalid ? 'Veuillez remplir tous les champs' : null
       "
     >
       <app-basic-button

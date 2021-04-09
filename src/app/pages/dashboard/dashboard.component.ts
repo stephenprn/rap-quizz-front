@@ -2,8 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserQuiz } from 'src/app/shared/classes/models/quiz.class';
 import { ProfileApiService } from 'src/app/shared/services/api/profile-api.service';
-import { RestPagination, RestPaginationResults } from 'src/app/shared/services/rest.service';
 import { UiService } from 'src/app/shared/services/ui.service';
+import cloneDeep from 'lodash/cloneDeep';
+import { Pagination, PaginationResults } from 'src/app/shared/classes/others/pagination.class';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,8 +12,8 @@ import { UiService } from 'src/app/shared/services/ui.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  private historyPagination = new RestPagination();
-  public history: { total: number, data: UserQuiz[] } = { total: null, data: [] };
+  public historyPagination = new Pagination(0, 20);
+  public history: UserQuiz[] = [];
 
   constructor(
     private uiService: UiService,
@@ -20,15 +21,23 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initHistory();
+    this.getHistory();
   }
 
-  private initHistory() {
+  public goPage(page: number) {
+    this.historyPagination.pageNbr = page;
+    this.getHistory();
+  }
+
+  private getHistory() {
     this.profileApiService.getHistory(this.historyPagination).subscribe(
-      (res: RestPaginationResults<UserQuiz>) => {
-        this.history.data.push(...res.data);
-        this.history.total = res.total;
-        this.historyPagination.pageNbr++;
+      (res: PaginationResults<UserQuiz>) => {
+        this.history = res.data;
+        this.historyPagination.total = res.total;
+        this.historyPagination.pageMax = Math.floor(
+          res.total / this.historyPagination.nbrResults
+        );
+        this.historyPagination = cloneDeep(this.historyPagination);
       },
       (err: HttpErrorResponse) => {
         this.uiService.displayToast(err.error.description);

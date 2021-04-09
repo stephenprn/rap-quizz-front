@@ -2,6 +2,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
+import { Pagination } from '../classes/others/pagination.class';
 
 export class RestParameter {
   name: string;
@@ -13,27 +14,6 @@ export class RestParameter {
   }
 }
 
-export class RestPagination {
-  pageNbr: number;
-  nbrResults?: number;
-
-  constructor(pageNbr?: number, nbrResults?: number) {
-    if (pageNbr == null) {
-      this.pageNbr = 0;
-    } else {
-      this.pageNbr = pageNbr;
-    }
-
-    if (nbrResults != null) {
-      this.nbrResults = nbrResults;
-    }
-  }
-}
-
-export class RestPaginationResults<T> {
-  total: number;
-  data: T[];
-}
 
 @Injectable()
 export class RestService {
@@ -47,7 +27,7 @@ export class RestService {
   public get(
     path: string,
     parameters?: RestParameter[],
-    pagination?: RestPagination
+    pagination?: Pagination
   ): Observable<any> {
     const httpParams = this.getParams(parameters, pagination);
 
@@ -60,7 +40,7 @@ export class RestService {
     path: string,
     body: any,
     parameters?: RestParameter[],
-    pagination?: RestPagination
+    pagination?: Pagination
   ): Observable<any> {
     const httpParams = this.getParams(parameters, pagination);
 
@@ -72,7 +52,7 @@ export class RestService {
   public delete(
     path: string,
     parameters?: RestParameter[],
-    pagination?: RestPagination
+    pagination?: Pagination
   ) {
     const httpParams = this.getParams(parameters, pagination);
 
@@ -81,7 +61,7 @@ export class RestService {
     });
   }
 
-  private getParams(parameters?: RestParameter[], pagination?: RestPagination) {
+  private getParams(parameters?: RestParameter[], pagination?: Pagination) {
     let httpParams = new HttpParams();
 
     if (parameters != null) {

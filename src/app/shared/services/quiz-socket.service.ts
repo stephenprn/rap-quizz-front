@@ -42,6 +42,7 @@ export class QuizSocketService {
     {
       name: 'user_answered',
       callback: (socketEvent: any) => {
+        console.log({socketEvent});
         this.userAnswered$.emit(new SocketEvent<Answer>(socketEvent));
       },
     },

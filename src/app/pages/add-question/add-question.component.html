@@ -10,8 +10,8 @@
       <mat-label>Question</mat-label>
       <input matInput formControlName="label" />
       <mat-error>
-        Label must be between {{ TITLE_MIN_LENGTH }} and
-        {{ TITLE_MAX_LENGTH }} characters long
+        Le titre doit avoir une longeur comprise entre {{ QUESTION_TITLE_MIN_LENGTH }} et
+        {{ QUESTION_TITLE_MAX_LENGTH }} caractères
       </mat-error>
     </mat-form-field>
 
@@ -27,11 +27,42 @@
       </mat-select>
     </mat-form-field>
 
-    <div *ngIf="addQuestionFormGroup.get('responseSelected').value != null">
-      Selected: {{ addQuestionFormGroup.get("responseSelected").value.label }}
+    <p class="basic-paragraph">
+      Vous pouvez spécifier seulement la bonne réponse : les autres réponses
+      proposées durant le quiz seront complétées automatiquement. Vous pouvez
+      également spécifier jusqu'à 3 fausses réponses qui seront prises en
+      compte.
+    </p>
+
+    <div *ngIf="responseSelectedLabel != null">
+      <mat-radio-group
+        [(ngModel)]="responseSelectedLabel"
+        [ngModelOptions]="{ standalone: true }"
+      >
+        <div class="response" *ngFor="let response of responses">
+          <mat-radio-button
+            [value]="response.label"
+          >
+            {{ response.label }}
+          </mat-radio-button>
+          
+          <button
+          (click)="removeResponse(response)"
+          mat-icon-button
+          matTooltip="Supprimer la réponse"
+        >
+          <i class="fa {{ ICONS.delete }}"></i>
+        </button>
+
+        </div>
+      </mat-radio-group>
     </div>
 
-    <mat-form-field appearance="outline" class="basic-form-input">
+    <mat-form-field
+      appearance="outline"
+      class="basic-form-input"
+      *ngIf="responses.length < QUIZ_DEFAULT_NBR_RESPONSES"
+    >
       <mat-label>Chercher une réponse</mat-label>
       <input
         type="text"
@@ -42,12 +73,12 @@
       />
       <mat-autocomplete
         #auto="matAutocomplete"
-        (optionSelected)="selectResponse($event.value)"
+        (optionSelected)="$event.value && addResponse($event.value)"
       >
         <mat-option
           *ngFor="let res of matchingResponses"
           [value]="res"
-          (click)="selectResponse(res)"
+          (click)="addResponse(res)"
           >{{ res.label }}</mat-option
         >
         <mat-option
@@ -61,7 +92,7 @@
 
   <div
     [matTooltip]="
-      addQuestionFormGroup.invalid ? 'At least one field is invalid' : null
+      addQuestionFormGroup.invalid ? 'Veuillez remplir tous les champs' : null
     "
   >
     <app-basic-button

@@ -1,0 +1,20 @@
+.basic-pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span.page {
+        color: #ffffff;
+
+        > a {
+            color: #ffffff;
+            margin: 0 8px;
+            font-weight: 200;
+
+            &.current {
+                pointer-events: none;
+                font-weight: 600;
+            }
+        }
+    }
+}

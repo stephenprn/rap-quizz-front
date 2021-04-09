@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://questions-publisher-back.herokuapp.com'
+  apiUrl: 'https://rap-quiz-back.herokuapp.com'
 };

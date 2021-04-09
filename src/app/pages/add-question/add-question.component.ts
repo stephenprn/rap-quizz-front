@@ -5,7 +5,10 @@ import { QuestionsApiService } from 'src/app/shared/services/api/questions-api.s
 import { HttpErrorResponse } from '@angular/common/http';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { Router } from '@angular/router';
-import { Response, ResponseType } from 'src/app/shared/classes/models/response.class';
+import {
+  Response,
+  ResponseType,
+} from 'src/app/shared/classes/models/response.class';
 import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
 
 @Component({
@@ -14,27 +17,29 @@ import { ResponseApiService } from 'src/app/shared/services/api/response-api.ser
   styleUrls: ['./add-question.component.scss'],
 })
 export class AddQuestionComponent implements OnInit {
-  public readonly TITLE_MIN_LENGTH = 8;
-  public readonly TITLE_MAX_LENGTH = 100;
+  public readonly QUIZ_DEFAULT_NBR_RESPONSES = 4;
   private readonly SEARCH_REFRESH_DELAY = 200;
 
   public addQuestionFormGroup: FormGroup;
+  public responses: Response[] = [];
+  public responseSelectedLabel: string;
 
   public searchTxt: string;
   public matchingResponses: Response[] = [];
   private matchingTimeout: any = null;
 
-  public responseTypes: { value: string, label: string }[] = [
-    {label: "Artiste", value: ResponseType.ARTIST},
-    {label: "Album", value: ResponseType.ALBUM},
-    {label: "Date", value: ResponseType.DATE},
-    {label: "Autre", value: ResponseType.OTHER}
+  public responseTypes: { value: string; label: string }[] = [
+    { label: 'Artiste', value: ResponseType.ARTIST },
+    { label: 'Album', value: ResponseType.ALBUM },
+    { label: 'Autre', value: ResponseType.OTHER },
   ];
 
   public loading: boolean;
   public submitting: boolean;
 
   public ICONS = AppConstants.ICONS;
+  public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
+  public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
 
   @ViewChild('searchInput') searchInput: ElementRef;
 
@@ -54,17 +59,16 @@ export class AddQuestionComponent implements OnInit {
     this.addQuestionFormGroup = new FormGroup({
       label: new FormControl('', [
         Validators.required,
-        Validators.minLength(this.TITLE_MIN_LENGTH),
-        Validators.maxLength(this.TITLE_MAX_LENGTH),
+        Validators.minLength(this.QUESTION_TITLE_MIN_LENGTH),
+        Validators.maxLength(this.QUESTION_TITLE_MAX_LENGTH),
       ]),
       responseType: new FormControl(ResponseType.ARTIST, [Validators.required]),
-      responseSelected: new FormControl(null, [Validators.required]),
     });
   }
 
   public searchSuggestions(resetSelected?: boolean) {
     if (!!resetSelected) {
-      this.addQuestionFormGroup.controls['responseSelected'].setValue(null);
+      this.responseSelectedLabel = null;
     }
 
     if (this.matchingTimeout !== null) {
@@ -81,7 +85,8 @@ export class AddQuestionComponent implements OnInit {
       this.responseApiService
         .search(
           this.searchTxt,
-          this.addQuestionFormGroup.get('responseType').value
+          this.addQuestionFormGroup.get('responseType').value,
+          this.responses
         )
         .subscribe(
           (responses: Response[]) => {
@@ -101,7 +106,7 @@ export class AddQuestionComponent implements OnInit {
       .add(this.searchTxt, this.addQuestionFormGroup.get('responseType').value)
       .subscribe(
         (response: Response) => {
-          this.selectResponse(response);
+          this.addResponse(response);
         },
         () => {
           this.uiService.displayToast(
@@ -111,10 +116,31 @@ export class AddQuestionComponent implements OnInit {
       );
   }
 
-  public selectResponse(response: Response) {
+  public addResponse(response: Response) {
     this.searchInput.nativeElement.value = '';
-    this.addQuestionFormGroup.controls['responseSelected'].setValue(response);
+    this.responses.push(response);
+
+    if (this.responses.length === 1) {
+      this.selectResponse(response);
+    }
+
     this.matchingResponses = [];
+  }
+
+  public removeResponse(response: Response) {
+    this.responses = this.responses.filter((r) => r != response);
+
+    if (this.responseSelectedLabel === response.label) {
+      if (this.responses.length > 0) {
+        this.selectResponse(this.responses[0]);
+      } else {
+        this.selectResponse(null);
+      }
+    }
+  }
+
+  public selectResponse(response?: Response) {
+    this.responseSelectedLabel = response?.label || null;
   }
 
   public submit() {
@@ -123,12 +149,16 @@ export class AddQuestionComponent implements OnInit {
 
   private addQuestion() {
     this.submitting = true;
-    console.log(this.addQuestionFormGroup.value);
+    const rightResponse = this.responses.find(
+      (r) => r.label === this.responseSelectedLabel
+    );
+    const falseResponses = this.responses.filter((r) => r !== rightResponse);
 
     this.questionsApiService
       .add(
         this.addQuestionFormGroup.get('label').value,
-        this.addQuestionFormGroup.get('responseSelected').value
+        rightResponse,
+        falseResponses
       )
       .subscribe(
         () => {

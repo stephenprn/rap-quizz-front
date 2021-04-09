@@ -1,13 +1,11 @@
 import { QuestionsApiService } from './../../../shared/services/api/questions-api.service';
 import { Question } from './../../../shared/classes/models/question.class';
 import { Component, OnInit } from '@angular/core';
-import {
-  RestPagination,
-  RestPaginationResults,
-} from 'src/app/shared/services/rest.service';
 import { UiService } from 'src/app/shared/services/ui.service';
-import { ProfileApiService } from 'src/app/shared/services/api/profile-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import cloneDeep from 'lodash/cloneDeep';
+import { Pagination, PaginationResults } from 'src/app/shared/classes/others/pagination.class';
+import { AppConstants } from 'src/app/app.constants';
 
 @Component({
   selector: 'app-questions-list',
@@ -15,11 +13,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./questions-list.component.scss'],
 })
 export class QuestionsListComponent implements OnInit {
-  private questionsPagination = new RestPagination();
-  public questions: { total: number; data: Question[] } = {
-    total: null,
-    data: [],
+  public questionsPagination = new Pagination(0, 20);
+  public questions: Question[] = [];
+  public questionEdit: {
+    label: string,
+    question: Question
+  } = {
+    label: null,
+    question: null
   };
+
+  public ICONS = AppConstants.ICONS;
+  public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
+  public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
 
   constructor(
     private uiService: UiService,
@@ -27,15 +33,41 @@ export class QuestionsListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initHistory();
+    this.getQuestions();
   }
 
-  private initHistory() {
+  public goPage(page: number) {
+    this.questionsPagination.pageNbr = page;
+    this.getQuestions();
+  }
+
+  private getQuestions() {
     this.questionsApiService.list(this.questionsPagination).subscribe(
-      (res: RestPaginationResults<Question>) => {
-        this.questions.data.push(...res.data);
-        this.questions.total = res.total;
-        this.questionsPagination.pageNbr++;
+      (res: PaginationResults<Question>) => {
+        this.questions = res.data;
+        this.questionsPagination.total = res.total;
+        this.questionsPagination.pageMax =
+          Math.floor(res.total / this.questionsPagination.nbrResults);
+        this.questionsPagination = cloneDeep(this.questionsPagination );
+      },
+      (err: HttpErrorResponse) => {
+        this.uiService.displayToast(err.error.description);
+      }
+    );
+  }
+
+  public setLabel() {
+    this.questionsApiService.editQuestion(this.questionEdit.question, {
+      label: this.questionEdit.label
+    }).subscribe(
+      () => {
+        this.uiService.displayToast(
+          `${this.questionEdit.question.label} -> ${this.questionEdit.label}`
+        );
+        this.questions.find(q => q.uuid === this.questionEdit.question.uuid).label = this.questionEdit.label;
+        
+        this.questionEdit.label = null;
+        this.questionEdit.question = null;
       },
       (err: HttpErrorResponse) => {
         this.uiService.displayToast(err.error.description);
@@ -44,7 +76,7 @@ export class QuestionsListComponent implements OnInit {
   }
 
   public setHidden(question: Question, hidden: boolean) {
-    this.questionsApiService.setHidden(question, hidden).subscribe(
+    this.questionsApiService.editQuestion(question, { hidden }).subscribe(
       () => {
         this.uiService.displayToast(
           `Question ${question.uuid} cachée : ${hidden}`
@@ -54,5 +86,10 @@ export class QuestionsListComponent implements OnInit {
         this.uiService.displayToast(err.error.description);
       }
     );
+  }
+
+  public setEditQuestion(question: Question) {
+    this.questionEdit.label = question.label;
+    this.questionEdit.question = question;
   }
 }

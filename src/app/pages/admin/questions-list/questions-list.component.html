@@ -9,11 +9,51 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let question of questions.data">
-        <td>{{question.creation_date | date: 'dd/MM/yyyy (hh:mm)'}}</td>
-        <td>{{question.label}}</td>
-        <td class="center"><mat-checkbox (change)="setHidden(question, $event.checked)" [(ngModel)]="question.hidden"></mat-checkbox></td>
+      <tr *ngFor="let question of questions">
+        <td>{{ question.creation_date | date: "dd/MM/yyyy (hh:mm)" }}</td>
+        <td>
+          <div
+            (click)="setEditQuestion(question)"
+            *ngIf="question.uuid !== questionEdit.question?.uuid"
+            class="label-container"
+          >
+            {{ question.label }}
+          </div>
+          <div
+            *ngIf="question.uuid === questionEdit.question?.uuid"
+            class="edit-label-container"
+          >
+            <input
+              class="edit-label-input"
+              type="text"
+              [(ngModel)]="questionEdit.label"
+            />
+
+            <button
+              (click)="setLabel()"
+              mat-icon-button
+              matTooltip="Valider l'édition"
+              [disabled]="
+                questionEdit.label.length < QUESTION_TITLE_MIN_LENGTH ||
+                questionEdit.label.length > QUESTION_TITLE_MAX_LENGTH
+              "
+            >
+              <i class="fa {{ ICONS.check }}"></i>
+            </button>
+          </div>
+        </td>
+        <td class="center">
+          <mat-checkbox
+            (change)="setHidden(question, $event.checked)"
+            [(ngModel)]="question.hidden"
+          ></mat-checkbox>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <app-basic-pagination
+    (goPage)="goPage($event)"
+    [pagination]="questionsPagination"
+  ></app-basic-pagination>
 </div>

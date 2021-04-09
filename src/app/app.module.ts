@@ -37,6 +37,7 @@ import { QuizPlayerComponent } from './pages/quiz/quiz-player/quiz-player.compon
 import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-ending-medal/quiz-ending-medal.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { QuestionsListComponent } from './pages/admin/questions-list/questions-list.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { QuestionsListComponent } from './pages/admin/questions-list/questions-l
     MatButtonToggleModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatRadioModule,
 
     SharedModule,
 
