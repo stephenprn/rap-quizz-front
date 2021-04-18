@@ -14,53 +14,53 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginRegisterComponent,
-    data: { title: 'Se connecter', login: true },
+    data: { title: 'Se connecter', login: true }
   },
   {
     path: 'register',
     component: LoginRegisterComponent,
-    data: { title: 'Créer un compte', login: false },
+    data: { title: 'Créer un compte', login: false }
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
     data: { title: 'Dashboard' },
-    canActivate: [LoggedGuard],
+    canActivate: [LoggedGuard]
   },
   {
     path: 'add-question',
     component: AddQuestionComponent,
     data: { title: 'Add question' },
-    canActivate: [LoggedGuard],
+    canActivate: [LoggedGuard]
   },
   {
     path: 'edit-question/:url',
     component: AddQuestionComponent,
     data: { title: 'Edit question' },
-    canActivate: [LoggedGuard],
+    canActivate: [LoggedGuard]
   },
   {
     path: 'quiz',
     component: QuizComponent,
     canActivate: [LoggedGuard],
-    data: { title: 'New quiz' },
+    data: { title: 'New quiz' }
   },
   {
     path: 'quiz/:quiz_url',
     canActivate: [LoggedGuard],
     component: QuizComponent,
-    data: { title: 'Quiz' },
+    data: { title: 'Quiz' }
   },
   {
     path: 'admin',
     canActivate: [LoggedGuard, AdminGuard],
     data: { title: 'Console admin' },
-    component: AdminComponent,
-  },
+    component: AdminComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

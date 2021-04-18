@@ -1,16 +1,15 @@
 import { AppConstants } from './../../../app.constants';
-import {
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from 'src/app/shared/classes/models/quiz.class';
-import { Player, PlayerAnswerStatus } from 'src/app/shared/classes/others/player.class';
+import {
+  Player,
+  PlayerAnswerStatus
+} from 'src/app/shared/classes/others/player.class';
 
 @Component({
   selector: 'app-quiz-infos',
   templateUrl: './quiz-infos.component.html',
-  styleUrls: ['./quiz-infos.component.scss'],
+  styleUrls: ['./quiz-infos.component.scss']
 })
 export class QuizInfosComponent implements OnInit {
   @Input()

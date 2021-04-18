@@ -1,12 +1,19 @@
-<div class="basic-button-container" [matTooltip]="tooltip ? tooltip : null" [ngClass]="{ 
-  'full': full, 
-  'disabled': disabled,
-  'right': customClass === 'right',
-  'wrong': customClass === 'wrong'
-}">
+<div
+  class="basic-button-container"
+  [matTooltip]="tooltip ? tooltip : null"
+  [ngClass]="{
+    full: full,
+    disabled: disabled,
+    right: customClass === 'right',
+    wrong: customClass === 'wrong'
+  }"
+>
   <button class="basic-button" (click)="buttonClicked()" [disabled]="disabled">
     <div class="basic-button-body">
-      <i class="fa {{icon}}" *ngIf="icon"></i>
+      <div class="icon-container">
+        <i class="fa {{ icon }}" *ngIf="icon && !loading"></i>
+        <app-basic-loader color="#df965f" borderWidth="4px" *ngIf="loading"></app-basic-loader>
+      </div>
       <ng-content></ng-content>
     </div>
   </button>

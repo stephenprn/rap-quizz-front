@@ -21,7 +21,7 @@ export class UtilsService {
     }
   }
 
-  public getCurrentUrl(withoutParams?: boolean) {
+  public getCurrentUrl(withoutParams?: boolean): string {
     if (!!withoutParams) {
       return (
         window.location.protocol +
@@ -41,5 +41,11 @@ export class UtilsService {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
+  }
+
+  public getClipboardValue(): Promise<string> {
+    return new Promise((resolve, reject): void => {
+      navigator.clipboard.readText().then((text: string) => resolve(text));
+    });
   }
 }

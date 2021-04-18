@@ -4,12 +4,15 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UiService } from '../services/ui.service';
-import { AuthenticationService, AuthUser } from '../services/authentication.service';
+import {
+  AuthenticationService,
+  AuthUser
+} from '../services/authentication.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { tap } from 'rxjs/operators';
 
@@ -35,11 +38,11 @@ export class InInterceptor implements HttpInterceptor {
               this.router.navigate(['/']);
             } else if (err.status === 401) {
               if (this.authenticationService.userConnected$.value) {
-                this.authenticationApiService.refreshToken().subscribe(
-                  (res: AuthUser) => {
+                this.authenticationApiService.refreshToken().subscribe({
+                  next: (res: AuthUser) => {
                     this.authenticationService.setAuthUser(res);
                   },
-                  (err: HttpErrorResponse) => {
+                  error: (err: HttpErrorResponse) => {
                     if (err.status === 401) {
                       this.authenticationService.removeAuthData();
                       this.uiService.displayToast(
@@ -48,7 +51,7 @@ export class InInterceptor implements HttpInterceptor {
                       this.router.navigate(['/']);
                     }
                   }
-                );
+                });
               }
             }
           }

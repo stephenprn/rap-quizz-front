@@ -4,7 +4,9 @@
   display: flex;
   justify-content: center;
 
-  background-image: linear-gradient( 135deg, #923c7a 10%, #2D26FB 100%);
+  background-image: linear-gradient(135deg, #923c7a 10%, #2d26fb 100%);
+
+  background-blend-mode: overlay, hard-light, normal;
 
   padding-top: $toolbar-height;
   min-height: calc(100vh - #{$toolbar-height});

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-login-register',
   templateUrl: './login-register.component.html',
-  styleUrls: ['./login-register.component.scss'],
+  styleUrls: ['./login-register.component.scss']
 })
 export class LoginRegisterComponent implements OnInit {
   public login: boolean;
@@ -12,6 +12,6 @@ export class LoginRegisterComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.login = this.route.snapshot.data['login'];
+    this.login = this.route.snapshot.data.login;
   }
 }

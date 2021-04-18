@@ -7,14 +7,14 @@ import { UiService } from 'src/app/shared/services/ui.service';
 import { Router } from '@angular/router';
 import {
   Response,
-  ResponseType,
+  ResponseType
 } from 'src/app/shared/classes/models/response.class';
 import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
 
 @Component({
   selector: 'app-add-question',
   templateUrl: './add-question.component.html',
-  styleUrls: ['./add-question.component.scss'],
+  styleUrls: ['./add-question.component.scss']
 })
 export class AddQuestionComponent implements OnInit {
   public readonly QUIZ_DEFAULT_NBR_RESPONSES = 4;
@@ -31,7 +31,7 @@ export class AddQuestionComponent implements OnInit {
   public responseTypes: { value: string; label: string }[] = [
     { label: 'Artiste', value: ResponseType.ARTIST },
     { label: 'Album', value: ResponseType.ALBUM },
-    { label: 'Autre', value: ResponseType.OTHER },
+    { label: 'Autre', value: ResponseType.OTHER }
   ];
 
   public loading: boolean;
@@ -60,9 +60,9 @@ export class AddQuestionComponent implements OnInit {
       label: new FormControl('', [
         Validators.required,
         Validators.minLength(this.QUESTION_TITLE_MIN_LENGTH),
-        Validators.maxLength(this.QUESTION_TITLE_MAX_LENGTH),
+        Validators.maxLength(this.QUESTION_TITLE_MAX_LENGTH)
       ]),
-      responseType: new FormControl(ResponseType.ARTIST, [Validators.required]),
+      responseType: new FormControl(ResponseType.ARTIST, [Validators.required])
     });
   }
 
@@ -88,32 +88,32 @@ export class AddQuestionComponent implements OnInit {
           this.addQuestionFormGroup.get('responseType').value,
           this.responses
         )
-        .subscribe(
-          (responses: Response[]) => {
+        .subscribe({
+          next: (responses: Response[]) => {
             this.matchingResponses = responses;
           },
-          () => {
+          error: () => {
             this.uiService.displayToast(
               'Error while getting responses, please try again later'
             );
           }
-        );
+        });
     }, this.SEARCH_REFRESH_DELAY);
   }
 
   public addNewResponse() {
     this.responseApiService
       .add(this.searchTxt, this.addQuestionFormGroup.get('responseType').value)
-      .subscribe(
-        (response: Response) => {
+      .subscribe({
+        next: (response: Response) => {
           this.addResponse(response);
         },
-        () => {
+        error: () => {
           this.uiService.displayToast(
             'Error while adding response, please try again later'
           );
         }
-      );
+      });
   }
 
   public addResponse(response: Response) {
@@ -128,7 +128,7 @@ export class AddQuestionComponent implements OnInit {
   }
 
   public removeResponse(response: Response) {
-    this.responses = this.responses.filter((r) => r != response);
+    this.responses = this.responses.filter(r => r != response);
 
     if (this.responseSelectedLabel === response.label) {
       if (this.responses.length > 0) {
@@ -150,9 +150,9 @@ export class AddQuestionComponent implements OnInit {
   private addQuestion() {
     this.submitting = true;
     const rightResponse = this.responses.find(
-      (r) => r.label === this.responseSelectedLabel
+      r => r.label === this.responseSelectedLabel
     );
-    const falseResponses = this.responses.filter((r) => r !== rightResponse);
+    const falseResponses = this.responses.filter(r => r !== rightResponse);
 
     this.questionsApiService
       .add(
@@ -160,17 +160,15 @@ export class AddQuestionComponent implements OnInit {
         rightResponse,
         falseResponses
       )
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.uiService.displayToast('Question successfuly added!');
           this.router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error, true);
-        },
-        () => {
+        error: (err: HttpErrorResponse) => {
           this.submitting = false;
+          this.uiService.displayToast(err.error, true);
         }
-      );
+      });
   }
 }

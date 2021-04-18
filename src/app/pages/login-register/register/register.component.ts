@@ -3,7 +3,7 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  AbstractControl,
+  AbstractControl
 } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationApiService } from 'src/app/shared/services/api/authentication-api.service';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   public readonly PASSWORD_MIN_LENGTH = 6;
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
   public usernameExists = {
     loading: false,
-    state: false,
+    state: false
   };
 
   constructor(
@@ -54,27 +54,27 @@ export class RegisterComponent implements OnInit {
         username: new FormControl('', [
           Validators.required,
           Validators.minLength(this.USERNAME_MIN_LENGTH),
-          Validators.maxLength(this.USERNAME_MAX_LENGTH),
+          Validators.maxLength(this.USERNAME_MAX_LENGTH)
         ]),
         password: new FormControl('', [
           Validators.required,
           Validators.minLength(this.PASSWORD_MIN_LENGTH),
-          Validators.maxLength(this.PASSWORD_MAX_LENGTH),
+          Validators.maxLength(this.PASSWORD_MAX_LENGTH)
         ]),
         passwordConfirmation: new FormControl('', [
           Validators.required,
           Validators.minLength(this.PASSWORD_MIN_LENGTH),
-          Validators.maxLength(this.PASSWORD_MAX_LENGTH),
-        ]),
+          Validators.maxLength(this.PASSWORD_MAX_LENGTH)
+        ])
       },
       this.passwordMatch.bind(this)
     );
 
-    this.registerFormGroup
-      .get('username')
-      .valueChanges.subscribe((username: string) => {
+    this.registerFormGroup.get('username').valueChanges.subscribe({
+      next: (username: string) => {
         this.checkUsername(username);
-      });
+      }
+    });
   }
 
   public register() {
@@ -86,18 +86,16 @@ export class RegisterComponent implements OnInit {
         this.registerFormGroup.get('username').value,
         this.registerFormGroup.get('password').value
       )
-      .subscribe(
-        (res: any) => {
+      .subscribe({
+        next: () => {
           this.uiService.displayToast('You are now registered!');
           this.router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error, true);
-        },
-        () => {
+        error: (err: HttpErrorResponse) => {
           this.submitting = false;
+          this.uiService.displayToast(err.error, true);
         }
-      );
+      });
   }
 
   private checkUsername(username: string) {
@@ -116,20 +114,18 @@ export class RegisterComponent implements OnInit {
       this.usernameExists.loading = true;
       this.checkUsernameTimeOut = null;
 
-      this.authenticationApiService.checkUsername(username).subscribe(
-        () => {
+      this.authenticationApiService.checkUsername(username).subscribe({
+        next: () => {
           this.usernameExists.state = false;
-          this.registerFormGroup.get('username').setErrors(null);
-          console.log(this.registerFormGroup.get('username'));
-        },
-        () => {
-          this.registerFormGroup.get('username').setErrors({ invalid: true });
-          this.usernameExists.state = true;
-        },
-        () => {
           this.usernameExists.loading = false;
+          this.registerFormGroup.get('username').setErrors(null);
+        },
+        error: () => {
+          this.registerFormGroup.get('username').setErrors({ invalid: true });
+          this.usernameExists.loading = false;
+          this.usernameExists.state = true;
         }
-      );
+      });
     }, this.USERNAME_CHECK_REFRESH_DELAY);
   }
 

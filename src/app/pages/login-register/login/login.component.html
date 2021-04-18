@@ -34,6 +34,7 @@
         (clicked)="login()"
         [disabled]="loginFormGroup.invalid || submitting"
         [icon]="ICONS.login"
+        [loading]="submitting"
       >
         Se connecter
       </app-basic-button>

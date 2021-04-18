@@ -4,13 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss'],
+  styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent implements OnInit {
   public texts = {
     main: 'Are you sure you want to perform this action?',
-    yes: 'Yes',
-    no: 'No',
+    yes: 'Oui',
+    no: 'Non'
   };
   public warning: boolean;
 
@@ -26,7 +26,7 @@ export class ConfirmationDialogComponent implements OnInit {
   private initValues() {
     this.texts = {
       ...this.texts,
-      ...this.data.texts,
+      ...this.data.texts
     };
     this.warning = this.data.warning;
   }

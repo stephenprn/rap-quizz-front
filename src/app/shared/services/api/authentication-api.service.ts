@@ -13,7 +13,7 @@ export class AuthenticationApiService {
     refresh: this.BASE_URL + 'refresh',
     checkUsername: this.BASE_URL + 'check-username',
     isLogged: this.BASE_URL + 'check-logged',
-    hasRole: this.BASE_URL + 'has-role/',
+    hasRole: this.BASE_URL + 'has-role/'
   };
 
   constructor(private restService: RestService) {}
@@ -21,7 +21,7 @@ export class AuthenticationApiService {
   public login(email: string, password: string): Observable<AuthUser> {
     const body = {
       email,
-      password,
+      password
     };
 
     return this.restService.post(this.URLS.login, body);
@@ -35,7 +35,7 @@ export class AuthenticationApiService {
     const body = {
       email,
       username,
-      password,
+      password
     };
 
     return this.restService.post(this.URLS.register, body);
@@ -47,7 +47,7 @@ export class AuthenticationApiService {
 
   public checkUsername(username: string) {
     const body = {
-      username,
+      username
     };
 
     return this.restService.post(this.URLS.checkUsername, body);

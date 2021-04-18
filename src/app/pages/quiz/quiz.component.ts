@@ -6,7 +6,7 @@ import { Question } from 'src/app/shared/classes/models/question.class';
 import {
   Quiz,
   UserQuiz,
-  UserQuizStatus,
+  UserQuizStatus
 } from 'src/app/shared/classes/models/quiz.class';
 import { QuizApiService } from 'src/app/shared/services/api/quiz-api.service';
 import { Response } from 'src/app/shared/classes/models/response.class';
@@ -16,14 +16,14 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 import { SocketEvent } from 'src/app/shared/classes/others/socket-event.class';
 import {
   Player,
-  PlayerAnswerStatus,
+  PlayerAnswerStatus
 } from 'src/app/shared/classes/others/player.class';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Answer } from 'src/app/shared/classes/others/answer.class';
 import { AuthenticationApiService } from 'src/app/shared/services/api/authentication-api.service';
 import {
   AuthenticationService,
-  AuthUser,
+  AuthUser
 } from 'src/app/shared/services/authentication.service';
 
 enum QuizStatus {
@@ -31,13 +31,13 @@ enum QuizStatus {
   WAITING = 'WAITING',
   STARTING = 'STARTING',
   ONGOING = 'ONGOING',
-  FINISHED = 'FINISHED',
+  FINISHED = 'FINISHED'
 }
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss'],
+  styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit, OnDestroy {
   public quiz: Quiz;
@@ -57,7 +57,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     question: null,
     adminSet: null,
     userAnswered: null,
-    quizFinished: null,
+    quizFinished: null
   };
 
   constructor(
@@ -85,18 +85,21 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private refreshToken() {
-    this.authenticationApiService.refreshToken().subscribe((res: AuthUser) => {
-      this.authenticationService.setAuthUser(res);
+    this.authenticationApiService.refreshToken().subscribe({
+      next: (res: AuthUser) => {
+        this.authenticationService.setAuthUser(res);
+      }
     });
   }
 
   private initPromises() {
-    this.promises.userJoined = this.quizSocketService.userJoined$.subscribe(
-      (socketEvent: SocketEvent<UserEvent>) => {
+    this.promises.userJoined = this.quizSocketService.userJoined$.subscribe({
+      next: (socketEvent: SocketEvent<UserEvent>) => {
         const player = new Player(
           socketEvent.body.user,
           socketEvent.body.admin,
           socketEvent.timestamp,
+          socketEvent.body.user.color,
           socketEvent.body.user.uuid === this.authenticationService.user.uuid
         );
 
@@ -106,52 +109,54 @@ export class QuizComponent implements OnInit, OnDestroy {
 
         this.players.push(player);
       }
-    );
+    });
 
-    this.promises.userLeaved = this.quizSocketService.userLeaved$.subscribe(
-      (socketEvent: SocketEvent<User>) => {
+    this.promises.userLeaved = this.quizSocketService.userLeaved$.subscribe({
+      next: (socketEvent: SocketEvent<User>) => {
         this.players = this.players.filter(
-          (player: Player) => player.user.uuid != socketEvent.body.uuid
+          (player: Player) => player.user.uuid !== socketEvent.body.uuid
         );
       }
-    );
+    });
 
-    this.promises.quizStarted = this.quizSocketService.quizStarted$.subscribe(
-      (socketEvent: SocketEvent<Question>) => {
+    this.promises.quizStarted = this.quizSocketService.quizStarted$.subscribe({
+      next: (socketEvent: SocketEvent<Question>) => {
         this.initUsersAnswerStatus(this.quiz.nbr_questions);
         this.quizStatus = QuizStatus.STARTING;
         this.quiz.questions = [socketEvent.body];
       }
-    );
+    });
 
     this.promises.userAnswered = this.quizSocketService.userAnswered$.subscribe(
-      (socketEvent: SocketEvent<Answer>) => {
-        const player = this.players.find(
-          (p: Player) => p.user.uuid === socketEvent.body.user.uuid
-        );
+      {
+        next: (socketEvent: SocketEvent<Answer>) => {
+          const player = this.players.find(
+            (p: Player) => p.user.uuid === socketEvent.body.user.uuid
+          );
 
-        if (socketEvent.body.answer_correct) {
-          player.answerStatus = PlayerAnswerStatus.RIGHT;
-          player.score++;
-        } else {
-          player.answerStatus = PlayerAnswerStatus.WRONG;
+          if (socketEvent.body.answer_correct) {
+            player.answerStatus = PlayerAnswerStatus.RIGHT;
+            player.score++;
+          } else {
+            player.answerStatus = PlayerAnswerStatus.WRONG;
+          }
         }
       }
     );
 
-    this.promises.question = this.quizSocketService.question$.subscribe(
-      (socketEvent: SocketEvent<Question>) => {
+    this.promises.question = this.quizSocketService.question$.subscribe({
+      next: (socketEvent: SocketEvent<Question>) => {
         this.resetUsersAnswersStatus(this.quiz.questions.length - 1);
         this.sortPlayersAndSetRank();
         this.quiz.questions.push(socketEvent.body);
         this.selectQuestion();
       }
-    );
+    });
 
-    this.promises.adminSet = this.quizSocketService.adminSet$.subscribe(
-      (socketEvent: SocketEvent<User>) => {
+    this.promises.adminSet = this.quizSocketService.adminSet$.subscribe({
+      next: (socketEvent: SocketEvent<User>) => {
         const admin = this.players.find(
-          (player) => player.user.uuid === socketEvent.body.uuid
+          player => player.user.uuid === socketEvent.body.uuid
         );
 
         if (admin != null) {
@@ -163,12 +168,14 @@ export class QuizComponent implements OnInit, OnDestroy {
           );
         }
       }
-    );
+    });
 
     this.promises.quizFinished = this.quizSocketService.quizFinished$.subscribe(
-      () => {
-        this.sortPlayersAndSetRank();
-        this.quizStatus = QuizStatus.FINISHED;
+      {
+        next: () => {
+          this.sortPlayersAndSetRank();
+          this.quizStatus = QuizStatus.FINISHED;
+        }
       }
     );
   }
@@ -194,15 +201,15 @@ export class QuizComponent implements OnInit, OnDestroy {
 
     this.quizStatus = QuizStatus.LOADING;
 
-    this.quizApiService
-      .generateQuiz(nbrQuestions, questionDuration)
-      .subscribe((quiz: Quiz) => {
+    this.quizApiService.generateQuiz(nbrQuestions, questionDuration).subscribe({
+      next: (quiz: Quiz) => {
         this.quizSocketService.initSocket();
         this.quizSocketService.joinRoom(quiz.uuid);
         this.quiz = quiz;
         this.location.go(`${window.location.pathname}/${this.quiz.url}`);
         this.quizStatus = QuizStatus.WAITING;
-      });
+      }
+    });
   }
 
   public startQuiz() {
@@ -220,8 +227,8 @@ export class QuizComponent implements OnInit, OnDestroy {
   private joinQuiz(quizUrl: string) {
     this.quizStatus = QuizStatus.LOADING;
 
-    this.quizApiService.joinQuiz(quizUrl).subscribe(
-      (quiz: Quiz) => {
+    this.quizApiService.joinQuiz(quizUrl).subscribe({
+      next: (quiz: Quiz) => {
         this.quizSocketService.initSocket();
         this.quizSocketService.joinRoom(quiz.uuid);
         this.quiz = quiz;
@@ -230,19 +237,20 @@ export class QuizComponent implements OnInit, OnDestroy {
             new Player(
               userQuiz.user as User,
               userQuiz.status === UserQuizStatus.ADMIN,
-              new Date(userQuiz.creation_date)
+              new Date(userQuiz.creation_date),
+              userQuiz.user.color
             )
         );
 
         this.quizStatus = QuizStatus.WAITING;
       },
-      (err: HttpErrorResponse) => {
+      error: (err: HttpErrorResponse) => {
         if (err.status === 409) {
           this.uiService.displayToast(err.error.description);
           this.router.navigate(['/']);
         }
       }
-    );
+    });
   }
 
   private selectQuestion(index?: number) {

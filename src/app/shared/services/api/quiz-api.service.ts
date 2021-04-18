@@ -8,7 +8,7 @@ export class QuizApiService {
   private BASE_URL = '/quiz/';
   private URLS = {
     generateQuiz: this.BASE_URL + 'generate-quiz',
-    joinQuiz: this.BASE_URL + 'join-quiz/',
+    joinQuiz: this.BASE_URL + 'join-quiz/'
   };
 
   constructor(private restService: RestService) {}
@@ -19,7 +19,7 @@ export class QuizApiService {
   ): Observable<Quiz> {
     const params: RestParameter[] = [
       { name: 'question_duration', value: questionDuration },
-      { name: 'nbr_questions', value: nbrQuestions },
+      { name: 'nbr_questions', value: nbrQuestions }
     ];
 
     return this.restService.get(this.URLS.generateQuiz, params);

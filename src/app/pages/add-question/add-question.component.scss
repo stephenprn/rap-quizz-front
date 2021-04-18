@@ -4,6 +4,10 @@
   }
 }
 
+app-basic-button {
+  align-self: start;
+}
+
 mat-radio-group {
   display: flex;
   flex-direction: column;
@@ -17,13 +21,13 @@ mat-radio-group {
       &:not(:last-of-type) {
         margin-bottom: 15px;
       }
-  
+
       &.mat-radio-checked {
         ::ng-deep {
           .mat-radio-inner-circle {
             background-color: var(--right-color) !important;
           }
-    
+
           .mat-radio-outer-circle {
             border-color: var(--right-color) !important;
           }

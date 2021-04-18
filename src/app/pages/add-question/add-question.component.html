@@ -10,7 +10,8 @@
       <mat-label>Question</mat-label>
       <input matInput formControlName="label" />
       <mat-error>
-        Le titre doit avoir une longeur comprise entre {{ QUESTION_TITLE_MIN_LENGTH }} et
+        Le titre doit avoir une longeur comprise entre
+        {{ QUESTION_TITLE_MIN_LENGTH }} et
         {{ QUESTION_TITLE_MAX_LENGTH }} caractères
       </mat-error>
     </mat-form-field>
@@ -40,20 +41,17 @@
         [ngModelOptions]="{ standalone: true }"
       >
         <div class="response" *ngFor="let response of responses">
-          <mat-radio-button
-            [value]="response.label"
-          >
+          <mat-radio-button [value]="response.label">
             {{ response.label }}
           </mat-radio-button>
-          
-          <button
-          (click)="removeResponse(response)"
-          mat-icon-button
-          matTooltip="Supprimer la réponse"
-        >
-          <i class="fa {{ ICONS.delete }}"></i>
-        </button>
 
+          <button
+            (click)="removeResponse(response)"
+            mat-icon-button
+            matTooltip="Supprimer la réponse"
+          >
+            <i class="fa {{ ICONS.delete }}"></i>
+          </button>
         </div>
       </mat-radio-group>
     </div>
@@ -90,17 +88,15 @@
     </mat-form-field>
   </div>
 
-  <div
-    [matTooltip]="
+  <app-basic-button
+    (clicked)="submit()"
+    [disabled]="addQuestionFormGroup.invalid || submitting"
+    [icon]="ICONS.questionAdd"
+    [loading]="submitting"
+    [tooltip]="
       addQuestionFormGroup.invalid ? 'Veuillez remplir tous les champs' : null
     "
   >
-    <app-basic-button
-      (clicked)="submit()"
-      [disabled]="addQuestionFormGroup.invalid || submitting"
-      [icon]="ICONS.questionAdd"
-    >
-      Ajouter
-    </app-basic-button>
-  </div>
+    Ajouter
+  </app-basic-button>
 </form>

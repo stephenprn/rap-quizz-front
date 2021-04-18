@@ -4,12 +4,15 @@ import { UserQuiz } from 'src/app/shared/classes/models/quiz.class';
 import { ProfileApiService } from 'src/app/shared/services/api/profile-api.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 import cloneDeep from 'lodash/cloneDeep';
-import { Pagination, PaginationResults } from 'src/app/shared/classes/others/pagination.class';
+import {
+  Pagination,
+  PaginationResults
+} from 'src/app/shared/classes/others/pagination.class';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   public historyPagination = new Pagination(0, 20);
@@ -30,8 +33,8 @@ export class DashboardComponent implements OnInit {
   }
 
   private getHistory() {
-    this.profileApiService.getHistory(this.historyPagination).subscribe(
-      (res: PaginationResults<UserQuiz>) => {
+    this.profileApiService.getHistory(this.historyPagination).subscribe({
+      next: (res: PaginationResults<UserQuiz>) => {
         this.history = res.data;
         this.historyPagination.total = res.total;
         this.historyPagination.pageMax = Math.floor(
@@ -39,9 +42,9 @@ export class DashboardComponent implements OnInit {
         );
         this.historyPagination = cloneDeep(this.historyPagination);
       },
-      (err: HttpErrorResponse) => {
+      error: (err: HttpErrorResponse) => {
         this.uiService.displayToast(err.error.description);
       }
-    );
+    });
   }
 }

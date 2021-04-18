@@ -380,7 +380,7 @@ i.fa {
   //   radial-gradient(at top left, #D056AD, transparent),
   //   radial-gradient(at top right, #2D26FB, transparent),
   //   radial-gradient(at bottom left, #703cff, transparent);
-  background-image: linear-gradient( 135deg, #D056AD 10%, #2D26FB 100%);
+  // background-image: linear-gradient( 135deg, #D056AD 10%, #2D26FB 100%);
 
   &.has-toolbar {
     padding-top: $toolbar-height;
@@ -516,6 +516,11 @@ mat-spinner {
   .mat-badge-content {
     font-family: "Nunito";
   }
+}
+
+.mat-checkbox-inner-container {
+  background-color: var(--transparency-light)
+  var(--transparency-middle);
 }
 
 // responsive

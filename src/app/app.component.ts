@@ -8,7 +8,7 @@ import { AuthenticationApiService } from './shared/services/api/authentication-a
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   constructor(
@@ -26,13 +26,15 @@ export class AppComponent implements OnInit {
 
   private initTitleUpdator() {
     this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const rt = this.getChild(this.activatedRoute);
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe({
+        next: () => {
+          const rt = this.getChild(this.activatedRoute);
 
-        rt.data.subscribe((data) => {
-          this.titleService.setTitle(data.title);
-        });
+          rt.data.subscribe(data => {
+            this.titleService.setTitle(data.title);
+          });
+        }
       });
   }
 
@@ -41,12 +43,12 @@ export class AppComponent implements OnInit {
       return;
     }
 
-    this.authenticationApiService.isLogged().subscribe(
-      () => {},
-      () => {
+    this.authenticationApiService.isLogged().subscribe({
+      next: () => {},
+      error: () => {
         this.authenticationService.removeAuthData();
       }
-    );
+    });
   }
 
   private getChild(activatedRoute: ActivatedRoute) {

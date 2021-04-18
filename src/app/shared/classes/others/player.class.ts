@@ -5,12 +5,13 @@ export enum PlayerAnswerStatus {
   RIGHT = 'RIGHT',
   WRONG = 'WRONG',
   NONE = 'NONE',
-  ANSWERING = 'ANSWERING',
+  ANSWERING = 'ANSWERING'
 }
 
 export class Player {
   user: User;
   joinDate: Date;
+  color: string;
   admin: boolean;
   answerStatus: PlayerAnswerStatus;
   answerStatusHistory: PlayerAnswerStatus[];
@@ -18,14 +19,23 @@ export class Player {
   me?: boolean;
   rank?: number;
 
-  constructor(user: User, admin: boolean, joinDate: Date, me?: boolean) {
+  constructor(
+    user: User,
+    admin: boolean,
+    joinDate: Date,
+    color: string,
+    me?: boolean
+  ) {
     this.user = user;
     this.admin = !!admin;
     this.joinDate = joinDate;
+    this.color = color;
     this.answerStatus = PlayerAnswerStatus.NONE;
     this.score = 0;
 
-    if (me != null) this.me = me;
+    if (me != null) {
+      this.me = me;
+    }
   }
 
   public initAnswerStatus(nbrQuestions: number) {
@@ -42,15 +52,14 @@ export class Player {
     if (this.answerStatus === PlayerAnswerStatus.ANSWERING) {
       previousAnswerStatus = PlayerAnswerStatus.NONE;
     } else {
-      previousAnswerStatus =  cloneDeep(
-        this.answerStatus
-      );
+      previousAnswerStatus = cloneDeep(this.answerStatus);
     }
 
     this.answerStatusHistory[previousQuestionIndex] = previousAnswerStatus;
 
     if (this.answerStatusHistory.length > previousQuestionIndex) {
-      this.answerStatusHistory[previousQuestionIndex + 1] = PlayerAnswerStatus.ANSWERING;
+      this.answerStatusHistory[previousQuestionIndex + 1] =
+        PlayerAnswerStatus.ANSWERING;
     }
 
     this.answerStatus = PlayerAnswerStatus.NONE;

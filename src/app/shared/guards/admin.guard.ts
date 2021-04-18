@@ -7,9 +7,7 @@ import { UserRole } from '../classes/models/user.class';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor(
-    private authenticationApiService: AuthenticationApiService
-  ) {}
+  constructor(private authenticationApiService: AuthenticationApiService) {}
 
   canActivate(): Observable<boolean> {
     return this.authenticationApiService.hasRole(UserRole.ADMIN);

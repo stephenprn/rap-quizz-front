@@ -1,4 +1,3 @@
-
 export abstract class BaseClass {
   uuid?: string;
   creation_date?: string;

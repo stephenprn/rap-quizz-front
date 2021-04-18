@@ -69,7 +69,7 @@ import { MatRadioModule } from '@angular/material/radio';
     QuestionComponent,
     ResponseComponent,
 
-    QuestionsListComponent,
+    QuestionsListComponent
   ],
   imports: [
     BrowserModule,
@@ -92,10 +92,10 @@ import { MatRadioModule } from '@angular/material/radio';
     SharedModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-    }),
+      enabled: environment.production
+    })
   ],
   providers: [QuizSocketService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

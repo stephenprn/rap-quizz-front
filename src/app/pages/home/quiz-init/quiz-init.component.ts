@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 @Component({
   selector: 'app-quiz-init',
   templateUrl: './quiz-init.component.html',
-  styleUrls: ['./quiz-init.component.scss'],
+  styleUrls: ['./quiz-init.component.scss']
 })
 export class QuizInitComponent implements OnInit {
   public joinQuizFormGroup: FormGroup;
@@ -22,7 +22,7 @@ export class QuizInitComponent implements OnInit {
   public ICONS = AppConstants.ICONS;
 
   private promises = {
-    userConnected: null,
+    userConnected: null
   };
 
   constructor(
@@ -37,35 +37,37 @@ export class QuizInitComponent implements OnInit {
 
   private initPromises() {
     this.promises.userConnected = this.authenticationService.userConnected$.subscribe(
-      (state: boolean) => {
-        this.userConnected = state;
+      {
+        next: (state: boolean) => {
+          this.userConnected = state;
+        }
       }
     );
   }
 
   private initJoinQuizForm() {
     this.joinQuizFormGroup = new FormGroup({
-      quizUrl: new FormControl('', [Validators.required]),
+      quizUrl: new FormControl('', [Validators.required])
     });
 
     this.newQuizFormGroup = new FormGroup({
       questionDuration: new FormControl(this.QUESTION_DURATION_DEFAULT, [
-        Validators.required,
+        Validators.required
       ]),
       nbrQuestions: new FormControl(this.NBR_QUESTIONS_DEFAULT, [
-        Validators.required,
-      ]),
+        Validators.required
+      ])
     });
   }
 
   public newQuiz() {
     const queryParams: Params = {
       question_duration: this.newQuizFormGroup.get('questionDuration').value,
-      nbr_questions: this.newQuizFormGroup.get('nbrQuestions').value,
+      nbr_questions: this.newQuizFormGroup.get('nbrQuestions').value
     };
 
     this.router.navigate(['/quiz'], {
-      queryParams,
+      queryParams
     });
   }
 

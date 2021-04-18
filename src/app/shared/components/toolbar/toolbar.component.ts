@@ -10,7 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+  styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
   @ViewChild(MatMenuTrigger) connectionMenuTrigger: MatMenuTrigger;
@@ -18,11 +18,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   private readonly MIN_DISTANCE_TOOLBAR_OPAQUE = 20;
 
   public userConnected: boolean;
-  public homeScrolled: boolean = false;
+  public homeScrolled = false;
 
   private promises = {
     userConnected: null,
-    homeScrolled: null,
+    homeScrolled: null
   };
 
   constructor(
@@ -44,17 +44,19 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   private initPromises() {
     this.promises.userConnected = this.authenticationService.userConnected$.subscribe(
-      (state: boolean) => {
-        this.userConnected = state;
+      {
+        next: (state: boolean) => {
+          this.userConnected = state;
+        }
       }
     );
 
-    this.promises.homeScrolled = this.uiService.windowScroll$.subscribe(
-      ({ top }) => {
+    this.promises.homeScrolled = this.uiService.windowScroll$.subscribe({
+      next: ({ top }) => {
         this.homeScrolled = top > this.MIN_DISTANCE_TOOLBAR_OPAQUE;
         this.changeDetectorRef.detectChanges();
       }
-    );
+    });
   }
 
   public openRegister() {
@@ -71,7 +73,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     // check if current route require auth
     const currentRouteConfig = this.router.config.find(
-      (f) => f.path === this.router.url.substr(1)
+      f => f.path === this.router.url.substr(1)
     );
     if (currentRouteConfig != null && currentRouteConfig.canActivate != null) {
       this.router.navigate(['/']);

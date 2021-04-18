@@ -1,5 +1,5 @@
 import { BaseClass } from './base.class';
-import { QuestionResponse } from './response.class';
+import { Response, QuestionResponse } from './response.class';
 import { User } from './user.class';
 
 export class Question extends BaseClass {
@@ -9,6 +9,7 @@ export class Question extends BaseClass {
   type?: ResponseType;
   index?: number;
   hidden?: boolean;
+  rightResponse?: Response;
 
   constructor({ label }: { label: string }) {
     super();

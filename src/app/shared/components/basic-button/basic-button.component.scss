@@ -110,10 +110,28 @@ div.basic-button-container {
       outline: 0;
     }
 
-    i.fa {
-      color: var(--secondary-color);
-      margin-right: 10px;
-      font-size: 1.2em;
+    .icon-container {
+      height: 20px;
+      width: 20px;
+
+      margin-right: 5px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      app-basic-loader {
+        box-sizing: border-box;
+        
+        height: 80%;
+        width: 80%;
+      }
+
+      i.fa {
+        color: var(--secondary-color);
+        margin-right: 10px;
+        font-size: 1.2em;
+      }
     }
   }
 

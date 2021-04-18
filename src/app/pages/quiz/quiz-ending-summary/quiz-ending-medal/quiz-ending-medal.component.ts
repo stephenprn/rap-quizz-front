@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-quiz-ending-medal',
   templateUrl: './quiz-ending-medal.component.html',
-  styleUrls: ['./quiz-ending-medal.component.scss'],
+  styleUrls: ['./quiz-ending-medal.component.scss']
 })
 export class QuizEndingMedalComponent {
   @Input()

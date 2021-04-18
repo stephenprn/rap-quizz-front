@@ -33,6 +33,7 @@ import { BasicButtonComponent } from './components/basic-button/basic-button.com
 import { DurationPipe } from './pipes/duration.pipe';
 import { AdminGuard } from './guards/admin.guard';
 import { BasicPaginationComponent } from './components/basic-pagination/basic-pagination.component';
+import { BasicLoaderComponent } from './components/basic-loader/basic-loader.component';
 
 @NgModule({
   declarations: [
@@ -42,9 +43,10 @@ import { BasicPaginationComponent } from './components/basic-pagination/basic-pa
 
     BasicButtonComponent,
     BasicPaginationComponent,
+    BasicLoaderComponent,
 
     SanitizeHtmlPipe,
-    DurationPipe,
+    DurationPipe
   ],
   imports: [
     CommonModule,
@@ -61,14 +63,16 @@ import { BasicPaginationComponent } from './components/basic-pagination/basic-pa
     MatTooltipModule,
     MatToolbarModule,
 
-    CdkScrollableModule,
+    CdkScrollableModule
   ],
   exports: [
-    ToolbarComponent,
     BasicButtonComponent,
     BasicPaginationComponent,
+    BasicLoaderComponent,
+
+    ToolbarComponent,
     SanitizeHtmlPipe,
-    DurationPipe,
+    DurationPipe
   ],
   providers: [
     UiService,
@@ -92,10 +96,8 @@ import { BasicPaginationComponent } from './components/basic-pagination/basic-pa
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: InInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: OutInterceptor, multi: true },
-    Title,
+    Title
   ],
-  entryComponents: [
-    ConfirmationDialogComponent,
-  ],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class SharedModule {}

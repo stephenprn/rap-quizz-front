@@ -34,7 +34,9 @@ export class AuthenticationService {
     const userStr = window.localStorage.getItem(this.STORAGE_USER_KEY);
 
     try {
-      if (userStr != null) this.user = JSON.parse(userStr);
+      if (userStr != null) {
+        this.user = JSON.parse(userStr);
+      }
     } catch (e) {
       this.removeAuthData();
     }
@@ -47,10 +49,15 @@ export class AuthenticationService {
   public setAuthUser(authUser: AuthUser, rememberMe?: boolean): void {
     this.token = authUser.access_token;
 
-    if (authUser.refresh_token != null)
+    if (authUser.refresh_token != null) {
       this.refreshToken = authUser.refresh_token;
-    if (rememberMe != null) this.rememberMe = rememberMe;
-    if (authUser.user != null) this.user = authUser.user;
+    }
+    if (rememberMe != null) {
+      this.rememberMe = rememberMe;
+    }
+    if (authUser.user != null) {
+      this.user = authUser.user;
+    }
 
     if (this.rememberMe) {
       window.localStorage.setItem(this.STORAGE_TOKEN_KEY, this.token);

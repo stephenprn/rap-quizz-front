@@ -5,6 +5,7 @@
       <tr>
         <th>Creation</th>
         <th>Label</th>
+        <th>Réponse</th>
         <th>Cachée</th>
       </tr>
     </thead>
@@ -41,6 +42,9 @@
               <i class="fa {{ ICONS.check }}"></i>
             </button>
           </div>
+        </td>
+        <td>
+          {{ question.rightResponse.label }}
         </td>
         <td class="center">
           <mat-checkbox

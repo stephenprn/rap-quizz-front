@@ -8,7 +8,7 @@ import { UiService } from 'src/app/shared/services/ui.service';
 @Component({
   selector: 'app-quiz-waiting-room',
   templateUrl: './quiz-waiting-room.component.html',
-  styleUrls: ['./quiz-waiting-room.component.scss'],
+  styleUrls: ['./quiz-waiting-room.component.scss']
 })
 export class QuizWaitingRoomComponent {
   @Output()

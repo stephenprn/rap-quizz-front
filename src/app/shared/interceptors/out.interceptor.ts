@@ -2,7 +2,7 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
@@ -25,14 +25,14 @@ export class OutInterceptor implements HttpInterceptor {
             headers: request.headers.set(
               'Authorization',
               `Bearer ${this.authenticationService.refreshToken}`
-            ),
+            )
           });
         } else {
           request = request.clone({
             headers: request.headers.set(
               'Authorization',
               `Bearer ${this.authenticationService.token}`
-            ),
+            )
           });
         }
       }

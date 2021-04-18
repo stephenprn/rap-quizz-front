@@ -14,50 +14,53 @@ import { Response } from '../classes/models/response.class';
 @Injectable()
 export class QuizSocketService {
   private readonly NAMESPACE = '/quiz';
-  private socketEvents: { name: string; callback: Function }[] = [
+  private socketEvents: {
+    name: string;
+    callback: (socketEvent: any) => void;
+  }[] = [
     {
       name: 'user_joined',
       callback: (socketEvent: any) => {
         this.userJoined$.emit(new SocketEvent<UserEvent>(socketEvent));
-      },
+      }
     },
     {
       name: 'user_leaved',
       callback: (socketEvent: any) => {
         this.userLeaved$.emit(new SocketEvent<User>(socketEvent));
-      },
+      }
     },
     {
       name: 'started',
       callback: (socketEvent: any) => {
         this.quizStarted$.emit(new SocketEvent<Question>(socketEvent));
-      },
+      }
     },
     {
       name: 'admin_set',
       callback: (socketEvent: any) => {
         this.adminSet$.emit(new SocketEvent<User>(socketEvent));
-      },
+      }
     },
     {
       name: 'user_answered',
       callback: (socketEvent: any) => {
-        console.log({socketEvent});
+        console.log({ socketEvent });
         this.userAnswered$.emit(new SocketEvent<Answer>(socketEvent));
-      },
+      }
     },
     {
       name: 'question',
       callback: (socketEvent: any) => {
         this.question$.emit(new SocketEvent<Question>(socketEvent));
-      },
+      }
     },
     {
       name: 'finished',
       callback: () => {
         this.quizFinished$.emit();
-      },
-    },
+      }
+    }
   ];
   private socket: any;
 
@@ -74,9 +77,9 @@ export class QuizSocketService {
   public initSocket() {
     this.socket = io(environment.apiUrl, {
       extraHeaders: {
-        Authorization: `Bearer ${this.authenticationService.token}`,
+        Authorization: `Bearer ${this.authenticationService.token}`
       },
-      forceNew: true,
+      forceNew: true
     });
     this.socket.nsp = this.NAMESPACE;
     this.initEvents();

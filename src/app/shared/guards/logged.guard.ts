@@ -6,9 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class LoggedGuard implements CanActivate {
-  constructor(
-    private authenticationService: AuthenticationService
-  ) {}
+  constructor(private authenticationService: AuthenticationService) {}
 
   canActivate(): Observable<boolean> | boolean {
     return this.authenticationService.userConnected$.value;

@@ -5,7 +5,7 @@ import { Response } from 'src/app/shared/classes/models/response.class';
 import { RestParameter, RestService } from '../rest.service';
 import {
   Pagination,
-  PaginationResults,
+  PaginationResults
 } from '../../classes/others/pagination.class';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class QuestionsApiService {
   private URLS = {
     add: this.BASE_URL + 'add',
     list: this.BASE_URL + 'list',
-    edit: this.BASE_URL + 'edit/',
+    edit: this.BASE_URL + 'edit/'
   };
 
   constructor(private restService: RestService) {}
@@ -30,7 +30,7 @@ export class QuestionsApiService {
     formData.append('true_response_uuid', rightResponse.uuid);
     formData.append(
       'false_responses_uuid',
-      falseResponses.map((r) => r.uuid).join(',')
+      falseResponses.map(r => r.uuid).join(',')
     );
 
     return this.restService.post(this.URLS.add, formData);
@@ -44,7 +44,7 @@ export class QuestionsApiService {
     question: Question,
     {
       label,
-      hidden,
+      hidden
     }: {
       label?: string;
       hidden?: boolean;

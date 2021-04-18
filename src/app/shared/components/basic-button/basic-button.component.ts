@@ -1,14 +1,9 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  Input,
-} from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-basic-button',
   templateUrl: './basic-button.component.html',
-  styleUrls: ['./basic-button.component.scss'],
+  styleUrls: ['./basic-button.component.scss']
 })
 export class BasicButtonComponent {
   @Output()
@@ -29,11 +24,14 @@ export class BasicButtonComponent {
   @Input()
   customClass: string;
 
+  @Input()
+  loading: boolean;
+
   public buttonClicked() {
     if (this.disabled) {
       return;
     }
-    
+
     this.clicked.emit();
   }
 }

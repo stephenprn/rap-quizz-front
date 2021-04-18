@@ -4,7 +4,7 @@ import { User } from './user.class';
 
 export enum UserQuizStatus {
   ADMIN = 'ADMIN',
-  PLAYER = 'PLAYER',
+  PLAYER = 'PLAYER'
 }
 
 export class UserQuiz {
@@ -17,7 +17,7 @@ export class UserQuiz {
     creation_date,
     status,
     user,
-    score,
+    score
   }: {
     creation_date: string;
     status: UserQuizStatus;
@@ -47,7 +47,7 @@ export class Quiz extends BaseClass {
     question_duration,
     url,
     questions,
-    users,
+    users
   }: {
     description?: string;
     name: string;

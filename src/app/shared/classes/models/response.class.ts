@@ -4,12 +4,12 @@ export enum ResponseType {
   ARTIST = 'ARTIST',
   ALBUM = 'ALBUM',
   DATE = 'DATE',
-  OTHER = 'OTHER',
+  OTHER = 'OTHER'
 }
 
-enum QuestionResponseStatus {
+export enum QuestionResponseStatus {
   CORRECT = 'CORRECT',
-  WRONG = 'WRONG',
+  WRONG = 'WRONG'
 }
 
 export class QuestionResponse {

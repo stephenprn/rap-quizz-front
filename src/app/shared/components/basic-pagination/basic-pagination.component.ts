@@ -5,14 +5,14 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import { Pagination } from '../../classes/others/pagination.class';
 
 @Component({
   selector: 'app-basic-pagination',
   templateUrl: './basic-pagination.component.html',
-  styleUrls: ['./basic-pagination.component.scss'],
+  styleUrls: ['./basic-pagination.component.scss']
 })
 export class BasicPaginationComponent implements OnChanges {
   @Output()
@@ -35,7 +35,7 @@ export class BasicPaginationComponent implements OnChanges {
         this.pages = [
           Array(this.pagination.pageMax + 1)
             .fill(null)
-            .map((x, i) => i + 1),
+            .map((x, i) => i + 1)
         ];
       } else {
         this.pages = [
@@ -43,8 +43,8 @@ export class BasicPaginationComponent implements OnChanges {
           [
             this.pagination.pageMax - 1,
             this.pagination.pageMax,
-            this.pagination.pageMax + 1,
-          ],
+            this.pagination.pageMax + 1
+          ]
         ];
       }
     }

@@ -14,12 +14,11 @@ export class RestParameter {
   }
 }
 
-
 @Injectable()
 export class RestService {
   private readonly PAGINATION_KEYS_NAMES = {
     pageNbr: 'page_nbr',
-    nbrResults: 'nbr_results',
+    nbrResults: 'nbr_results'
   };
 
   constructor(private http: HttpClient) {}
@@ -32,7 +31,7 @@ export class RestService {
     const httpParams = this.getParams(parameters, pagination);
 
     return this.http.get(environment.apiUrl + path, {
-      params: httpParams,
+      params: httpParams
     });
   }
 
@@ -45,7 +44,7 @@ export class RestService {
     const httpParams = this.getParams(parameters, pagination);
 
     return this.http.post(environment.apiUrl + path, body, {
-      params: httpParams,
+      params: httpParams
     });
   }
 
@@ -57,7 +56,7 @@ export class RestService {
     const httpParams = this.getParams(parameters, pagination);
 
     return this.http.delete(environment.apiUrl + path, {
-      params: httpParams,
+      params: httpParams
     });
   }
 

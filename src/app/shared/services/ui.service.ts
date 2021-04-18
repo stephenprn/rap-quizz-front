@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ConfirmationDialogComponent } from '../dialogs/confirmation/confirmation-dialog.component';
 
 interface WindowScrollDistance {
   top: number;
@@ -40,22 +41,39 @@ export class UiService {
   }
 
   private initScrollListener() {
-    this.scrollDispatcher.scrolled().subscribe(() => {
-      const top = window.scrollY;
-      const bottom = document.body.scrollHeight - window.innerHeight - window.scrollY;
-      console.log('yoo');
-      this.windowScroll$.next({
-        top,
-        bottom
-      });
+    this.scrollDispatcher.scrolled().subscribe({
+      next: () => {
+        const top = window.scrollY;
+        const bottom =
+          document.body.scrollHeight - window.innerHeight - window.scrollY;
+        console.log('yoo');
+        this.windowScroll$.next({
+          top,
+          bottom
+        });
+      }
     });
   }
 
   public displayToast(message, error = false) {
     this.matSnackBar.open(message, null, {
       duration: 3000,
-      panelClass: error ? 'error-snackar' : null,
+      panelClass: error ? 'error-snackar' : null
     });
+  }
+
+  public displayConfirmationPopup(text?: {
+    main?: string;
+    yes?: string;
+    no?: string;
+  }): MatDialogRef<ConfirmationDialogComponent> {
+    return this.displayDialog(
+      ConfirmationDialogComponent,
+      { width: '40vw', height: '25vh' },
+      {
+        text
+      }
+    );
   }
 
   public displayDialog(
@@ -92,7 +110,7 @@ export class UiService {
       autoFocus: false,
       restoreFocus: false,
       scrollStrategy: this.overlay.scrollStrategies.block(),
-      data,
+      data
     });
 
     return dialogRef;

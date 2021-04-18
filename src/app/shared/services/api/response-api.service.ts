@@ -8,7 +8,7 @@ export class ResponseApiService {
   private BASE_URL = '/response/';
   private URLS = {
     search: this.BASE_URL + 'search',
-    add: this.BASE_URL + 'add',
+    add: this.BASE_URL + 'add'
   };
 
   constructor(private restService: RestService) {}
@@ -23,8 +23,8 @@ export class ResponseApiService {
       new RestParameter('type', type),
       new RestParameter(
         'responses_uuid_exclude',
-        responsesToExclude.map((r) => r.uuid).join(',')
-      ),
+        responsesToExclude.map(r => r.uuid).join(',')
+      )
     ];
 
     return this.restService.get(this.URLS.search, params);

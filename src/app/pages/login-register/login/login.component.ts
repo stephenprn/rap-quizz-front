@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationApiService } from 'src/app/shared/services/api/authentication-api.service';
 import {
   AuthenticationService,
-  AuthUser,
+  AuthUser
 } from 'src/app/shared/services/authentication.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { AppConstants } from 'src/app/app.constants';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
   public readonly PASSWORD_MIN_LENGTH = 6;
@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(this.PASSWORD_MIN_LENGTH),
+        Validators.minLength(this.PASSWORD_MIN_LENGTH)
       ]),
-      rememberMe: new FormControl(false),
+      rememberMe: new FormControl(false)
     });
 
     console.log(this.loginFormGroup);
@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
         this.loginFormGroup.get('email').value,
         this.loginFormGroup.get('password').value
       )
-      .subscribe(
-        (res: AuthUser) => {
+      .subscribe({
+        next: (res: AuthUser) => {
           this.authenticationService.setAuthUser(
             res,
             this.loginFormGroup.get('rememberMe').value
@@ -64,13 +64,11 @@ export class LoginComponent implements OnInit {
           this.uiService.displayToast('You are now connected!');
           this.router.navigate(['/']);
         },
-        (err: HttpErrorResponse) => {
+        error: (err: HttpErrorResponse) => {
           this.uiService.displayToast(err.error.description, true);
-        },
-        () => {
           this.submitting = false;
         }
-      );
+      });
   }
 
   public openRegisterDialog() {

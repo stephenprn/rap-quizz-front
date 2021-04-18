@@ -6,7 +6,7 @@ import { Player } from 'src/app/shared/classes/others/player.class';
 @Component({
   selector: 'app-quiz-player',
   templateUrl: './quiz-player.component.html',
-  styleUrls: ['./quiz-player.component.scss'],
+  styleUrls: ['./quiz-player.component.scss']
 })
 export class QuizPlayerComponent {
   @Input()
