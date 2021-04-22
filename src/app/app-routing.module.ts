@@ -34,10 +34,10 @@ const routes: Routes = [
     canActivate: [LoggedGuard]
   },
   {
-    path: 'edit-question/:url',
+    path: 'edit-question/:question_uuid',
     component: AddQuestionComponent,
     data: { title: 'Edit question' },
-    canActivate: [LoggedGuard]
+    canActivate: [LoggedGuard, AdminGuard]
   },
   {
     path: 'quiz',

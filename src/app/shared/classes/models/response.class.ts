@@ -22,11 +22,19 @@ export class Response extends BaseClass {
   type: ResponseType;
   selected?: boolean;
 
-  constructor({ label }: { label?: string }) {
+  constructor({ label, uuid, type }: { label?: string, uuid?: string, type?: ResponseType }) {
     super();
 
     if (label != null) {
       this.label = label;
+    }
+
+    if (uuid != null) {
+      this.uuid = uuid;
+    }
+
+    if (type != null) {
+      this.type = type;
     }
   }
 }

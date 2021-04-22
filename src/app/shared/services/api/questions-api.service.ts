@@ -14,7 +14,8 @@ export class QuestionsApiService {
   private URLS = {
     add: this.BASE_URL + 'add',
     list: this.BASE_URL + 'list',
-    edit: this.BASE_URL + 'edit/'
+    edit: this.BASE_URL + 'edit/',
+    get: this.BASE_URL + ''
   };
 
   constructor(private restService: RestService) {}
@@ -30,7 +31,7 @@ export class QuestionsApiService {
     formData.append('true_response_uuid', rightResponse.uuid);
     formData.append(
       'false_responses_uuid',
-      falseResponses.map(r => r.uuid).join(',')
+      falseResponses.map((r) => r.uuid).join(',')
     );
 
     return this.restService.post(this.URLS.add, formData);
@@ -40,26 +41,45 @@ export class QuestionsApiService {
     return this.restService.get(this.URLS.list, null, pagination);
   }
 
+  public get(uuid: string): Observable<Question> {
+    return this.restService.get(this.URLS.get + uuid);
+  }
+
   public editQuestion(
-    question: Question,
+    uuid: string,
     {
       label,
-      hidden
+      hidden,
+      rightResponse,
+      falseResponses
     }: {
       label?: string;
       hidden?: boolean;
+      rightResponse?: Response;
+      falseResponses?: Response[];
     }
   ): Observable<void> {
-    const params: RestParameter[] = [];
+    const formData = new FormData();
 
     if (label != null) {
-      params.push({ name: 'label', value: label });
+      formData.append('label', label);
     }
 
     if (hidden != null) {
-      params.push({ name: 'edit', value: String(hidden) });
+      formData.append('edit', String(hidden));
     }
 
-    return this.restService.get(this.URLS.edit + question.uuid, params);
+    if (rightResponse != null) {
+      formData.append('true_response_uuid', rightResponse.uuid);
+    }
+
+    if (falseResponses != null) {
+      formData.append(
+        'false_responses_uuid',
+        falseResponses.map((r) => r.uuid).join(',')
+      );
+    }
+
+    return this.restService.post(this.URLS.edit + uuid, formData);
   }
 }

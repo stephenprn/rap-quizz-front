@@ -8,6 +8,7 @@ import {
   Pagination,
   PaginationResults
 } from 'src/app/shared/classes/others/pagination.class';
+import { LoadingState } from 'src/app/shared/classes/others/loading-state.class';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +18,8 @@ import {
 export class DashboardComponent implements OnInit {
   public historyPagination = new Pagination(0, 20);
   public history: UserQuiz[] = [];
+
+  public loading = new LoadingState();
 
   constructor(
     private uiService: UiService,
@@ -43,7 +46,7 @@ export class DashboardComponent implements OnInit {
         this.historyPagination = cloneDeep(this.historyPagination);
       },
       error: (err: HttpErrorResponse) => {
-        this.uiService.displayToast(err.error.description);
+        this.uiService.displayToast(err.error.description, true);
       }
     });
   }

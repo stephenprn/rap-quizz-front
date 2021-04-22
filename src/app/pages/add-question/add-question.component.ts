@@ -4,12 +4,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { QuestionsApiService } from 'src/app/shared/services/api/questions-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UiService } from 'src/app/shared/services/ui.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
+  QuestionResponse,
+  QuestionResponseStatus,
   Response,
   ResponseType
 } from 'src/app/shared/classes/models/response.class';
 import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
+import { Question } from 'src/app/shared/classes/models/question.class';
 
 @Component({
   selector: 'app-add-question',
@@ -34,6 +37,7 @@ export class AddQuestionComponent implements OnInit {
     { label: 'Autre', value: ResponseType.OTHER }
   ];
 
+  public questionUuid: string;
   public loading: boolean;
   public submitting: boolean;
 
@@ -45,6 +49,7 @@ export class AddQuestionComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
 
     private questionsApiService: QuestionsApiService,
     private responseApiService: ResponseApiService,
@@ -64,6 +69,41 @@ export class AddQuestionComponent implements OnInit {
       ]),
       responseType: new FormControl(ResponseType.ARTIST, [Validators.required])
     });
+
+    const questionUuid = this.route.snapshot.paramMap.get('question_uuid');
+
+    if (!questionUuid) {
+      return;
+    }
+
+    this.questionUuid = questionUuid;
+
+    this.questionsApiService.get(questionUuid).subscribe(
+      (question: Question) => {
+        this.addQuestionFormGroup.patchValue({
+          label: question.label,
+          responseType: ResponseType[question.type]
+        });
+
+        this.responses = question.responses.map(
+          (qr: QuestionResponse) =>
+            new Response({
+              label: qr.response.label,
+              type: qr.response.type,
+              uuid: qr.response.uuid
+            })
+        );
+
+        this.responseSelectedLabel = question.responses.find(
+          (r) => r.status === QuestionResponseStatus.CORRECT
+        ).response.label;
+      },
+      (err: any) => {
+        console.log({ err });
+        this.uiService.displayToast(err.error.description, true);
+        this.router.navigate(['/']);
+      }
+    );
   }
 
   public searchSuggestions(resetSelected?: boolean) {
@@ -94,7 +134,7 @@ export class AddQuestionComponent implements OnInit {
           },
           error: () => {
             this.uiService.displayToast(
-              'Error while getting responses, please try again later'
+              'Error while getting responses, please try again later', true
             );
           }
         });
@@ -110,7 +150,7 @@ export class AddQuestionComponent implements OnInit {
         },
         error: () => {
           this.uiService.displayToast(
-            'Error while adding response, please try again later'
+            'Error while adding response, please try again later', true
           );
         }
       });
@@ -128,7 +168,7 @@ export class AddQuestionComponent implements OnInit {
   }
 
   public removeResponse(response: Response) {
-    this.responses = this.responses.filter(r => r != response);
+    this.responses = this.responses.filter((r) => r != response);
 
     if (this.responseSelectedLabel === response.label) {
       if (this.responses.length > 0) {
@@ -143,16 +183,25 @@ export class AddQuestionComponent implements OnInit {
     this.responseSelectedLabel = response?.label || null;
   }
 
+  public resetResponses() {
+    this.responses = [];
+    this.responseSelectedLabel = null;
+  }
+
   public submit() {
-    this.addQuestion();
+    if (!this.questionUuid) {
+      this.addQuestion();
+    } else {
+      this.updateQuestion();
+    }
   }
 
   private addQuestion() {
     this.submitting = true;
     const rightResponse = this.responses.find(
-      r => r.label === this.responseSelectedLabel
+      (r) => r.label === this.responseSelectedLabel
     );
-    const falseResponses = this.responses.filter(r => r !== rightResponse);
+    const falseResponses = this.responses.filter((r) => r !== rightResponse);
 
     this.questionsApiService
       .add(
@@ -162,7 +211,35 @@ export class AddQuestionComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.uiService.displayToast('Question successfuly added!');
+          this.uiService.displayToast('Question proposée avec succès');
+          this.router.navigate(['/']);
+        },
+        error: (err: HttpErrorResponse) => {
+          this.submitting = false;
+          this.uiService.displayToast(err.error, true);
+        }
+      });
+  }
+
+  private updateQuestion() {
+    this.submitting = true;
+    const rightResponse = this.responses.find(
+      (r) => r.label === this.responseSelectedLabel
+    );
+    const falseResponses = this.responses.filter((r) => r !== rightResponse);
+
+    this.questionsApiService
+      .editQuestion(
+        this.questionUuid,
+        {
+          label: this.addQuestionFormGroup.get('label').value,
+          rightResponse,
+          falseResponses
+        }
+      )
+      .subscribe({
+        next: () => {
+          this.uiService.displayToast('Question mise à jour avec succès');
           this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {

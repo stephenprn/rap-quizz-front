@@ -1,62 +1,90 @@
 <div id="questions-list-container" class="basic-card">
   <h1 class="basic-title bordered">Questions</h1>
-  <table class="basic-table" id="questions-table">
-    <thead>
-      <tr>
-        <th>Creation</th>
-        <th>Label</th>
-        <th>Réponse</th>
-        <th>Cachée</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let question of questions">
-        <td>{{ question.creation_date | date: "dd/MM/yyyy (hh:mm)" }}</td>
-        <td>
-          <div
-            (click)="setEditQuestion(question)"
-            *ngIf="question.uuid !== questionEdit.question?.uuid"
-            class="label-container"
-          >
-            {{ question.label }}
-          </div>
-          <div
-            *ngIf="question.uuid === questionEdit.question?.uuid"
-            class="edit-label-container"
-          >
-            <input
-              class="edit-label-input"
-              type="text"
-              [(ngModel)]="questionEdit.label"
-            />
-
-            <button
-              (click)="setLabel()"
-              mat-icon-button
-              matTooltip="Valider l'édition"
-              [disabled]="
-                questionEdit.label.length < QUESTION_TITLE_MIN_LENGTH ||
-                questionEdit.label.length > QUESTION_TITLE_MAX_LENGTH
-              "
+  <div class="centered">
+    <app-basic-loader
+      *ngIf="loading.first"
+      height="64px"
+      width="64px"
+    ></app-basic-loader>
+  </div>
+  <div class="basic-table-container">
+    <table
+      class="basic-table"
+      id="questions-table"
+      *ngIf="questions.length > 0"
+    >
+      <thead>
+        <tr>
+          <th>Creation</th>
+          <th>Label</th>
+          <th>Réponse</th>
+          <th>Cachée</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of questions">
+          <td>{{ question.creation_date | date: 'dd/MM/yyyy (hh:mm)' }}</td>
+          <td>
+            <div
+              (click)="setEditQuestion(question)"
+              *ngIf="question.uuid !== questionEdit.question?.uuid"
+              class="label-container"
             >
-              <i class="fa {{ ICONS.check }}"></i>
+              {{ question.label }}
+            </div>
+            <div
+              *ngIf="question.uuid === questionEdit.question?.uuid"
+              class="edit-label-container"
+            >
+              <input
+                class="edit-label-input"
+                type="text"
+                [(ngModel)]="questionEdit.label"
+              />
+
+              <button
+                (click)="setLabel()"
+                mat-icon-button
+                matTooltip="Valider l'édition"
+                [disabled]="
+                  questionEdit.label.length < QUESTION_TITLE_MIN_LENGTH ||
+                  questionEdit.label.length > QUESTION_TITLE_MAX_LENGTH
+                "
+              >
+                <i class="fa {{ ICONS.check }}"></i>
+              </button>
+            </div>
+          </td>
+          <td>
+            {{ question.rightResponse.label }}
+          </td>
+          <td class="center">
+            <mat-checkbox
+              (change)="setHidden(question, $event.checked)"
+              [(ngModel)]="question.hidden"
+            ></mat-checkbox>
+          </td>
+          <td class="center">
+            <button
+              (click)="goEdit(question)"
+              mat-icon-button
+              matTooltip="Editer la question"
+            >
+              <i class="fa {{ ICONS.edit }}"></i>
             </button>
-          </div>
-        </td>
-        <td>
-          {{ question.rightResponse.label }}
-        </td>
-        <td class="center">
-          <mat-checkbox
-            (change)="setHidden(question, $event.checked)"
-            [(ngModel)]="question.hidden"
-          ></mat-checkbox>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="basic-overlay centered" *ngIf="loading.more">
+      <app-basic-loader height="64px" width="64px"></app-basic-loader>
+    </div>
+  </div>
 
   <app-basic-pagination
+    *ngIf="!loading.first"
     (goPage)="goPage($event)"
     [pagination]="questionsPagination"
   ></app-basic-pagination>

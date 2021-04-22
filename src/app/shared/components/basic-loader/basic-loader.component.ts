@@ -15,12 +15,21 @@ import { Pagination } from '../../classes/others/pagination.class';
   styleUrls: ['./basic-loader.component.scss']
 })
 export class BasicLoaderComponent {
-  public readonly DEFAULT_COLOR = '#ffffff';
+  public readonly DEFAULT_COLOR = '#df965f';
   public readonly DEFAULT_BORDER_WIDTH = '8px';
+
+  public readonly DEFAULT_HEIGHT = '100%';
+  public readonly DEFAULT_WIDTH = '100%';
 
   @Input()
   color: string;
 
   @Input()
   borderWidth: string;
+
+  @Input()
+  height: string;
+
+  @Input()
+  width: string;
 }

@@ -246,7 +246,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       },
       error: (err: HttpErrorResponse) => {
         if (err.status === 409) {
-          this.uiService.displayToast(err.error.description);
+          this.uiService.displayToast(err.error.description, true);
           this.router.navigate(['/']);
         }
       }

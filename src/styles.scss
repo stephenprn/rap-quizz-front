@@ -1,33 +1,33 @@
-@import "./style-var.scss";
+@import './style-var.scss';
 /**
 * Generated theme by Material Theme Generator
 * https://materialtheme.arcsine.dev
 */
 
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 
 // Fonts
-@import "https://fonts.googleapis.com/css?family=Material+Icons";
+@import 'https://fonts.googleapis.com/css?family=Material+Icons';
 
 // @import url("https://fonts.googleapis.com/css?family=Nunito:300,400,500");
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap');
 
 $fontConfig: (
-  display-4: mat-typography-level(112px, 112px, 300, "Nunito", -0.0134em),
-  display-3: mat-typography-level(56px, 56px, 400, "Nunito", -0.0089em),
-  display-2: mat-typography-level(45px, 48px, 400, "Nunito", 0em),
-  display-1: mat-typography-level(34px, 40px, 400, "Nunito", 0.0074em),
-  headline: mat-typography-level(24px, 32px, 400, "Nunito", 0em),
-  title: mat-typography-level(20px, 32px, 500, "Nunito", 0.0075em),
-  subheading-2: mat-typography-level(16px, 28px, 400, "Nunito", 0.0094em),
-  subheading-1: mat-typography-level(15px, 24px, 500, "Nunito", 0.0067em),
-  body-2: mat-typography-level(14px, 24px, 500, "Nunito", 0.0179em),
-  body-1: mat-typography-level(14px, 20px, 400, "Nunito", 0.0179em),
-  button: mat-typography-level(14px, 14px, 500, "Nunito", 0.0893em),
-  caption: mat-typography-level(12px, 20px, 400, "Nunito", 0.0333em),
-  input: mat-typography-level(inherit, 1.125, 400, "Nunito", 1.5px),
+  display-4: mat-typography-level(112px, 112px, 300, 'Nunito', -0.0134em),
+  display-3: mat-typography-level(56px, 56px, 400, 'Nunito', -0.0089em),
+  display-2: mat-typography-level(45px, 48px, 400, 'Nunito', 0em),
+  display-1: mat-typography-level(34px, 40px, 400, 'Nunito', 0.0074em),
+  headline: mat-typography-level(24px, 32px, 400, 'Nunito', 0em),
+  title: mat-typography-level(20px, 32px, 500, 'Nunito', 0.0075em),
+  subheading-2: mat-typography-level(16px, 28px, 400, 'Nunito', 0.0094em),
+  subheading-1: mat-typography-level(15px, 24px, 500, 'Nunito', 0.0067em),
+  body-2: mat-typography-level(14px, 24px, 500, 'Nunito', 0.0179em),
+  body-1: mat-typography-level(14px, 20px, 400, 'Nunito', 0.0179em),
+  button: mat-typography-level(14px, 14px, 500, 'Nunito', 0.0893em),
+  caption: mat-typography-level(12px, 20px, 400, 'Nunito', 0.0333em),
+  input: mat-typography-level(inherit, 1.125, 400, 'Nunito', 1.5px)
 );
 
 // Foreground Elements
@@ -56,7 +56,7 @@ $mat-light-theme-foreground: (
   text: $dark-primary-text,
   slider-min: $dark-primary-text,
   slider-off: rgba($dark-text, 0.26),
-  slider-off-active: $dark-disabled-text,
+  slider-off-active: $dark-disabled-text
 );
 
 // Dark Theme text
@@ -83,7 +83,7 @@ $mat-dark-theme-foreground: (
   text: $light-text,
   slider-min: $light-text,
   slider-off: rgba($light-text, 0.3),
-  slider-off-active: rgba($light-text, 0.3),
+  slider-off-active: rgba($light-text, 0.3)
 );
 
 // Background config
@@ -113,7 +113,7 @@ $mat-light-theme-background: (
   selected-disabled-button: $light-bg-darker-30,
   disabled-button-toggle: $light-bg-darker-10,
   unselected-chip: $light-bg-darker-10,
-  disabled-list-option: $light-bg-darker-10,
+  disabled-list-option: $light-bg-darker-10
 );
 
 // Dark bg
@@ -141,7 +141,7 @@ $mat-dark-theme-background: (
   selected-disabled-button: $dark-bg-lighter-30,
   disabled-button-toggle: $dark-bg-lighter-10,
   unselected-chip: $dark-bg-lighter-20,
-  disabled-list-option: $dark-bg-lighter-10,
+  disabled-list-option: $dark-bg-lighter-10
 );
 
 // Compute font config
@@ -191,8 +191,8 @@ $mat-primary: (
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
-      darker: $dark-primary-text,
-    ),
+      darker: $dark-primary-text
+    )
 );
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
@@ -206,8 +206,8 @@ $mat-accent: (
     (
       main: $dark-primary-text,
       lighter: $dark-primary-text,
-      darker: $dark-primary-text,
-    ),
+      darker: $dark-primary-text
+    )
 );
 $theme-accent: mat-palette($mat-accent, main, lighter, darker);
 
@@ -230,8 +230,8 @@ $mat-warn: (
     (
       main: $light-primary-text,
       lighter: $dark-primary-text,
-      darker: $light-primary-text,
-    ),
+      darker: $light-primary-text
+    )
 );
 $theme-warn: mat-palette($mat-warn, main, lighter, darker);
 
@@ -251,7 +251,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Nunito, "Helvetica Neue", sans-serif;
+  font-family: Nunito, 'Helvetica Neue', sans-serif;
 }
 
 h1.basic-title {
@@ -286,6 +286,13 @@ h2.basic-title {
   }
 }
 
+.centered {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
 .bordered-icon {
   @include orange-border;
 }
@@ -302,6 +309,22 @@ a {
   }
 }
 
+.basic-overlay {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: var(--transparency-middle);
+}
+
+.basic-table-container {
+  width: 100%;
+  position: relative;
+}
 
 .basic-table {
   width: 100%;
@@ -333,7 +356,6 @@ a {
     }
   }
 }
-
 
 .basic-card {
   border-radius: $basic-card-radius;
@@ -376,7 +398,7 @@ i.fa {
   //   mat-color($mat-primary, lighter),
   //   100%
   // );
-  // background-image: 
+  // background-image:
   //   radial-gradient(at top left, #D056AD, transparent),
   //   radial-gradient(at top right, #2D26FB, transparent),
   //   radial-gradient(at bottom left, #703cff, transparent);
@@ -454,7 +476,6 @@ i.fa {
       }
 
       &.solid {
-
       }
     }
 
@@ -486,7 +507,6 @@ i.fa {
   border-radius: 5px;
 }
 
-
 .mat-toolbar {
   background: unset;
 }
@@ -512,15 +532,14 @@ mat-spinner {
 
 .material-icons {
   font-size: 24px;
-  font-family: "Material Icons", "Material Icons";
+  font-family: 'Material Icons', 'Material Icons';
   .mat-badge-content {
-    font-family: "Nunito";
+    font-family: 'Nunito';
   }
 }
 
 .mat-checkbox-inner-container {
-  background-color: var(--transparency-light)
-  var(--transparency-middle);
+  background-color: var(--transparency-light) var(--transparency-middle);
 }
 
 // responsive

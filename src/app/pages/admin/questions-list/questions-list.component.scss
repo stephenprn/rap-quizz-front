@@ -1,3 +1,5 @@
+@import "./../../../../style-var.scss";
+
 #questions-table {
     margin-bottom: 20px;
 }
@@ -17,4 +19,8 @@
     &:hover {
         background-color: rgba(255,255,255,0.75);
     }
+}
+
+.basic-overlay {
+  border-radius: $basic-card-element-radius;
 }

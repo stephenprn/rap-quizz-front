@@ -1,31 +1,46 @@
 <div id="dashboard-container" class="basic-card">
   <h1 class="basic-title bordered">Historique des parties</h1>
-  <div  *ngIf="history.length === 0">
+  <div class="centered">
+    <app-basic-loader
+      *ngIf="loading.first"
+      height="64px"
+      width="64px"
+    ></app-basic-loader>
+  </div>
+  <div *ngIf="history.length === 0 && !loading.first">
     Pas de parties jouées pour l'instant.
   </div>
-  <table id="history-table" class="basic-table" *ngIf="history.length > 0">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Nbr questions</th>
-        <th>Score</th>
-        <th>Status</th>
-        <th>Question duration</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let hist of history">
-        <td>{{hist.creation_date | date: 'dd/MM/yyyy'}}</td>
-        <td>{{hist.quiz.nbr_questions}}</td>
-        <td>{{hist.score}}</td>
-        <td>{{hist.status}}</td>
-        <td>{{hist.quiz.question_duration}}</td>
-      </tr>
-    </tbody>
-  </table>
 
-  <app-basic-pagination
-    (goPage)="goPage($event)"
-    [pagination]="historyPagination"
-  ></app-basic-pagination>
+  <div class="basic-table-container">
+    <table class="basic-table" id="history-table" *ngIf="history.length > 0">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Nbr questions</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Question duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hist of history">
+          <td>{{ hist.creation_date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ hist.quiz.nbr_questions }}</td>
+          <td>{{ hist.score }}</td>
+          <td>{{ hist.status }}</td>
+          <td>{{ hist.quiz.question_duration }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="basic-overlay centered" *ngIf="loading.more">
+      <app-basic-loader height="64px" width="64px"></app-basic-loader>
+    </div>
+
+    <app-basic-pagination
+      *ngIf="!loading.first"
+      (goPage)="goPage($event)"
+      [pagination]="historyPagination"
+    ></app-basic-pagination>
+  </div>
 </div>

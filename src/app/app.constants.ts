@@ -11,6 +11,7 @@ export class AppConstants {
     register: 'fa-pen',
     delete: 'fa-trash',
     check: 'fa-check',
+    edit: 'fa-pencil',
 
     pageNext: 'fa-chevron-right',
     pagePrevious: 'fa-chevron-left'

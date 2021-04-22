@@ -1,18 +1,30 @@
-<div class="lds-ring">
+<div
+  class="lds-ring"
+  [style.height]="height ? height : DEFAULT_HEIGHT"
+  [style.width]="width ? width : DEFAULT_WIDTH"
+>
   <div
-    [style.border-color]="(color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'"
+    [style.border-color]="
+      (color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'
+    "
     [style.border-width]="borderWidth ? borderWidth : DEFAULT_BORDER_WIDTH"
   ></div>
   <div
-    [style.border-color]="(color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'"
+    [style.border-color]="
+      (color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'
+    "
     [style.border-width]="borderWidth ? borderWidth : DEFAULT_BORDER_WIDTH"
   ></div>
   <div
-    [style.border-color]="(color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'"
+    [style.border-color]="
+      (color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'
+    "
     [style.border-width]="borderWidth ? borderWidth : DEFAULT_BORDER_WIDTH"
   ></div>
   <div
-    [style.border-color]="(color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'"
+    [style.border-color]="
+      (color ? color : DEFAULT_COLOR) + ' transparent transparent transparent'
+    "
     [style.border-width]="borderWidth ? borderWidth : DEFAULT_BORDER_WIDTH"
   ></div>
 </div>

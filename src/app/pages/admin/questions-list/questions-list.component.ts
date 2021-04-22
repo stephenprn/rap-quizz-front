@@ -13,6 +13,8 @@ import {
   QuestionResponse,
   QuestionResponseStatus
 } from 'src/app/shared/classes/models/response.class';
+import { Router } from '@angular/router';
+import { LoadingState } from 'src/app/shared/classes/others/loading-state.class';
 
 @Component({
   selector: 'app-questions-list',
@@ -30,11 +32,15 @@ export class QuestionsListComponent implements OnInit {
     question: null
   };
 
+  public loading = new LoadingState();
+
   public ICONS = AppConstants.ICONS;
   public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
   public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
 
   constructor(
+    private router: Router,
+
     private uiService: UiService,
     private questionsApiService: QuestionsApiService
   ) {}
@@ -49,6 +55,8 @@ export class QuestionsListComponent implements OnInit {
   }
 
   private getQuestions() {
+    this.loading.trigger();
+
     this.questionsApiService.list(this.questionsPagination).subscribe({
       next: (res: PaginationResults<Question>) => {
         this.questions = res.data;
@@ -63,16 +71,18 @@ export class QuestionsListComponent implements OnInit {
           res.total / this.questionsPagination.nbrResults
         );
         this.questionsPagination = cloneDeep(this.questionsPagination);
+        this.loading.stop();
       },
       error: (err: HttpErrorResponse) => {
-        this.uiService.displayToast(err.error.description);
+        this.uiService.displayToast(err.error.description, true);
+        this.loading.stop();
       }
     });
   }
 
   public setLabel() {
     this.questionsApiService
-      .editQuestion(this.questionEdit.question, {
+      .editQuestion(this.questionEdit.question.uuid, {
         label: this.questionEdit.label
       })
       .subscribe({
@@ -81,27 +91,27 @@ export class QuestionsListComponent implements OnInit {
             `${this.questionEdit.question.label} -> ${this.questionEdit.label}`
           );
           this.questions.find(
-            q => q.uuid === this.questionEdit.question.uuid
+            (q) => q.uuid === this.questionEdit.question.uuid
           ).label = this.questionEdit.label;
 
           this.questionEdit.label = null;
           this.questionEdit.question = null;
         },
         error: (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error.description);
+          this.uiService.displayToast(err.error.description, true);
         }
       });
   }
 
   public setHidden(question: Question, hidden: boolean) {
-    this.questionsApiService.editQuestion(question, { hidden }).subscribe({
+    this.questionsApiService.editQuestion(question.uuid, { hidden }).subscribe({
       next: () => {
         this.uiService.displayToast(
           `Question ${question.uuid} cachée : ${hidden}`
         );
       },
       error: (err: HttpErrorResponse) => {
-        this.uiService.displayToast(err.error.description);
+        this.uiService.displayToast(err.error.description, true);
       }
     });
   }
@@ -109,5 +119,9 @@ export class QuestionsListComponent implements OnInit {
   public setEditQuestion(question: Question) {
     this.questionEdit.label = question.label;
     this.questionEdit.question = question;
+  }
+
+  public goEdit(question: Question) {
+    this.router.navigate([`/edit-question/${question.uuid}`]);
   }
 }

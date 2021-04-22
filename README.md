@@ -2,13 +2,6 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
 
-## TODO
-
-- Séparer en modules
-- Lazy loading
-- resolve circular dependencies
-- "are you sure you want to quit this page? You have a quiz going on"
-
 ## Heroku commands
 
 ### Deploy

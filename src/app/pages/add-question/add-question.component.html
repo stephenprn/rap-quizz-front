@@ -21,6 +21,7 @@
       <mat-select
         [formControl]="addQuestionFormGroup.controls['responseType']"
         name="responseType"
+        (selectionChange)="resetResponses()"
       >
         <mat-option *ngFor="let type of responseTypes" [value]="type.value">{{
           type.label
@@ -90,13 +91,17 @@
 
   <app-basic-button
     (clicked)="submit()"
-    [disabled]="addQuestionFormGroup.invalid || submitting"
+    [disabled]="
+      addQuestionFormGroup.invalid || submitting || this.responses.length === 0
+    "
     [icon]="ICONS.questionAdd"
     [loading]="submitting"
     [tooltip]="
-      addQuestionFormGroup.invalid ? 'Veuillez remplir tous les champs' : null
+      addQuestionFormGroup.invalid || this.responses.length === 0
+        ? 'Veuillez remplir tous les champs'
+        : null
     "
   >
-    Ajouter
+    {{ questionUuid ? "Editer": "Ajouter"}}
   </app-basic-button>
 </form>
