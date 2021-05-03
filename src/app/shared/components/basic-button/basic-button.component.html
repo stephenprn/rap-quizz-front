@@ -12,7 +12,11 @@
     <div class="basic-button-body">
       <div class="icon-container">
         <i class="fa {{ icon }}" *ngIf="icon && !loading"></i>
-        <app-basic-loader borderWidth="4px" *ngIf="loading"></app-basic-loader>
+        <app-basic-loader
+          borderWidth="4px"
+          size="100%"
+          *ngIf="loading"
+        ></app-basic-loader>
       </div>
       <ng-content></ng-content>
     </div>

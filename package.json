@@ -7,8 +7,8 @@
     "start_dev": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "lint": "tslint --fix -c ./tslint.json 'src/**/*.ts'",
+    "format": "prettier --config .prettierrc 'src/**/*.{ts,html}' --write",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod",
     "heroku-postbuild": "ng build --prod"

@@ -12,6 +12,9 @@ import {
   styleUrls: ['./quiz-infos.component.scss']
 })
 export class QuizInfosComponent implements OnInit {
+  public readonly RIGHT_COLOR = '#42b442';
+  public readonly WRONG_COLOR = '#bd4b4b';
+
   @Input()
   public quiz: Quiz;
 

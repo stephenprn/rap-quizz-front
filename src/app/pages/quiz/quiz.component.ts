@@ -93,6 +93,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   private initPromises() {
+    this.quizSocketService.userJoined$.subscribe((a) => {
+      console.log({ a });
+    });
     this.promises.userJoined = this.quizSocketService.userJoined$.subscribe({
       next: (socketEvent: SocketEvent<UserEvent>) => {
         const player = new Player(
@@ -156,15 +159,15 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.promises.adminSet = this.quizSocketService.adminSet$.subscribe({
       next: (socketEvent: SocketEvent<User>) => {
         const admin = this.players.find(
-          player => player.user.uuid === socketEvent.body.uuid
+          (player) => player.user.uuid === socketEvent.body.uuid
         );
 
         if (admin != null) {
           admin.admin = true;
           this.uiService.displayToast(
             `${
-              admin.me ? 'You are' : admin.user.username + ' is'
-            } the new admin`
+              admin.me ? 'Vous êtes ' : admin.user.username + ' est'
+            } le nouvel admin`
           );
         }
       }
@@ -216,11 +219,18 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizSocketService.startQuiz(this.quiz.uuid);
   }
 
-  public anwserResponse(response: Response) {
+  public anwserResponse({
+    response,
+    precise
+  }: {
+    response?: Response;
+    precise?: string;
+  }) {
     this.quizSocketService.answerResponse(
       this.quiz,
       this.currentQuestion,
-      response
+      response,
+      precise
     );
   }
 

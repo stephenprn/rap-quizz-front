@@ -1,11 +1,7 @@
 <div id="dashboard-container" class="basic-card">
   <h1 class="basic-title bordered">Historique des parties</h1>
   <div class="centered">
-    <app-basic-loader
-      *ngIf="loading.first"
-      height="64px"
-      width="64px"
-    ></app-basic-loader>
+    <app-basic-loader *ngIf="loading.first"></app-basic-loader>
   </div>
   <div *ngIf="history.length === 0 && !loading.first">
     Pas de parties jouées pour l'instant.
@@ -34,7 +30,7 @@
     </table>
 
     <div class="basic-overlay centered" *ngIf="loading.more">
-      <app-basic-loader height="64px" width="64px"></app-basic-loader>
+      <app-basic-loader></app-basic-loader>
     </div>
 
     <app-basic-pagination

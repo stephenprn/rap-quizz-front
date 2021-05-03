@@ -1,6 +1,6 @@
 import { AppConstants } from '../../../app.constants';
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Player } from 'src/app/shared/classes/others/player.class';
 
 @Component({

@@ -1,4 +1,4 @@
-<div class="basic-pagination-container" *ngIf="pagination.pageMax !== 0">
+<div class="basic-pagination-container" *ngIf="pagination.pageMax">
   <button
     (click)="goPage.emit(pagination.pageNbr - 1)"
     mat-icon-button
@@ -9,8 +9,13 @@
   </button>
   <div id="pages">
     <span class="page" *ngFor="let page of pages; let last = last">
-      <a [ngClass]="{ 'current': p -1 === pagination.pageNbr }" *ngFor="let p of page" (click)="goPage.emit(p - 1)">{{ p }}</a>
-      {{ !last ? "...": "" }}
+      <a
+        [ngClass]="{ current: p - 1 === pagination.pageNbr }"
+        *ngFor="let p of page"
+        (click)="goPage.emit(p - 1)"
+        >{{ p }}</a
+      >
+      {{ !last ? '...' : '' }}
     </span>
   </div>
   <button

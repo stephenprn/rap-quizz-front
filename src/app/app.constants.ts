@@ -12,6 +12,8 @@ export class AppConstants {
     delete: 'fa-trash',
     check: 'fa-check',
     edit: 'fa-pencil',
+    info: 'fa-info-circle',
+    warning: 'fa-exclamation-triangle',
 
     pageNext: 'fa-chevron-right',
     pagePrevious: 'fa-chevron-left'

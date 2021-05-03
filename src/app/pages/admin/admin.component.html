@@ -1,3 +1,17 @@
-<div id="admin-container">
-    <app-questions-list></app-questions-list>
+<div id="admin-container" class="basic-card">
+  <app-basic-tabs
+    [tabs]="tabs"
+    (tabChanges)="tabChanges($event)"
+    [tabSelected]="tabSelected"
+  ></app-basic-tabs>
+  <div class="content">
+    <app-questions-list
+      *ngIf="tabSelected.id === 'questions-list'"
+    ></app-questions-list>
+    <app-responses-list
+      *ngIf="tabSelected.id === 'responses-list'"
+    ></app-responses-list>
+    <app-users-list *ngIf="tabSelected.id === 'users-list'"></app-users-list>
+    <app-data *ngIf="tabSelected.id === 'data'"></app-data>
+  </div>
 </div>

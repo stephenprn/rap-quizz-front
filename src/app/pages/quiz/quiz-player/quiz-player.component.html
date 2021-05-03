@@ -1,15 +1,14 @@
 <div class="player">
-  <div class="player-rank" *ngIf="withRank" >{{ player.rank }}</div>
+  <div class="player-rank" *ngIf="withRank">{{ player.rank }}</div>
 
-  <div class="player-icon">
-    <i class="fa {{ ICONS.player }} player-icon"></i>
-  </div>
+  <app-quiz-player-icon [player]="player"></app-quiz-player-icon>
+
   <div class="player-infos">
     <div class="player-infos-left-section">
       <h3 class="player-username">{{ player.user.username }}</h3>
       <h4 class="player-join-date" *ngIf="withDate">
         <i class="fa {{ ICONS.joinDate }}"></i>
-        {{ player.joinDate | date: "H:mm:ss" }}
+        {{ player.joinDate | date: 'H:mm:ss' }}
       </h4>
     </div>
     <div class="player-infos-right-section">

@@ -1,0 +1,22 @@
+<div id="data-container">
+  <form [formGroup]="crawlFormGroup" class="basic-form">
+    <div class="basic-form-inputs">
+      <mat-form-field appearance="outline" class="basic-form-input">
+        <mat-label>Artiste genius id</mat-label>
+        <input matInput formControlName="artistGeniusId" />
+        <mat-error> Genius id invalide </mat-error>
+      </mat-form-field>
+    </div>
+
+    <app-basic-button
+      (clicked)="crawlArtist()"
+      [icon]="ICONS.check"
+      [loading]="loadingCrawl"
+    >
+      Crawler artiste
+    </app-basic-button>
+
+    <a href="https://genius.com/search?q=damso">Chercher sur genius</a> (API:
+    videos)
+  </form>
+</div>

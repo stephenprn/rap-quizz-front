@@ -1,7 +1,9 @@
 <div id="quiz-container">
-  <app-quiz-loading
-    *ngIf="quizStatus === QuizStatus.LOADING"
-  ></app-quiz-loading>
+  <div class="centered">
+    <app-basic-loader
+      *ngIf="quizStatus === QuizStatus.LOADING"
+    ></app-basic-loader>
+  </div>
 
   <app-quiz-waiting-room
     *ngIf="quizStatus === QuizStatus.WAITING"
@@ -26,7 +28,8 @@
     ></app-quiz-infos>
 
     <app-question
-      (selectResponse)="anwserResponse($event)"
+      (selectResponse)="anwserResponse({ response: $event })"
+      (responsePrecise)="anwserResponse({ precise: $event })"
       [question]="currentQuestion"
       [me]="me"
     ></app-question>

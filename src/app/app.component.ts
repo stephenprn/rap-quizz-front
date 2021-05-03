@@ -26,12 +26,12 @@ export class AppComponent implements OnInit {
 
   private initTitleUpdator() {
     this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe({
         next: () => {
           const rt = this.getChild(this.activatedRoute);
 
-          rt.data.subscribe(data => {
+          rt.data.subscribe((data) => {
             this.titleService.setTitle(data.title);
           });
         }

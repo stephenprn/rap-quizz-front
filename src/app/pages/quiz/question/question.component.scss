@@ -1,11 +1,24 @@
+@import './../../../../style-var.scss';
+
 $space-between-responses: 20px;
+$space-between-elements: 40px;
 
 #question-container {
   > #question-label {
-      color: #ffffff;
+    color: #ffffff;
     font-size: 1.6em;
     font-weight: 900;
-    margin-bottom: 40px;
+    margin-bottom: $space-between-elements;
+  }
+
+  > #question-picture-container {
+    margin-bottom: $space-between-elements;
+
+    > #question-picture {
+      max-width: 100%;
+      border-radius: 40px;
+      box-shadow: $base-shadow;
+    }
   }
 
   > #question-responses {

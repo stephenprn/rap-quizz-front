@@ -2,20 +2,23 @@
   <form id="login-form" class="basic-form" [formGroup]="loginFormGroup">
     <h1 class="basic-title bordered">Login</h1>
 
-    <p>No account? <a (click)="openRegisterDialog()">Create one</a></p>
+    <p>
+      Pas encore de compte ? <a (click)="openRegisterDialog()">S'enregistrer</a>
+    </p>
 
     <div class="basic-form-inputs">
       <mat-form-field appearance="outline" class="basic-form-input">
         <mat-label>Email</mat-label>
         <input matInput formControlName="email" />
-        <mat-error> Please enter a valid email address </mat-error>
+        <mat-error> Entrez une adresse email valide </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="basic-form-input">
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" />
         <mat-error>
-          Le mot de passe doit contenir {{ PASSWORD_MIN_LENGTH }} caractères minimum
+          Le mot de passe doit contenir {{ PASSWORD_MIN_LENGTH }} caractères
+          minimum
         </mat-error>
       </mat-form-field>
 

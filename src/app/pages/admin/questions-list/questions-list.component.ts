@@ -22,7 +22,7 @@ import { LoadingState } from 'src/app/shared/classes/others/loading-state.class'
   styleUrls: ['./questions-list.component.scss']
 })
 export class QuestionsListComponent implements OnInit {
-  public questionsPagination = new Pagination(0, 20);
+  public pagination = new Pagination(0, 20);
   public questions: Question[] = [];
   public questionEdit: {
     label: string;
@@ -50,27 +50,32 @@ export class QuestionsListComponent implements OnInit {
   }
 
   public goPage(page: number) {
-    this.questionsPagination.pageNbr = page;
+    this.pagination.pageNbr = page;
     this.getQuestions();
   }
 
   private getQuestions() {
     this.loading.trigger();
 
-    this.questionsApiService.list(this.questionsPagination).subscribe({
+    this.questionsApiService.list(this.pagination).subscribe({
       next: (res: PaginationResults<Question>) => {
         this.questions = res.data;
         this.questions.forEach((question: Question) => {
-          question.rightResponse = question.responses.filter(
+          const right = question.responses.filter(
             (response: QuestionResponse) =>
               response.status === QuestionResponseStatus.CORRECT
-          )[0].response;
+          );
+
+          if (right.length > 0) {
+            question.rightResponse = right[0].response;
+          }
         });
-        this.questionsPagination.total = res.total;
-        this.questionsPagination.pageMax = Math.floor(
-          res.total / this.questionsPagination.nbrResults
+
+        this.pagination.total = res.total;
+        this.pagination.pageMax = Math.floor(
+          res.total / this.pagination.nbrResults
         );
-        this.questionsPagination = cloneDeep(this.questionsPagination);
+        this.pagination = cloneDeep(this.pagination);
         this.loading.stop();
       },
       error: (err: HttpErrorResponse) => {

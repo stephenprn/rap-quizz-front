@@ -43,8 +43,6 @@ export class LoginComponent implements OnInit {
       ]),
       rememberMe: new FormControl(false)
     });
-
-    console.log(this.loginFormGroup);
   }
 
   public login() {
@@ -61,7 +59,7 @@ export class LoginComponent implements OnInit {
             res,
             this.loginFormGroup.get('rememberMe').value
           );
-          this.uiService.displayToast('You are now connected!');
+          this.uiService.displayToast('Vous êtes connecté');
           this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {

@@ -2,7 +2,7 @@ import { Question } from './../../classes/models/question.class';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 import { Response } from 'src/app/shared/classes/models/response.class';
-import { RestParameter, RestService } from '../rest.service';
+import { RestService } from '../rest.service';
 import {
   Pagination,
   PaginationResults
@@ -22,17 +22,23 @@ export class QuestionsApiService {
 
   public add(
     label: string,
+    responseType: ResponseType,
     rightResponse: Response,
-    falseResponses: Response[]
+    falseResponses: Response[],
+    year: number
   ): Observable<any> {
     const formData = new FormData();
 
     formData.append('label', label);
-    formData.append('true_response_uuid', rightResponse.uuid);
-    formData.append(
-      'false_responses_uuid',
-      falseResponses.map((r) => r.uuid).join(',')
-    );
+    formData.append('response_type', responseType);
+
+    rightResponse && formData.append('true_response_uuid', rightResponse.uuid);
+    falseResponses &&
+      formData.append(
+        'false_responses_uuid',
+        falseResponses.map((r) => r.uuid).join(',')
+      );
+    year && formData.append('year', String(year));
 
     return this.restService.post(this.URLS.add, formData);
   }
@@ -49,36 +55,32 @@ export class QuestionsApiService {
     uuid: string,
     {
       label,
+      responseType,
       hidden,
       rightResponse,
-      falseResponses
+      falseResponses,
+      year
     }: {
       label?: string;
+      responseType?: ResponseType;
       hidden?: boolean;
       rightResponse?: Response;
       falseResponses?: Response[];
+      year?: number;
     }
   ): Observable<void> {
     const formData = new FormData();
 
-    if (label != null) {
-      formData.append('label', label);
-    }
-
-    if (hidden != null) {
-      formData.append('edit', String(hidden));
-    }
-
-    if (rightResponse != null) {
-      formData.append('true_response_uuid', rightResponse.uuid);
-    }
-
-    if (falseResponses != null) {
+    label && formData.append('label', label);
+    responseType && formData.append('response_type', responseType);
+    hidden && formData.append('hidden', String(hidden));
+    rightResponse && formData.append('true_response_uuid', rightResponse.uuid);
+    falseResponses &&
       formData.append(
         'false_responses_uuid',
         falseResponses.map((r) => r.uuid).join(',')
       );
-    }
+    year && formData.append('year', String(year));
 
     return this.restService.post(this.URLS.edit + uuid, formData);
   }

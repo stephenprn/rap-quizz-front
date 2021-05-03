@@ -1,0 +1,26 @@
+@import "./../../../../style-var.scss";
+
+#questions-table {
+    margin-bottom: 20px;
+}
+
+.edit-label-container {
+    display: flex;
+
+    > .edit-label-input {
+        flex: 1;
+    }
+}
+
+.label-container {
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    
+    &:hover {
+        background-color: rgba(255,255,255,0.75);
+    }
+}
+
+.basic-overlay {
+  border-radius: $basic-card-element-radius;
+}

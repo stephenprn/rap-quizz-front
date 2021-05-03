@@ -1,0 +1,12 @@
+<div class="basic-paragraph-container">
+  <div class="basic-paragraph-icon-container">
+    <i
+      *ngIf="type"
+      [style.color]="PARAGRAPH_TYPE_ICONS_MAP[type].color"
+      class="fa {{ PARAGRAPH_TYPE_ICONS_MAP[type].icon }} icon"
+    ></i>
+  </div>
+  <div class="basic-paragrapgh-content">
+    <ng-content></ng-content>
+  </div>
+</div>

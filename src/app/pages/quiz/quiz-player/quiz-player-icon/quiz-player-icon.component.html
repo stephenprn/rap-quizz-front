@@ -1,0 +1,12 @@
+<div
+  class="player-icon centered"
+  [style.height]="size ? size : DEFAULT_SIZE"
+  [style.width]="size ? size : DEFAULT_SIZE"
+  [style.border-width]="borderWidth ? borderWidth : DEFAULT_BORDER_WIDTH"
+  [style.border-color]="borderColor ? borderColor : DEFAULT_BORDER_COLOR"
+  [style.background-color]="player.color"
+  [style.color]="darkText ? DARK_TEXT_COLOR : BRIGHT_TEXT_COLOR"
+  [style.font-size]="fontSize"
+>
+  {{ initials }}
+</div>

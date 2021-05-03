@@ -2,13 +2,19 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 import { RestService, RestParameter } from '../rest.service';
 import { Response } from 'src/app/shared/classes/models/response.class';
+import {
+  Pagination,
+  PaginationResults
+} from '../../classes/others/pagination.class';
 
 @Injectable()
 export class ResponseApiService {
   private BASE_URL = '/response/';
   private URLS = {
     search: this.BASE_URL + 'search',
-    add: this.BASE_URL + 'add'
+    add: this.BASE_URL + 'add',
+    list: this.BASE_URL + 'list',
+    edit: this.BASE_URL + 'edit/'
   };
 
   constructor(private restService: RestService) {}
@@ -23,7 +29,7 @@ export class ResponseApiService {
       new RestParameter('type', type),
       new RestParameter(
         'responses_uuid_exclude',
-        responsesToExclude.map(r => r.uuid).join(',')
+        responsesToExclude.map((r) => r.uuid).join(',')
       )
     ];
 
@@ -37,5 +43,32 @@ export class ResponseApiService {
     formData.append('type', type);
 
     return this.restService.post(this.URLS.add, formData);
+  }
+
+  public list(pagination: Pagination): Observable<PaginationResults<Response>> {
+    return this.restService.get(this.URLS.list, null, pagination);
+  }
+
+  public editResponse(
+    uuid: string,
+    {
+      label,
+      hidden
+    }: {
+      label?: string;
+      hidden?: boolean;
+    }
+  ): Observable<void> {
+    const formData = new FormData();
+
+    if (label != null) {
+      formData.append('label', label);
+    }
+
+    if (hidden != null) {
+      formData.append('hidden', String(hidden));
+    }
+
+    return this.restService.post(this.URLS.edit + uuid, formData);
   }
 }

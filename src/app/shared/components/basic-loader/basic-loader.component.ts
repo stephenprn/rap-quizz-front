@@ -18,8 +18,7 @@ export class BasicLoaderComponent {
   public readonly DEFAULT_COLOR = '#df965f';
   public readonly DEFAULT_BORDER_WIDTH = '8px';
 
-  public readonly DEFAULT_HEIGHT = '100%';
-  public readonly DEFAULT_WIDTH = '100%';
+  public readonly DEFAULT_SIZE = '64px';
 
   @Input()
   color: string;
@@ -28,8 +27,5 @@ export class BasicLoaderComponent {
   borderWidth: string;
 
   @Input()
-  height: string;
-
-  @Input()
-  width: string;
+  size: string;
 }

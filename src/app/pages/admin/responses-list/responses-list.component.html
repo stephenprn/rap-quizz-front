@@ -1,0 +1,71 @@
+<div id="responses-list-container">
+  <div class="centered">
+    <app-basic-loader *ngIf="loading.first"></app-basic-loader>
+  </div>
+  <div class="basic-table-container">
+    <table
+      class="basic-table"
+      id="responses-table"
+      *ngIf="responses.length > 0"
+    >
+      <thead>
+        <tr>
+          <th>Création</th>
+          <th>Label</th>
+          <th>Type</th>
+          <th>Cachée</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let response of responses">
+          <td>{{ response.creation_date | date: 'dd/MM/yyyy (hh:mm)' }}</td>
+          <td>
+            <div
+              (click)="setEditResponse(response)"
+              *ngIf="response.uuid !== responseEdit.response?.uuid"
+              class="label-container"
+            >
+              {{ response.label }}
+            </div>
+            <div
+              *ngIf="response.uuid === responseEdit.response?.uuid"
+              class="edit-label-container"
+            >
+              <input
+                class="edit-label-input"
+                type="text"
+                [(ngModel)]="responseEdit.label"
+              />
+
+              <button
+                (click)="setLabel()"
+                mat-icon-button
+                matTooltip="Valider l'édition"
+                [disabled]="responseEdit.label.length === 0"
+              >
+                <i class="fa {{ ICONS.check }}"></i>
+              </button>
+            </div>
+          </td>
+          <td>{{ response.type }}</td>
+          <td class="center">
+            <mat-checkbox
+              (change)="setHidden(response, $event.checked)"
+              [(ngModel)]="response.hidden"
+            ></mat-checkbox>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="basic-overlay centered" *ngIf="loading.more">
+      <app-basic-loader></app-basic-loader>
+    </div>
+  </div>
+
+  <app-basic-pagination
+    *ngIf="!loading.first"
+    (goPage)="goPage($event)"
+    [pagination]="pagination"
+  ></app-basic-pagination>
+</div>

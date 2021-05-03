@@ -1,0 +1,39 @@
+<div id="users-list-container">
+  <div class="centered">
+    <app-basic-loader *ngIf="loading.first"></app-basic-loader>
+  </div>
+  <div class="basic-table-container">
+    <table class="basic-table" id="users-table" *ngIf="users.length > 0">
+      <thead>
+        <tr>
+          <th>Inscription</th>
+          <th>Email</th>
+          <th>Pseudo</th>
+          <th>Role</th>
+          <th>Couleur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.creation_date | date: 'dd/MM/yyyy (hh:mm)' }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.role }}</td>
+          <td class="center" [matTooltip]="user.color">
+            <div class="user-color" [style.background-color]="user.color"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="basic-overlay centered" *ngIf="loading.more">
+      <app-basic-loader></app-basic-loader>
+    </div>
+  </div>
+
+  <app-basic-pagination
+    *ngIf="!loading.first"
+    (goPage)="goPage($event)"
+    [pagination]="pagination"
+  ></app-basic-pagination>
+</div>

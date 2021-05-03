@@ -88,7 +88,9 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          this.uiService.displayToast('You are now registered!');
+          this.uiService.displayToast(
+            'Compte créé, vous pouvez vous connecter'
+          );
           this.router.navigate(['/']);
         },
         error: (err: HttpErrorResponse) => {

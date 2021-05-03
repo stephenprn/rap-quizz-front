@@ -1,11 +1,6 @@
-<div id="questions-list-container" class="basic-card">
-  <h1 class="basic-title bordered">Questions</h1>
+<div id="questions-list-container">
   <div class="centered">
-    <app-basic-loader
-      *ngIf="loading.first"
-      height="64px"
-      width="64px"
-    ></app-basic-loader>
+    <app-basic-loader *ngIf="loading.first"></app-basic-loader>
   </div>
   <div class="basic-table-container">
     <table
@@ -17,7 +12,9 @@
         <tr>
           <th>Creation</th>
           <th>Label</th>
+          <th>Type</th>
           <th>Réponse</th>
+          <th>Image</th>
           <th>Cachée</th>
           <th></th>
         </tr>
@@ -56,8 +53,21 @@
               </button>
             </div>
           </td>
+          <td>{{ question.type }} ({{ question.sub_type }})</td>
           <td>
-            {{ question.rightResponse.label }}
+            {{
+              question.rightResponse
+                ? question.rightResponse.label
+                : question.response_precise
+            }}
+          </td>
+          <td>
+            <a
+              *ngIf="question.picture"
+              [href]="question.picture"
+              target="_blank"
+              >lien</a
+            >
           </td>
           <td class="center">
             <mat-checkbox
@@ -79,13 +89,13 @@
     </table>
 
     <div class="basic-overlay centered" *ngIf="loading.more">
-      <app-basic-loader height="64px" width="64px"></app-basic-loader>
+      <app-basic-loader></app-basic-loader>
     </div>
   </div>
 
   <app-basic-pagination
     *ngIf="!loading.first"
     (goPage)="goPage($event)"
-    [pagination]="questionsPagination"
+    [pagination]="pagination"
   ></app-basic-pagination>
 </div>

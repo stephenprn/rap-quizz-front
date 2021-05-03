@@ -1,0 +1,10 @@
+<div class="basic-tabs-container centered">
+  <button
+    class="basic-tab"
+    [ngClass]="{ selected: tabSelected.id === tab.id }"
+    (click)="tabChanges.emit(tab)"
+    *ngFor="let tab of tabs"
+  >
+    {{ tab.label }}
+  </button>
+</div>

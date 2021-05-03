@@ -3,12 +3,49 @@
     {{ question.label }}
   </div>
 
-  <div id="question-responses">
+  <div
+    id="question-picture-container"
+    class="centered"
+    *ngIf="question.picture"
+  >
+    <img id="question-picture" [src]="question.picture" />
+  </div>
+
+  <div
+    id="question-responses"
+    *ngIf="!RESPONSE_TYPES_PRECISE.includes(question.type)"
+  >
     <app-response
       *ngFor="let questionResponse of question.responses"
       [response]="questionResponse.response"
       (selectResponse)="answer(questionResponse.response)"
       [answerStatus]="me.answerStatus"
     ></app-response>
+  </div>
+
+  <div
+    id="question-response-precise"
+    *ngIf="RESPONSE_TYPES_PRECISE.includes(question.type)"
+  >
+    <form [formGroup]="preciseFormGroup" class="basic-form">
+      <div class="basic-form-inputs">
+        <mat-form-field appearance="outline" class="basic-form-input">
+          <mat-label>Année</mat-label>
+          <input matInput formControlName="year" />
+          <mat-error> Année invalide </mat-error>
+        </mat-form-field>
+      </div>
+
+      <app-basic-button
+        (clicked)="answerPrecise()"
+        [icon]="ICONS.check"
+        [disabled]="
+          preciseFormGroup.invalid ||
+          me.answerStatus !== PlayerAnswerStatus.NONE
+        "
+      >
+        Valider
+      </app-basic-button>
+    </form>
   </div>
 </div>

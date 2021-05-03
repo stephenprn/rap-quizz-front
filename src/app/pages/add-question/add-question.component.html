@@ -29,14 +29,25 @@
       </mat-select>
     </mat-form-field>
 
-    <p class="basic-paragraph">
+    <app-basic-paragraph
+      [type]="ParagraphType.INFO"
+      *ngIf="
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
+      "
+    >
       Vous pouvez spécifier seulement la bonne réponse : les autres réponses
       proposées durant le quiz seront complétées automatiquement. Vous pouvez
       également spécifier jusqu'à 3 fausses réponses qui seront prises en
       compte.
-    </p>
+    </app-basic-paragraph>
 
-    <div *ngIf="responseSelectedLabel != null">
+    <div
+      class="basic-form-input"
+      *ngIf="
+        responseSelectedLabel != null &&
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
+      "
+    >
       <mat-radio-group
         [(ngModel)]="responseSelectedLabel"
         [ngModelOptions]="{ standalone: true }"
@@ -60,7 +71,10 @@
     <mat-form-field
       appearance="outline"
       class="basic-form-input"
-      *ngIf="responses.length < QUIZ_DEFAULT_NBR_RESPONSES"
+      *ngIf="
+        responses.length < QUIZ_DEFAULT_NBR_RESPONSES &&
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
+      "
     >
       <mat-label>Chercher une réponse</mat-label>
       <input
@@ -83,25 +97,31 @@
         <mat-option
           *ngIf="searchTxt != null && searchTxt !== ''"
           (click)="addNewResponse()"
-          >Add new response</mat-option
+          >Ajouter une réponse</mat-option
         >
       </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="basic-form-input"
+      *ngIf="
+        addQuestionFormGroup.get('responseType').value === ResponseType.YEAR
+      "
+    >
+      <mat-label>Année</mat-label>
+      <input matInput type="number" formControlName="year" />
+      <mat-error> L'année est invalide </mat-error>
     </mat-form-field>
   </div>
 
   <app-basic-button
     (clicked)="submit()"
-    [disabled]="
-      addQuestionFormGroup.invalid || submitting || this.responses.length === 0
-    "
+    [disabled]="!formValid() || submitting"
     [icon]="ICONS.questionAdd"
     [loading]="submitting"
-    [tooltip]="
-      addQuestionFormGroup.invalid || this.responses.length === 0
-        ? 'Veuillez remplir tous les champs'
-        : null
-    "
+    [tooltip]="!formValid() ? 'Veuillez remplir tous les champs' : null"
   >
-    {{ questionUuid ? "Editer": "Ajouter"}}
+    {{ questionUuid ? 'Editer' : 'Ajouter' }}
   </app-basic-button>
 </form>

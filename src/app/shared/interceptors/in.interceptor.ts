@@ -42,8 +42,8 @@ export class InInterceptor implements HttpInterceptor {
                   next: (res: AuthUser) => {
                     this.authenticationService.setAuthUser(res);
                   },
-                  error: (err: HttpErrorResponse) => {
-                    if (err.status === 401) {
+                  error: (err2: HttpErrorResponse) => {
+                    if (err2.status === 401) {
                       this.authenticationService.removeAuthData();
                       this.uiService.displayToast(
                         'Votre session a expiré, veuillez vous reconnecter'

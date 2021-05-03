@@ -1,0 +1,28 @@
+
+.basic-tabs-container  {
+    height: 50px;
+
+    .basic-tab {
+        cursor: pointer;
+
+        flex: 1;
+    
+        margin: 0;
+        padding: 0;
+        border: none;
+    
+        height: 100%;
+        
+        background-color: #ffffff;
+
+        transition: all 0.1s ease-in-out;
+
+        &:hover {
+            filter: brightness(90%);
+        }
+
+        &.selected {
+            background-color: var(--secondary-lightest-color);
+        }
+    }
+}

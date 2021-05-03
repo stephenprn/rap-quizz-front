@@ -25,7 +25,6 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ResponseComponent } from './pages/quiz/question/response/response.component';
 import { QuizInfosComponent } from './pages/quiz/quiz-infos/quiz-infos.component';
 import { QuizEndingSummaryComponent } from './pages/quiz/quiz-ending-summary/quiz-ending-summary.component';
-import { QuizLoadingComponent } from './pages/quiz/quiz-loading/quiz-loading.component';
 import { QuizWaitingRoomComponent } from './pages/quiz/quiz-waiting-room/quiz-waiting-room.component';
 import { QuizSocketService } from './shared/services/quiz-socket.service';
 import { QuizInitComponent } from './pages/home/quiz-init/quiz-init.component';
@@ -38,6 +37,10 @@ import { QuizEndingMedalComponent } from './pages/quiz/quiz-ending-summary/quiz-
 import { AdminComponent } from './pages/admin/admin.component';
 import { QuestionsListComponent } from './pages/admin/questions-list/questions-list.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { QuizPlayerIconComponent } from './pages/quiz/quiz-player/quiz-player-icon/quiz-player-icon.component';
+import { ResponsesListComponent } from './pages/admin/responses-list/responses-list.component';
+import { UsersListComponent } from './pages/admin/users-list/users-list.component';
+import { DataComponent } from './pages/admin/data/data.component';
 
 @NgModule({
   declarations: [
@@ -57,19 +60,22 @@ import { MatRadioModule } from '@angular/material/radio';
 
     QuizComponent,
     QuizInfosComponent,
-    QuizLoadingComponent,
     QuizWaitingRoomComponent,
     QuizStartingComponent,
     QuizEndingSummaryComponent,
     QuizEndingMedalComponent,
     QuizPlayerComponent,
+    QuizPlayerIconComponent,
 
     DashboardComponent,
 
     QuestionComponent,
     ResponseComponent,
 
-    QuestionsListComponent
+    QuestionsListComponent,
+    ResponsesListComponent,
+    UsersListComponent,
+    DataComponent
   ],
   imports: [
     BrowserModule,

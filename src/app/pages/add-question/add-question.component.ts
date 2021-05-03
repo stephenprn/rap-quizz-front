@@ -13,6 +13,7 @@ import {
 } from 'src/app/shared/classes/models/response.class';
 import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
 import { Question } from 'src/app/shared/classes/models/question.class';
+import { ParagraphType } from 'src/app/shared/components/basic-paragraph/basic-paragraph.component';
 
 @Component({
   selector: 'app-add-question',
@@ -31,9 +32,12 @@ export class AddQuestionComponent implements OnInit {
   public matchingResponses: Response[] = [];
   private matchingTimeout: any = null;
 
+  public ResponseType = ResponseType;
   public responseTypes: { value: string; label: string }[] = [
     { label: 'Artiste', value: ResponseType.ARTIST },
     { label: 'Album', value: ResponseType.ALBUM },
+    { label: 'Année', value: ResponseType.YEAR },
+    { label: 'Titre', value: ResponseType.SONG },
     { label: 'Autre', value: ResponseType.OTHER }
   ];
 
@@ -44,6 +48,8 @@ export class AddQuestionComponent implements OnInit {
   public ICONS = AppConstants.ICONS;
   public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
   public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
+
+  public ParagraphType = ParagraphType;
 
   @ViewChild('searchInput') searchInput: ElementRef;
 
@@ -67,7 +73,8 @@ export class AddQuestionComponent implements OnInit {
         Validators.minLength(this.QUESTION_TITLE_MIN_LENGTH),
         Validators.maxLength(this.QUESTION_TITLE_MAX_LENGTH)
       ]),
-      responseType: new FormControl(ResponseType.ARTIST, [Validators.required])
+      responseType: new FormControl(ResponseType.ARTIST, [Validators.required]),
+      year: new FormControl('', [Validators.min(1900), Validators.max(2100)])
     });
 
     const questionUuid = this.route.snapshot.paramMap.get('question_uuid');
@@ -82,7 +89,8 @@ export class AddQuestionComponent implements OnInit {
       (question: Question) => {
         this.addQuestionFormGroup.patchValue({
           label: question.label,
-          responseType: ResponseType[question.type]
+          responseType: ResponseType[question.type],
+          year: question.response_precise
         });
 
         this.responses = question.responses.map(
@@ -94,9 +102,13 @@ export class AddQuestionComponent implements OnInit {
             })
         );
 
-        this.responseSelectedLabel = question.responses.find(
+        const right = question.responses.find(
           (r) => r.status === QuestionResponseStatus.CORRECT
-        ).response.label;
+        );
+
+        if (right != null) {
+          this.responseSelectedLabel = right.response.label;
+        }
       },
       (err: any) => {
         console.log({ err });
@@ -134,7 +146,8 @@ export class AddQuestionComponent implements OnInit {
           },
           error: () => {
             this.uiService.displayToast(
-              'Error while getting responses, please try again later', true
+              'Une erreur est survenue, veuillez réessayer plus tard',
+              true
             );
           }
         });
@@ -150,7 +163,8 @@ export class AddQuestionComponent implements OnInit {
         },
         error: () => {
           this.uiService.displayToast(
-            'Error while adding response, please try again later', true
+            'Error while adding response, please try again later',
+            true
           );
         }
       });
@@ -168,7 +182,7 @@ export class AddQuestionComponent implements OnInit {
   }
 
   public removeResponse(response: Response) {
-    this.responses = this.responses.filter((r) => r != response);
+    this.responses = this.responses.filter((r) => r !== response);
 
     if (this.responseSelectedLabel === response.label) {
       if (this.responses.length > 0) {
@@ -186,6 +200,23 @@ export class AddQuestionComponent implements OnInit {
   public resetResponses() {
     this.responses = [];
     this.responseSelectedLabel = null;
+
+    this.addQuestionFormGroup.patchValue({
+      year: ''
+    });
+  }
+
+  public formValid() {
+    if (
+      this.addQuestionFormGroup.get('responseType').value === ResponseType.YEAR
+    ) {
+      return (
+        this.addQuestionFormGroup.valid &&
+        this.addQuestionFormGroup.get('year').value
+      );
+    }
+
+    return this.addQuestionFormGroup.valid && this.responses.length > 0;
   }
 
   public submit() {
@@ -206,8 +237,10 @@ export class AddQuestionComponent implements OnInit {
     this.questionsApiService
       .add(
         this.addQuestionFormGroup.get('label').value,
+        this.addQuestionFormGroup.get('responseType').value,
         rightResponse,
-        falseResponses
+        falseResponses,
+        this.addQuestionFormGroup.get('year').value
       )
       .subscribe({
         next: () => {
@@ -229,14 +262,13 @@ export class AddQuestionComponent implements OnInit {
     const falseResponses = this.responses.filter((r) => r !== rightResponse);
 
     this.questionsApiService
-      .editQuestion(
-        this.questionUuid,
-        {
-          label: this.addQuestionFormGroup.get('label').value,
-          rightResponse,
-          falseResponses
-        }
-      )
+      .editQuestion(this.questionUuid, {
+        label: this.addQuestionFormGroup.get('label').value,
+        responseType: this.addQuestionFormGroup.get('responseType').value,
+        rightResponse,
+        falseResponses,
+        year: this.addQuestionFormGroup.get('year').value
+      })
       .subscribe({
         next: () => {
           this.uiService.displayToast('Question mise à jour avec succès');

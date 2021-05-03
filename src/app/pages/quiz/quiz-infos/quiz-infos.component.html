@@ -9,11 +9,20 @@
         class="player"
         [matTooltip]="player.user.username + ' : ' + player.score + ' pts'"
         [ngClass]="{
-          'right': player.answerStatus === PlayerAnswerStatus.RIGHT,
-          'wrong': player.answerStatus === PlayerAnswerStatus.WRONG
+          right: player.answerStatus === PlayerAnswerStatus.RIGHT,
+          wrong: player.answerStatus === PlayerAnswerStatus.WRONG
         }"
       >
-        <i class="fa {{ ICONS.player }} player-icon"></i>
+        <app-quiz-player-icon
+          [player]="player"
+          [borderColor]="
+            player.answerStatus === PlayerAnswerStatus.RIGHT
+              ? RIGHT_COLOR
+              : player.answerStatus === PlayerAnswerStatus.WRONG
+              ? WRONG_COLOR
+              : null
+          "
+        ></app-quiz-player-icon>
       </div>
     </div>
   </div>

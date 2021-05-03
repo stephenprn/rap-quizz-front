@@ -34,6 +34,10 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { AdminGuard } from './guards/admin.guard';
 import { BasicPaginationComponent } from './components/basic-pagination/basic-pagination.component';
 import { BasicLoaderComponent } from './components/basic-loader/basic-loader.component';
+import { BasicTabsComponent } from './components/basic-tabs/basic-tabs.component';
+import { BasicParagraphComponent } from './components/basic-paragraph/basic-paragraph.component';
+import { UserApiService } from './services/api/user-api.service';
+import { AdminApiService } from './services/api/admin-api.service';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,8 @@ import { BasicLoaderComponent } from './components/basic-loader/basic-loader.com
     BasicButtonComponent,
     BasicPaginationComponent,
     BasicLoaderComponent,
+    BasicTabsComponent,
+    BasicParagraphComponent,
 
     SanitizeHtmlPipe,
     DurationPipe
@@ -69,6 +75,8 @@ import { BasicLoaderComponent } from './components/basic-loader/basic-loader.com
     BasicButtonComponent,
     BasicPaginationComponent,
     BasicLoaderComponent,
+    BasicTabsComponent,
+    BasicParagraphComponent,
 
     ToolbarComponent,
     SanitizeHtmlPipe,
@@ -81,11 +89,13 @@ import { BasicLoaderComponent } from './components/basic-loader/basic-loader.com
     UtilsService,
     AuthenticationUiService,
     ResponseApiService,
+    UserApiService,
 
     QuestionsApiService,
     AuthenticationApiService,
     QuizApiService,
     ProfileApiService,
+    AdminApiService,
 
     SanitizeHtmlPipe,
     DurationPipe,

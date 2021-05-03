@@ -13,42 +13,22 @@ $quiz-score-bar-answering-color: #e1e2e1;
 $quiz-score-bar-bullets-space-between: $quiz-score-bar-padding;
 
 $space-between-players: 4px;
-$player-size: 40px;
-$player-border-thickness: 3px;
 
 #quiz-infos {
   > #quiz-infos-section-top {
     display: flex;
     justify-content: space-between;
 
-    > #quiz-progression {
-    }
-
     > #players {
       display: flex;
 
       > .player {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        height: $player-size;
-        width: $player-size;
-
-        border-radius: 50%;
-
-        border: $player-border-thickness solid #ffffff;
-        background-color: var(--transparency-middle);
-
         &.right {
           border-color: var(--right-color);
         }
 
         &.wrong {
           border-color: var(--wrong-color);
-        }
-
-        > .player-icon {
         }
 
         &:not(:last-of-type) {

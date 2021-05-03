@@ -1,6 +1,4 @@
-import { Player } from 'src/app/shared/classes/others/player.class';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { io } from 'socket.io-client/dist/socket.io';
 import { environment } from 'src/environments/environment';
 import { Question } from '../classes/models/question.class';
@@ -109,12 +107,18 @@ export class QuizSocketService {
     this.socket.emit('start', quizUuid);
   }
 
-  public answerResponse(quiz: Quiz, question: Question, response: Response) {
+  public answerResponse(
+    quiz: Quiz,
+    question: Question,
+    response: Response,
+    precise: string
+  ) {
     const data: any = {};
 
     data.quiz_uuid = quiz.uuid;
     data.question_uuid = question.uuid;
-    data.response_uuid = response.uuid;
+    if (response) { data.response_uuid = response.uuid; }
+    if (precise) { data.response_precise = precise; }
 
     this.socket.emit('answer_response', data);
   }

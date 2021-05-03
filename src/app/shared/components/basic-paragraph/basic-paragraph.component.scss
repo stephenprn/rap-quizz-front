@@ -1,0 +1,25 @@
+$spacing: 25px;
+
+.basic-paragraph-container {
+  display: flex;
+  justify-content: space-between;
+
+  background-color: var(--transparency-light);
+  border: 1px solid var(--transparency-middle);
+  border-radius: $spacing;
+  padding: $spacing;
+
+  > .basic-paragraph-icon-container {
+    display: flex;
+    align-items: center;
+
+    margin-right: $spacing;
+
+    > i.icon {
+      font-size: 2rem;
+    }
+  }
+
+  > .basic-paragrapgh-content {
+  }
+}

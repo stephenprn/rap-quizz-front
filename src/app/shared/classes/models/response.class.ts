@@ -4,7 +4,9 @@ export enum ResponseType {
   ARTIST = 'ARTIST',
   ALBUM = 'ALBUM',
   DATE = 'DATE',
-  OTHER = 'OTHER'
+  SONG = 'SONG',
+  OTHER = 'OTHER',
+  YEAR = 'YEAR'
 }
 
 export enum QuestionResponseStatus {
@@ -22,7 +24,15 @@ export class Response extends BaseClass {
   type: ResponseType;
   selected?: boolean;
 
-  constructor({ label, uuid, type }: { label?: string, uuid?: string, type?: ResponseType }) {
+  constructor({
+    label,
+    uuid,
+    type
+  }: {
+    label?: string;
+    uuid?: string;
+    type?: ResponseType;
+  }) {
     super();
 
     if (label != null) {
