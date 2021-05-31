@@ -2,7 +2,7 @@
   <form [formGroup]="crawlFormGroup" class="basic-form">
     <div class="basic-form-inputs">
       <mat-form-field appearance="outline" class="basic-form-input">
-        <mat-label>Artiste genius id</mat-label>
+        <mat-label>Artiste genius ids</mat-label>
         <input matInput formControlName="artistGeniusId" />
         <mat-error> Genius id invalide </mat-error>
       </mat-form-field>
@@ -16,7 +16,87 @@
       Crawler artiste
     </app-basic-button>
 
-    <a href="https://genius.com/search?q=damso">Chercher sur genius</a> (API:
+    <a href="https://genius.com/search?q=damso" target="_blank">Chercher sur genius</a> (API:
     videos)
   </form>
+
+  <div id="artists-list-container">
+    <div class="centered">
+      <app-basic-loader *ngIf="artistLoading.first"></app-basic-loader>
+    </div>
+    <div class="basic-table-container">
+      <table class="basic-table" id="artists-table" *ngIf="artists.length > 0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Genius count</th>
+            <th>Image</th>
+            <th>Liens</th>
+            <th>Cachée</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let artist of artists">
+            <td>{{ artist.name }}</td>
+            <td>{{ artist.genius_followers_count }}</td>
+            <td>
+              <a
+                *ngIf="artist.genius_header_img_url"
+                [href]="artist.genius_header_img_url"
+                >header</a
+              >
+            </td>
+            <td>
+              <a
+                *ngIf="artist.name"
+                [href]="'https://genius.com/artists/' + artist.name"
+                target="_blank"
+                >genius</a
+              >
+              {{ ' ' }}
+              <a
+                *ngIf="artist.instagram_name"
+                [href]="'https://www.instagram.com/' + artist.instagram_name"
+                target="_blank"
+                >ig</a
+              >
+              {{ ' ' }}
+              <a
+                *ngIf="artist.twitter_name"
+                [href]="'https://twitter.com/' + artist.twitter_name"
+                target="_blank"
+                >twitter</a
+              >
+            </td>
+            <td class="center">
+              <mat-checkbox
+                (change)="setHidden(artist, $event.checked)"
+                [(ngModel)]="artist.hidden"
+              ></mat-checkbox>
+            </td>
+            <td>
+              <button
+                (click)="generateQuestions(artist)"
+                mat-icon-button
+                matTooltip="Générer les questions"
+              >
+                <i class="fa {{ ICONS.question }}"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="basic-overlay centered" *ngIf="artistLoading.more">
+        <app-basic-loader></app-basic-loader>
+      </div>
+    </div>
+
+    <app-basic-pagination
+      *ngIf="!artistLoading.first"
+      (goPage)="goPage($event)"
+      [pagination]="artistPagination"
+    ></app-basic-pagination>
+  </div>
 </div>

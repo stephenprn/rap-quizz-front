@@ -38,6 +38,7 @@ import { BasicTabsComponent } from './components/basic-tabs/basic-tabs.component
 import { BasicParagraphComponent } from './components/basic-paragraph/basic-paragraph.component';
 import { UserApiService } from './services/api/user-api.service';
 import { AdminApiService } from './services/api/admin-api.service';
+import { ArtistApiService } from './services/api/artist-api.service';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { AdminApiService } from './services/api/admin-api.service';
     QuizApiService,
     ProfileApiService,
     AdminApiService,
+    ArtistApiService,
 
     SanitizeHtmlPipe,
     DurationPipe,

@@ -1,7 +1,17 @@
+import { ResponseType } from './../../../shared/classes/models/response.class';
 import { AppConstants } from './../../../app.constants';
-import { QuizConstants } from './../quiz.contants';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Question } from 'src/app/shared/classes/models/question.class';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  Question,
+  QuestionSubType
+} from 'src/app/shared/classes/models/question.class';
 import { Response } from 'src/app/shared/classes/models/response.class';
 import {
   Player,
@@ -14,7 +24,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnChanges {
   @Input()
   question: Question;
 
@@ -24,17 +34,25 @@ export class QuestionComponent implements OnInit {
   @Output()
   responsePrecise = new EventEmitter<string>();
 
+  @Output()
+  responseRanked = new EventEmitter<Response[]>();
+
   @Input()
   me: Player;
 
-  public RESPONSE_TYPES_PRECISE = QuizConstants.RESPONSE_TYPES_PRECISE;
   public ICONS = AppConstants.ICONS;
   public PlayerAnswerStatus = PlayerAnswerStatus;
+  public QuestionSubType = QuestionSubType;
+  public ResponseType = ResponseType;
 
   public preciseFormGroup: FormGroup;
+  public rankedResponses: Response[] = [];
 
-  ngOnInit() {
-    this.initPreciseForm();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.question && changes.question.currentValue) {
+      this.initPreciseForm();
+      this.initRankedResponses();
+    }
   }
 
   private initPreciseForm() {
@@ -47,8 +65,20 @@ export class QuestionComponent implements OnInit {
     });
   }
 
+  private initRankedResponses() {
+    if (!(this.question.sub_type === QuestionSubType.RANKING)) {
+      return;
+    }
+
+    this.rankedResponses = this.question.responses.map((qr) => qr.response);
+  }
+
   public answer(response: Response) {
     this.selectResponse.emit(response);
+  }
+
+  public answerRanking() {
+    this.responseRanked.emit(this.rankedResponses);
   }
 
   public answerPrecise() {

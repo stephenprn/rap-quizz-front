@@ -7,6 +7,7 @@ import {
   Pagination,
   PaginationResults
 } from '../../classes/others/pagination.class';
+import { ResponseType } from 'src/app/shared/classes/models/response.class';
 
 @Injectable()
 export class QuestionsApiService {
@@ -23,8 +24,10 @@ export class QuestionsApiService {
   public add(
     label: string,
     responseType: ResponseType,
+    ranking: boolean,
     rightResponse: Response,
     falseResponses: Response[],
+    rankedResponses: Response[],
     year: number
   ): Observable<any> {
     const formData = new FormData();
@@ -38,7 +41,14 @@ export class QuestionsApiService {
         'false_responses_uuid',
         falseResponses.map((r) => r.uuid).join(',')
       );
+    rankedResponses &&
+      formData.append(
+        'ranked_responses_uuid',
+        rankedResponses.map((r) => r.uuid).join(',')
+      );
     year && formData.append('year', String(year));
+
+    formData.append('ranking', String(ranking));
 
     return this.restService.post(this.URLS.add, formData);
   }
@@ -56,16 +66,20 @@ export class QuestionsApiService {
     {
       label,
       responseType,
+      ranking,
       hidden,
       rightResponse,
       falseResponses,
+      rankedResponses,
       year
     }: {
       label?: string;
       responseType?: ResponseType;
+      ranking?: boolean,
       hidden?: boolean;
       rightResponse?: Response;
       falseResponses?: Response[];
+      rankedResponses?: Response[];
       year?: number;
     }
   ): Observable<void> {
@@ -80,7 +94,14 @@ export class QuestionsApiService {
         'false_responses_uuid',
         falseResponses.map((r) => r.uuid).join(',')
       );
+    rankedResponses &&
+      formData.append(
+        'ranked_responses_uuid',
+        rankedResponses.map((r) => r.uuid).join(',')
+      );
     year && formData.append('year', String(year));
+    ranking && formData.append('ranking', String(ranking));
+
 
     return this.restService.post(this.URLS.edit + uuid, formData);
   }

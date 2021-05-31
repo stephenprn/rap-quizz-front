@@ -41,6 +41,7 @@ import { QuizPlayerIconComponent } from './pages/quiz/quiz-player/quiz-player-ic
 import { ResponsesListComponent } from './pages/admin/responses-list/responses-list.component';
 import { UsersListComponent } from './pages/admin/users-list/users-list.component';
 import { DataComponent } from './pages/admin/data/data.component';
+import { SortablejsModule } from 'ngx-sortablejs';
 
 @NgModule({
   declarations: [
@@ -95,11 +96,14 @@ import { DataComponent } from './pages/admin/data/data.component';
     MatCheckboxModule,
     MatRadioModule,
 
+    SortablejsModule,
+
     SharedModule,
 
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
-    })
+    }),
+    SortablejsModule.forRoot({ animation: 150 }),
   ],
   providers: [QuizSocketService],
   bootstrap: [AppComponent]

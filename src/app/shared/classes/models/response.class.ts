@@ -6,7 +6,23 @@ export enum ResponseType {
   DATE = 'DATE',
   SONG = 'SONG',
   OTHER = 'OTHER',
-  YEAR = 'YEAR'
+  YEAR = 'YEAR',
+}
+
+export namespace ResponseType {
+  export function isPrecise(type: ResponseType) {
+    return type === ResponseType.YEAR;
+  }
+
+  export function isRegular(type: ResponseType) {
+    return [
+      ResponseType.ARTIST,
+      ResponseType.ALBUM,
+      ResponseType.DATE,
+      ResponseType.SONG,
+      ResponseType.OTHER,
+    ].includes(type);
+  }
 }
 
 export enum QuestionResponseStatus {

@@ -1,3 +1,7 @@
+@import "./../../../style-var.scss";
+
+$ranking-response-height: 50px;
+
 #add-question {
   > #add-question-form {
     height: fit-content;
@@ -41,6 +45,57 @@ mat-radio-group {
   margin-bottom: 20px;
 }
 
-#responses-container {
-  
+app-basic-paragraph {
+  margin: 10px 0;
+}
+
+.ranking-responses {
+  margin: 10px 0;
+
+  > .ranking-response {
+    display: flex;
+    align-items: center;
+
+    height: $ranking-response-height;
+
+    background-color: var(--transparency-light);
+    border: 1px solid var(--transparency-middle);
+
+    // same padding as mat-input
+    padding: 0 0.75em;
+
+    cursor: move;
+
+    &.sortable-ghost {
+      box-shadow: $base-shadow;
+    }
+
+    &.sortable-chosen {
+      box-shadow: $base-shadow;
+
+      background-color: var(--transparency-middle);
+      border-color: var(--transparency-dark);
+    }
+
+    &:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    &:only-child {
+      border-radius: 5px;
+    }
+
+    > .ranking {
+      padding: 0.75em;
+      font-weight: 600;
+    }
+
+    > .response {
+
+    }
+  }
 }

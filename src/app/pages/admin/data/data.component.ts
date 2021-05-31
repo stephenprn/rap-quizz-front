@@ -1,5 +1,4 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Response } from '../../../shared/classes/models/response.class';
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,12 +8,11 @@ import {
   PaginationResults
 } from 'src/app/shared/classes/others/pagination.class';
 import { AppConstants } from 'src/app/app.constants';
-import { Router } from '@angular/router';
 import { LoadingState } from 'src/app/shared/classes/others/loading-state.class';
-import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
-import { User } from 'src/app/shared/classes/models/user.class';
-import { UserApiService } from 'src/app/shared/services/api/user-api.service';
 import { AdminApiService } from 'src/app/shared/services/api/admin-api.service';
+import { ArtistApiService } from 'src/app/shared/services/api/artist-api.service';
+import { Artist } from 'src/app/shared/classes/models/artist.class';
+import { ResponseApiService } from 'src/app/shared/services/api/response-api.service';
 
 @Component({
   selector: 'app-data',
@@ -25,15 +23,25 @@ export class DataComponent implements OnInit {
   public loadingCrawl: boolean;
   public crawlFormGroup: FormGroup;
 
+  public artistPagination = new Pagination(0, 20);
+  public artistLoading = new LoadingState();
+  public artists: Artist[] = [];
+
+  public generateQuestionsLoading = false;
+
   public ICONS = AppConstants.ICONS;
 
   constructor(
     private uiService: UiService,
-    private adminApiService: AdminApiService
+
+    private adminApiService: AdminApiService,
+    private artistApiService: ArtistApiService,
+    private responsesApiService: ResponseApiService
   ) {}
 
   ngOnInit() {
     this.initCrawlFormGroup();
+    this.getArtists();
   }
 
   private initCrawlFormGroup() {
@@ -45,20 +53,91 @@ export class DataComponent implements OnInit {
     });
   }
 
+  public goPage(page: number) {
+    this.artistPagination.pageNbr = page;
+    this.getArtists();
+  }
+
+  public setHidden(artist: Artist, hidden: boolean) {
+    this.responsesApiService.editResponse(artist.uuid, { hidden }).subscribe({
+      next: () => {
+        this.uiService.displayToast(
+          `Response ${artist.uuid} cachée : ${hidden}`
+        );
+      },
+      error: (err: HttpErrorResponse) => {
+        this.uiService.displayToast(err.error.description, true);
+      }
+    });
+  }
+
+  public generateQuestions(artist: Artist) {
+    if (this.generateQuestionsLoading) {
+      return;
+    }
+
+    this.generateQuestionsLoading = true;
+
+    this.artistApiService.generateQuestions(artist.uuid).subscribe({
+      next: (res: { nbr_generated: number }) => {
+        this.generateQuestionsLoading = false;
+        this.uiService.displayToast(
+          `Generation succeed: ${res.nbr_generated} questions added`
+        );
+      },
+      error: (err: HttpErrorResponse) => {
+        this.generateQuestionsLoading = false;
+        this.uiService.displayToast(
+          'Error while generating questions: ' + err.error.description,
+          true
+        );
+      }
+    });
+  }
+
+  private getArtists() {
+    this.artistLoading.trigger();
+
+    this.artistApiService.list(this.artistPagination).subscribe({
+      next: (res: PaginationResults<Artist>) => {
+        this.artists = res.data;
+        this.artistPagination.total = res.total;
+        this.artistPagination.pageMax = Math.floor(
+          res.total / this.artistPagination.nbrResults
+        );
+        this.artistPagination = cloneDeep(this.artistPagination);
+        this.artistLoading.stop();
+      },
+      error: (err: HttpErrorResponse) => {
+        this.uiService.displayToast(err.error.description, true);
+        this.artistLoading.stop();
+      }
+    });
+  }
   public crawlArtist() {
     this.loadingCrawl = true;
 
-    this.adminApiService
-      .crawlArtist(this.crawlFormGroup.get('artistGeniusId').value)
-      .subscribe({
-        next: () => {
-          this.uiService.displayToast('Crawl succeed');
-          this.loadingCrawl = false;
-        },
-        error: (err: HttpErrorResponse) => {
-          this.uiService.displayToast(err.error.description, true);
-          this.loadingCrawl = false;
-        }
-      });
+    let ids: number[];
+
+    try {
+      ids = this.crawlFormGroup
+        .get('artistGeniusId')
+        .value.split(',')
+        .map((idStr: string) => Number(idStr));
+    } catch (e) {
+      this.uiService.displayToast('Format invalide', true);
+      return;
+    }
+
+    this.adminApiService.crawlArtists(ids).subscribe({
+      next: () => {
+        this.uiService.displayToast('Crawl succeed');
+        this.loadingCrawl = false;
+      },
+      error: (err: HttpErrorResponse) => {
+        this.uiService.displayToast(err.error.description, true);
+        this.loadingCrawl = false;
+      }
+    });
   }
 }

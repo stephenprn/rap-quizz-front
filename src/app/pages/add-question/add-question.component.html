@@ -29,6 +29,15 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-checkbox
+      class="basic-form-checkbox"
+      formControlName="ranking"
+      *ngIf="
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
+      "
+      >Ma question est un classement</mat-checkbox
+    >
+
     <app-basic-paragraph
       [type]="ParagraphType.INFO"
       *ngIf="
@@ -45,7 +54,8 @@
       class="basic-form-input"
       *ngIf="
         responseSelectedLabel != null &&
-        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR &&
+        !addQuestionFormGroup.get('ranking').value
       "
     >
       <mat-radio-group
@@ -68,11 +78,34 @@
       </mat-radio-group>
     </div>
 
+    <div
+      [sortablejs]="responses"
+      *ngIf="
+        addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR &&
+        addQuestionFormGroup.get('ranking').value &&
+        responses.length >= QUIZ_DEFAULT_NBR_RESPONSES_MIN
+      "
+      class="ranking-responses"
+    >
+      <div
+        *ngFor="let response of responses; let i = index"
+        class="ranking-response"
+      >
+        <span class="ranking">{{ i + 1 }}</span>
+        <span class="response">{{ response.label }}</span>
+      </div>
+    </div>
+
     <mat-form-field
       appearance="outline"
       class="basic-form-input"
       *ngIf="
-        responses.length < QUIZ_DEFAULT_NBR_RESPONSES &&
+        ((ResponseType.isRegular(
+          addQuestionFormGroup.get('responseType').value
+        ) &&
+          responses.length < QUIZ_DEFAULT_NBR_RESPONSES_MAX) ||
+          (addQuestionFormGroup.get('ranking').value &&
+            responses.length < QUIZ_RANKING_NBR_RESPONSES_MAX)) &&
         addQuestionFormGroup.get('responseType').value !== ResponseType.YEAR
       "
     >
@@ -118,7 +151,7 @@
   <app-basic-button
     (clicked)="submit()"
     [disabled]="!formValid() || submitting"
-    [icon]="ICONS.questionAdd"
+    [icon]="questionUuid ? ICONS.edit : ICONS.questionAdd"
     [loading]="submitting"
     [tooltip]="!formValid() ? 'Veuillez remplir tous les champs' : null"
   >

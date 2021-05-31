@@ -13,7 +13,10 @@
 
   <div
     id="question-responses"
-    *ngIf="!RESPONSE_TYPES_PRECISE.includes(question.type)"
+    *ngIf="
+      ResponseType.isRegular(question.type) &&
+      question.sub_type !== QuestionSubType.RANKING
+    "
   >
     <app-response
       *ngFor="let questionResponse of question.responses"
@@ -25,7 +28,10 @@
 
   <div
     id="question-response-precise"
-    *ngIf="RESPONSE_TYPES_PRECISE.includes(question.type)"
+    *ngIf="
+      ResponseType.isPrecise(question.type) &&
+      question.sub_type !== QuestionSubType.RANKING
+    "
   >
     <form [formGroup]="preciseFormGroup" class="basic-form">
       <div class="basic-form-inputs">
@@ -47,5 +53,29 @@
         Valider
       </app-basic-button>
     </form>
+  </div>
+
+  <div
+    *ngIf="question.sub_type === QuestionSubType.RANKING"
+    id="question-ranking-responses-container"
+  >
+    <div [sortablejs]="rankedResponses" id="question-ranking-responses">
+      <div
+        *ngFor="let response of rankedResponses; let i = index"
+        class="ranking-response"
+      >
+        <span class="ranking">{{ i + 1 }}</span>
+        <span class="response">{{ response.label }}</span>
+      </div>
+    </div>
+
+    <app-basic-button
+      [icon]="ICONS.check"
+      (clicked)="answerRanking()"
+      full="true"
+      [disabled]="me.answerStatus !== PlayerAnswerStatus.NONE"
+    >
+      Valider
+    </app-basic-button>
   </div>
 </div>

@@ -9,19 +9,22 @@ import {
 } from '../../classes/others/pagination.class';
 
 @Injectable()
-export class AdminApiService {
-  private BASE_URL = '/admin/';
+export class ArtistApiService {
+  private BASE_URL = '/artist/';
   private URLS = {
-    crawlArtist: this.BASE_URL + 'crawl-artists',
+    list: this.BASE_URL + 'list',
+    generateQuestions: this.BASE_URL + 'generate-questions'
   };
 
   constructor(private restService: RestService) {}
 
-  public crawlArtists(geniusIds: number[]): Observable<any> {
-    const formData = new FormData();
+  public list(pagination: Pagination): Observable<any> {
+    return this.restService.get(this.URLS.list, null, pagination);
+  }
 
-    formData.append('genius_ids', geniusIds.join(','));
-
-    return this.restService.post(this.URLS.crawlArtist, formData);
+  public generateQuestions(artistUuid: string): Observable<any> {
+    return this.restService.post(this.URLS.generateQuestions, {
+      artist_uuid: artistUuid
+    });
   }
 }

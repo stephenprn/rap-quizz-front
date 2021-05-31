@@ -221,16 +221,19 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   public anwserResponse({
     response,
-    precise
+    precise,
+    ranked
   }: {
     response?: Response;
     precise?: string;
+    ranked?: Response[]
   }) {
     this.quizSocketService.answerResponse(
       this.quiz,
       this.currentQuestion,
       response,
-      precise
+      precise,
+      ranked
     );
   }
 

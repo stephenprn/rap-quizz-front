@@ -30,6 +30,7 @@
     <app-question
       (selectResponse)="anwserResponse({ response: $event })"
       (responsePrecise)="anwserResponse({ precise: $event })"
+      (responseRanked)="anwserResponse({ ranked: $event })"
       [question]="currentQuestion"
       [me]="me"
     ></app-question>

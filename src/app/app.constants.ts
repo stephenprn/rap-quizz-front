@@ -1,5 +1,6 @@
 export class AppConstants {
   public static ICONS = {
+    question: 'fa-question',
     questionNbr: 'fa-question-circle',
     questionDuration: 'fa-hourglass-half',
     questionAdd: 'fa-plus',

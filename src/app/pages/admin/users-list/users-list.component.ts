@@ -33,15 +33,15 @@ export class UsersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getResponses();
+    this.getUsers();
   }
 
   public goPage(page: number) {
     this.pagination.pageNbr = page;
-    this.getResponses();
+    this.getUsers();
   }
 
-  private getResponses() {
+  private getUsers() {
     this.loading.trigger();
 
     this.userApiService.list(this.pagination).subscribe({

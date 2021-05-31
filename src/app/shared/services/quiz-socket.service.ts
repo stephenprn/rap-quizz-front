@@ -111,14 +111,22 @@ export class QuizSocketService {
     quiz: Quiz,
     question: Question,
     response: Response,
-    precise: string
+    precise: string,
+    ranked: Response[]
   ) {
     const data: any = {};
 
     data.quiz_uuid = quiz.uuid;
     data.question_uuid = question.uuid;
-    if (response) { data.response_uuid = response.uuid; }
-    if (precise) { data.response_precise = precise; }
+    if (response) {
+      data.response_uuid = response.uuid;
+    }
+    if (precise) {
+      data.response_precise = precise;
+    }
+    if (ranked) {
+      data.responses_ranked_uuid = ranked.map((r) => r.uuid).join(',');
+    }
 
     this.socket.emit('answer_response', data);
   }
