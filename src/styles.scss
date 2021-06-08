@@ -300,7 +300,8 @@ h2.basic-title {
 a {
   text-decoration: none;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--secondary-color);
+  // text-shadow: var(--transparency-middle) 0 0 1px;
 
   cursor: pointer;
 
@@ -364,13 +365,18 @@ a {
   display: block;
 
   // background-color: var(--transparency-middle);
-  border: 1px solid var(--accent-lighter-color);
+  // border: 1px solid var(--accent-lighter-color);
   // box-shadow: $base-shadow;
 
-  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+
+  background: rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+
+  color: white;
+  font-size: 0.9rem;
 
   .basic-card-section {
     background-color: var(--transparency-light);
@@ -380,6 +386,11 @@ a {
 
   .basic-title {
     margin-bottom: 40px;
+  }
+
+  @media only screen and (max-width: $screen-mobile-width) {
+    border-radius: 0;
+    padding: 40px 30px;
   }
 }
 
@@ -407,6 +418,17 @@ i.fa {
   &.has-toolbar {
     padding-top: $toolbar-height;
     min-height: calc(100vh - #{$toolbar-height});
+  }
+
+  @media only screen and (max-width: $screen-mobile-width) {
+    &.has-toolbar {
+      padding-top: $toolbar-height-mobile;
+      min-height: calc(100vh - #{$toolbar-height-mobile});
+    }
+
+    > app-toolbar {
+      height: $toolbar-height-mobile;
+    }
   }
 
   > app-toolbar {
@@ -540,6 +562,14 @@ mat-spinner {
 
 .mat-checkbox-inner-container {
   background-color: var(--transparency-light) var(--transparency-middle);
+}
+
+.mat-select-value {
+  color: #ffffff;
+}
+
+.mat-select-arrow {
+  color: #ffffff;
 }
 
 // responsive

@@ -1,4 +1,4 @@
-@import "../style-var.scss";
+@import '../style-var.scss';
 
 #page-container {
   display: flex;
@@ -34,10 +34,6 @@
   @media only screen and (max-width: $main-container-max-width) {
     margin: 0;
 
-    > #main-container {
-      // margin: 0;
-    }
-
     > h1 {
       text-align: center;
     }
@@ -46,6 +42,21 @@
       padding: $main-container-margin-vertical;
 
       text-align: center;
+    }
+  }
+
+
+  @media only screen and (max-width: $screen-mobile-width) {
+    padding-top: $toolbar-height-mobile;
+    min-height: calc(100vh - #{$toolbar-height-mobile});
+
+    > #main-container {
+      margin: 0;
+      padding: 0;
+    }
+    
+    > app-toolbar {
+      height: $toolbar-height-mobile;
     }
   }
 }

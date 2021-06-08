@@ -226,7 +226,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   }: {
     response?: Response;
     precise?: string;
-    ranked?: Response[]
+    ranked?: Response[];
   }) {
     this.quizSocketService.answerResponse(
       this.quiz,

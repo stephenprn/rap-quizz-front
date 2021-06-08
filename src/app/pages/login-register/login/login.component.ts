@@ -68,8 +68,4 @@ export class LoginComponent implements OnInit {
         }
       });
   }
-
-  public openRegisterDialog() {
-    this.router.navigate(['/register']);
-  }
 }

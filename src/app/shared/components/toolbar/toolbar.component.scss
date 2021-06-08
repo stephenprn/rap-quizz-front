@@ -2,6 +2,7 @@
 
 $padding-horizontal: 50px;
 $logo-padding: 20px;
+$logo-padding-mobile: 15px;
 $button-size: 60px;
 
 $background-color: #ffffff;
@@ -70,4 +71,14 @@ $background-color: #ffffff;
       transform: scale(1.02);
     }
   }
+
+
+  @media only screen and (max-width: $screen-mobile-width) {
+    padding: 0;
+
+    #toolbar-logo {
+      padding: $logo-padding-mobile;
+    }
+  }
+
 }

@@ -1,3 +1,4 @@
+import { UserRole } from './../../../shared/classes/models/user.class';
 import { Response } from '../../../shared/classes/models/response.class';
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/shared/services/ui.service';
@@ -26,6 +27,8 @@ export class UsersListComponent implements OnInit {
   public loading = new LoadingState();
 
   public ICONS = AppConstants.ICONS;
+  public UserRole = UserRole;
+  public Object = Object;
 
   constructor(
     private uiService: UiService,
@@ -39,6 +42,21 @@ export class UsersListComponent implements OnInit {
   public goPage(page: number) {
     this.pagination.pageNbr = page;
     this.getUsers();
+  }
+
+  public setUserRole(user: User, userRoleStr: string) {
+    this.userApiService
+      .editUser(user.uuid, {
+        role: UserRole[userRoleStr]
+      })
+      .subscribe(
+        () => {
+          this.uiService.displayToast(`${user.username} is now ${userRoleStr}`);
+        },
+        (err: any) => {
+          this.uiService.displayToast(err.error.message);
+        }
+      );
   }
 
   private getUsers() {

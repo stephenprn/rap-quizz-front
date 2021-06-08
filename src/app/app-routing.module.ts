@@ -24,26 +24,26 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    data: { title: 'Dashboard' },
+    data: { title: 'Tableau de bord' },
     canActivate: [LoggedGuard]
   },
   {
     path: 'add-question',
     component: AddQuestionComponent,
-    data: { title: 'Add question' },
+    data: { title: 'Ajouter une question' },
     canActivate: [LoggedGuard]
   },
   {
     path: 'edit-question/:question_uuid',
     component: AddQuestionComponent,
-    data: { title: 'Edit question' },
+    data: { title: 'Editer une question' },
     canActivate: [LoggedGuard, AdminGuard]
   },
   {
     path: 'quiz',
     component: QuizComponent,
     canActivate: [LoggedGuard],
-    data: { title: 'New quiz' }
+    data: { title: 'Nouveau quiz' }
   },
   {
     path: 'quiz/:quiz_url',

@@ -1,17 +1,17 @@
-@import "./../../../../style-var.scss";
+@import './../../../../style-var.scss';
 
 #ending-quiz-summary-container {
   > app-quiz-ending-medal {
     display: block;
     width: 30%;
     min-width: 100px;
-    
+
     margin: auto;
     margin-bottom: 20px;
   }
 
   > h2 {
-      margin-bottom: 20px;
+    margin-bottom: 20px;
   }
 
   > app-quiz-player {

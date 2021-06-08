@@ -12,7 +12,7 @@ import {
 export class AdminApiService {
   private BASE_URL = '/admin/';
   private URLS = {
-    crawlArtist: this.BASE_URL + 'crawl-artists',
+    crawlArtist: this.BASE_URL + 'crawl-artists'
   };
 
   constructor(private restService: RestService) {}

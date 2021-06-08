@@ -18,7 +18,19 @@
           <td>{{ user.creation_date | date: 'dd/MM/yyyy (hh:mm)' }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.username }}</td>
-          <td>{{ user.role }}</td>
+          <td>
+            <mat-select
+              [(ngModel)]="user.role"
+              (selectionChange)="setUserRole(user, $event.value)"
+            >
+              <!-- [formControl]="newQuizFormGroup.controls['questionDuration']" -->
+              <mat-option
+                *ngFor="let role of Object.values(UserRole)"
+                [value]="role"
+                >{{ role }}</mat-option
+              >
+            </mat-select>
+          </td>
           <td class="center" [matTooltip]="user.color">
             <div class="user-color" [style.background-color]="user.color"></div>
           </td>

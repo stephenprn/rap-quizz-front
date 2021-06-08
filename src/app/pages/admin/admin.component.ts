@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Tab } from 'src/app/shared/components/basic-tabs/basic-tabs.component';
+import { User } from 'src/app/shared/classes/models/user.class';
 
 @Component({
   selector: 'app-admin',
@@ -14,6 +15,7 @@ export class AdminComponent {
     new Tab('data', 'Données')
   ];
   public tabSelected: Tab = this.tabs[0];
+  public currentUser: User;
 
   public tabChanges(tab: Tab) {
     this.tabSelected = tab;

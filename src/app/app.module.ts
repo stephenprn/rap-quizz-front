@@ -103,7 +103,7 @@ import { SortablejsModule } from 'ngx-sortablejs';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production
     }),
-    SortablejsModule.forRoot({ animation: 150 }),
+    SortablejsModule.forRoot({ animation: 150 })
   ],
   providers: [QuizSocketService],
   bootstrap: [AppComponent]

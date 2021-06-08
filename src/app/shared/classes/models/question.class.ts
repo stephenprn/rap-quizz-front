@@ -6,7 +6,7 @@ export enum QuestionSubType {
   HIT = 'HIT',
   ARTIST_PICTURE = 'ARTIST_PICTURE',
   RANKING = 'RANKING',
-  UNKNOWN = 'UNKNOWN',
+  UNKNOWN = 'UNKNOWN'
 }
 
 export class Question extends BaseClass {

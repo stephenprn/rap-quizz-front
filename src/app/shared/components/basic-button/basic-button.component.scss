@@ -2,9 +2,9 @@
 
 $height: 50px;
 $padding-vertical: 5px;
-$padding-horizontal: 15px;
+$padding-horizontal: 20px;
 $bottom-part-height: 10px;
-$border-radius: 4px;
+$border-radius: calc(#{$height} / 2);
 $border-thick: 1px;
 
 $border-color: var(--secondary-lighter-color);

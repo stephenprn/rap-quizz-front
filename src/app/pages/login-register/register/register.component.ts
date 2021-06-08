@@ -131,10 +131,6 @@ export class RegisterComponent implements OnInit {
     }, this.USERNAME_CHECK_REFRESH_DELAY);
   }
 
-  public openLoginDialog() {
-    this.router.navigate(['/login']);
-  }
-
   private passwordMatch(c: AbstractControl): { invalid: boolean } {
     if (c.get('password').value !== c.get('passwordConfirmation').value) {
       this.registerFormGroup

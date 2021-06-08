@@ -1,2 +1,1 @@
-export class QuizConstants {
-}
+export class QuizConstants {}

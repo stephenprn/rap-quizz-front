@@ -64,4 +64,16 @@ $quiz-param-color: #ffffff;
       }
     }
   }
+
+  @media only screen and (max-width: $screen-mobile-width) {
+    flex-direction: column;
+
+    > #waiting-room-right-section {
+      margin-left: 0; 
+
+      > #quiz-controls {
+        // flex-direction: column;
+      }
+    }
+  }
 }

@@ -6,7 +6,7 @@ export enum ResponseType {
   DATE = 'DATE',
   SONG = 'SONG',
   OTHER = 'OTHER',
-  YEAR = 'YEAR',
+  YEAR = 'YEAR'
 }
 
 export namespace ResponseType {
@@ -20,7 +20,7 @@ export namespace ResponseType {
       ResponseType.ALBUM,
       ResponseType.DATE,
       ResponseType.SONG,
-      ResponseType.OTHER,
+      ResponseType.OTHER
     ].includes(type);
   }
 }

@@ -75,7 +75,7 @@ export class QuestionsApiService {
     }: {
       label?: string;
       responseType?: ResponseType;
-      ranking?: boolean,
+      ranking?: boolean;
       hidden?: boolean;
       rightResponse?: Response;
       falseResponses?: Response[];
@@ -87,7 +87,7 @@ export class QuestionsApiService {
 
     label && formData.append('label', label);
     responseType && formData.append('response_type', responseType);
-    hidden && formData.append('hidden', String(hidden));
+    hidden != null && formData.append('hidden', String(hidden));
     rightResponse && formData.append('true_response_uuid', rightResponse.uuid);
     falseResponses &&
       formData.append(
@@ -100,8 +100,7 @@ export class QuestionsApiService {
         rankedResponses.map((r) => r.uuid).join(',')
       );
     year && formData.append('year', String(year));
-    ranking && formData.append('ranking', String(ranking));
-
+    ranking != null && formData.append('ranking', String(ranking));
 
     return this.restService.post(this.URLS.edit + uuid, formData);
   }
