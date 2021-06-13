@@ -6,11 +6,13 @@ export enum QuestionSubType {
   HIT = 'HIT',
   ARTIST_PICTURE = 'ARTIST_PICTURE',
   RANKING = 'RANKING',
+  LYRICS = 'LYRICS',
   UNKNOWN = 'UNKNOWN'
 }
 
 export class Question extends BaseClass {
   label: string;
+  explaination?: string;
   picture: string;
   responses: QuestionResponse[];
   author?: User;

@@ -22,4 +22,8 @@ export class AppConstants {
 
   public static QUESTION_TITLE_MIN_LENGTH = 8;
   public static QUESTION_TITLE_MAX_LENGTH = 100;
+  public static QUESTION_EXPLAINATION_MAX_LENGTH = 500;
+
+  public static RESPONSE_LABEL_MIN_LENGTH = 1;
+  public static RESPONSE_LABEL_MAX_LENGTH = 128;
 }

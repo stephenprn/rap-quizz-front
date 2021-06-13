@@ -56,6 +56,8 @@ export class AddQuestionComponent implements OnInit {
   public ICONS = AppConstants.ICONS;
   public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
   public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
+  public QUESTION_EXPLAINATION_MAX_LENGTH =
+    AppConstants.QUESTION_EXPLAINATION_MAX_LENGTH;
 
   public ParagraphType = ParagraphType;
 
@@ -81,6 +83,9 @@ export class AddQuestionComponent implements OnInit {
         Validators.minLength(this.QUESTION_TITLE_MIN_LENGTH),
         Validators.maxLength(this.QUESTION_TITLE_MAX_LENGTH)
       ]),
+      explaination: new FormControl('', [
+        Validators.maxLength(this.QUESTION_EXPLAINATION_MAX_LENGTH)
+      ]),
       responseType: new FormControl(ResponseType.ARTIST, [Validators.required]),
       year: new FormControl('', [Validators.min(1900), Validators.max(2100)]),
       ranking: new FormControl(false)
@@ -100,7 +105,8 @@ export class AddQuestionComponent implements OnInit {
           label: question.label,
           responseType: ResponseType[question.type],
           year: question.response_precise,
-          ranking: question.sub_type === QuestionSubType.RANKING
+          ranking: question.sub_type === QuestionSubType.RANKING,
+          explaination: question.explaination
         });
 
         this.responses = question.responses.map(
@@ -165,6 +171,17 @@ export class AddQuestionComponent implements OnInit {
   }
 
   public addNewResponse() {
+    this.searchTxt = this.searchTxt.trim();
+    if (
+      this.searchTxt.length > AppConstants.RESPONSE_LABEL_MAX_LENGTH ||
+      this.searchTxt.length < AppConstants.RESPONSE_LABEL_MIN_LENGTH
+    ) {
+      this.uiService.displayToast(
+        `La réponse doit avoir une longeur comprise entre ${AppConstants.RESPONSE_LABEL_MIN_LENGTH} et ${AppConstants.RESPONSE_LABEL_MAX_LENGTH} caractères`
+      );
+      return;
+    }
+
     this.responseApiService
       .add(this.searchTxt, this.addQuestionFormGroup.get('responseType').value)
       .subscribe({
@@ -173,7 +190,7 @@ export class AddQuestionComponent implements OnInit {
         },
         error: () => {
           this.uiService.displayToast(
-            'Error while adding response, please try again later',
+            "Une erreur est survenue lors de l'ajout de la réponse, veuillez réeassyer plus tard.",
             true
           );
         }
@@ -261,6 +278,7 @@ export class AddQuestionComponent implements OnInit {
         this.addQuestionFormGroup.get('label').value,
         this.addQuestionFormGroup.get('responseType').value,
         this.addQuestionFormGroup.get('ranking').value,
+        this.addQuestionFormGroup.get('explaination').value,
         rightResponse,
         falseResponses,
         rankedResponses,
@@ -292,6 +310,7 @@ export class AddQuestionComponent implements OnInit {
         label: this.addQuestionFormGroup.get('label').value,
         responseType: this.addQuestionFormGroup.get('responseType').value,
         ranking: this.addQuestionFormGroup.get('ranking').value,
+        explaination: this.addQuestionFormGroup.get('explaination').value,
         rightResponse,
         falseResponses,
         rankedResponses,

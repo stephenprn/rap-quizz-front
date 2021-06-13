@@ -1,15 +1,129 @@
-#quiz-ending-medal {
-  position: relative;
+@import './../../../../../style-var.scss';
 
-  > #rank-number {
-    position: absolute;
-    display: flex;
-    justify-content: center;
+$space-inner-medal: 10px;
+$ribbon-height: 40px;
+$ribbon-width: 20px;
 
-    width: 100%;
-    margin-top: 30px;
+$rank-color-1: #daa520;
+$rank-color-2: #b4b4b4;
+$rank-color-3: #ad8a56;
+$rank-color-default: #838383;
 
-    font-weight: 600;
-    font-size: 3rem;
+#quiz-ending-medal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > #quiz-ending-medal {
+    box-shadow: 0 0 16px 0 #ffffff;
+
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+    position: relative;
+
+    background: linear-gradient(
+      to bottom right,
+      $rank-color-default 50%,
+      darken($rank-color-default, 5%) 50%
+    );
+
+    &::after {
+      position: absolute;
+      content: '';
+      z-index: 10;
+
+      top: $space-inner-medal;
+      right: $space-inner-medal;
+      bottom: $space-inner-medal;
+      left: $space-inner-medal;
+
+      border-radius: 50%;
+
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    > #rank-number {
+      @include white-border;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 100%;
+      width: 100%;
+
+      font-size: 2.5rem;
+      color: $rank-color-default;
+    }
+  }
+
+  > #quiz-ending-medal-ribbon {
+    height: $ribbon-height;
+    border-width: $ribbon-width;
+
+    margin-top: -30px;
+    width: 0;
+    border-style: solid;
+    border-color: $rank-color-default $rank-color-default transparent $rank-color-default;
+  }
+
+  &.rank-1 {
+    > #quiz-ending-medal {
+      background: linear-gradient(
+        to bottom right,
+        $rank-color-1 50%,
+        darken($rank-color-1, 5%) 50%
+      );
+
+      > #rank-number {
+        color: $rank-color-1;
+      }
+    }
+    > #quiz-ending-medal-ribbon {
+      border-color: $rank-color-1 $rank-color-1 transparent $rank-color-1;
+    }
+  }
+
+  &.rank-2 {
+    > #quiz-ending-medal {
+      background: linear-gradient(
+        to bottom right,
+        $rank-color-2 50%,
+        darken($rank-color-2, 5%) 50%
+      );
+
+      > #rank-number {
+        color: $rank-color-2;
+      }
+    }
+    > #quiz-ending-medal-ribbon {
+      border-color: $rank-color-2 $rank-color-2 transparent $rank-color-2;
+    }
+  }
+
+  &.rank-3 {
+    > #quiz-ending-medal {
+      background: linear-gradient(
+        to bottom right,
+        $rank-color-3 50%,
+        darken($rank-color-3, 5%) 50%
+      );
+
+      > #rank-number {
+        color: $rank-color-3;
+      }
+    }
+    > #quiz-ending-medal-ribbon {
+      border-color: $rank-color-3 $rank-color-3 transparent $rank-color-3;
+    }
   }
 }

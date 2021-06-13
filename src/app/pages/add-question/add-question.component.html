@@ -146,6 +146,15 @@
       <input matInput type="number" formControlName="year" />
       <mat-error> L'année est invalide </mat-error>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="basic-form-input">
+      <mat-label>Infos supplémentaires sur la réponse</mat-label>
+      <textarea matInput formControlName="explaination"></textarea>
+      <mat-error>
+        L'info supplémentaire doit avoir une longeur maximum de
+        {{ QUESTION_EXPLAINATION_MAX_LENGTH }} caractères
+      </mat-error>
+    </mat-form-field>
   </div>
 
   <app-basic-button

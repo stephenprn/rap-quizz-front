@@ -13,7 +13,8 @@
     
         height: 100%;
         
-        background-color: #ffffff;
+        background-color: var(--transparency-light);
+        color: #ffffff;
 
         transition: all 0.1s ease-in-out;
 
@@ -22,7 +23,7 @@
         }
 
         &.selected {
-            background-color: var(--secondary-lightest-color);
+            background-color: #df975f80;
         }
     }
 }

@@ -22,7 +22,7 @@ export class QuizStartingComponent implements OnInit {
   public flames: string[];
   public flameCurrentIndex = 0;
   private readonly FLAMES_ROOT_SRC = (i: number) =>
-    `assets/img/flames/flame${i}.svg`
+    `assets/img/flames/flame${i}.svg`;
 
   ngOnInit() {
     this.initCountdown();

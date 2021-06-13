@@ -1,6 +1,7 @@
 import { BaseClass } from './base.class';
 
 export enum UserRole {
+  SUPER_ADMIN = 'SUPER_ADMIN',
   ADMIN = 'ADMIN',
   USER = 'USER'
 }

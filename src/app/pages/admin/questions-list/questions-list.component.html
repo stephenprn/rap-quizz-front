@@ -53,7 +53,28 @@
               </button>
             </div>
           </td>
-          <td>{{ question.type }} ({{ question.sub_type }})</td>
+          <td>
+            <mat-select
+              [(ngModel)]="question.type"
+              (selectionChange)="setType(question, $event.value)"
+            >
+              <mat-option
+                *ngFor="let responseType of Object.values(ResponseType)"
+                [value]="responseType"
+                >{{ responseType }}</mat-option
+              >
+            </mat-select>
+            <mat-select
+              [(ngModel)]="question.sub_type"
+              (selectionChange)="setSubType(question, $event.value)"
+            >
+              <mat-option
+                *ngFor="let questionSubType of Object.values(QuestionSubType)"
+                [value]="questionSubType"
+                >{{ questionSubType }}</mat-option
+              >
+            </mat-select>
+          </td>
           <td>
             {{
               question.rightResponse

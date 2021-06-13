@@ -1,4 +1,7 @@
-import { Question } from './../../classes/models/question.class';
+import {
+  Question,
+  QuestionSubType
+} from './../../classes/models/question.class';
 import { Observable } from 'rxjs/internal/Observable';
 import { Injectable } from '@angular/core';
 import { Response } from 'src/app/shared/classes/models/response.class';
@@ -25,6 +28,7 @@ export class QuestionsApiService {
     label: string,
     responseType: ResponseType,
     ranking: boolean,
+    explaination: string,
     rightResponse: Response,
     falseResponses: Response[],
     rankedResponses: Response[],
@@ -34,6 +38,7 @@ export class QuestionsApiService {
 
     formData.append('label', label);
     formData.append('response_type', responseType);
+    formData.append('explaination', explaination);
 
     rightResponse && formData.append('true_response_uuid', rightResponse.uuid);
     falseResponses &&
@@ -66,7 +71,9 @@ export class QuestionsApiService {
     {
       label,
       responseType,
+      subType,
       ranking,
+      explaination,
       hidden,
       rightResponse,
       falseResponses,
@@ -75,7 +82,9 @@ export class QuestionsApiService {
     }: {
       label?: string;
       responseType?: ResponseType;
+      subType?: QuestionSubType;
       ranking?: boolean;
+      explaination?: string;
       hidden?: boolean;
       rightResponse?: Response;
       falseResponses?: Response[];
@@ -87,7 +96,9 @@ export class QuestionsApiService {
 
     label && formData.append('label', label);
     responseType && formData.append('response_type', responseType);
+    subType && formData.append('sub_type', subType);
     hidden != null && formData.append('hidden', String(hidden));
+    explaination != null && formData.append('explaination', explaination);
     rightResponse && formData.append('true_response_uuid', rightResponse.uuid);
     falseResponses &&
       formData.append(

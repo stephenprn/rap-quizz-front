@@ -1,5 +1,8 @@
 import { QuestionsApiService } from './../../../shared/services/api/questions-api.service';
-import { Question } from './../../../shared/classes/models/question.class';
+import {
+  Question,
+  QuestionSubType
+} from './../../../shared/classes/models/question.class';
 import { Component, OnInit } from '@angular/core';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -11,7 +14,8 @@ import {
 import { AppConstants } from 'src/app/app.constants';
 import {
   QuestionResponse,
-  QuestionResponseStatus
+  QuestionResponseStatus,
+  ResponseType
 } from 'src/app/shared/classes/models/response.class';
 import { Router } from '@angular/router';
 import { LoadingState } from 'src/app/shared/classes/others/loading-state.class';
@@ -37,6 +41,10 @@ export class QuestionsListComponent implements OnInit {
   public ICONS = AppConstants.ICONS;
   public QUESTION_TITLE_MIN_LENGTH = AppConstants.QUESTION_TITLE_MIN_LENGTH;
   public QUESTION_TITLE_MAX_LENGTH = AppConstants.QUESTION_TITLE_MAX_LENGTH;
+
+  public ResponseType = ResponseType;
+  public QuestionSubType = QuestionSubType;
+  public Object = Object;
 
   constructor(
     private router: Router,
@@ -83,6 +91,40 @@ export class QuestionsListComponent implements OnInit {
         this.loading.stop();
       }
     });
+  }
+
+  public setType(question: Question, type: ResponseType) {
+    this.questionsApiService
+      .editQuestion(question.uuid, {
+        responseType: type
+      })
+      .subscribe({
+        next: () => {
+          this.uiService.displayToast(
+            `Question ${question.uuid} type updated ${type}`
+          );
+        },
+        error: (err: HttpErrorResponse) => {
+          this.uiService.displayToast(err.error.description, true);
+        }
+      });
+  }
+
+  public setSubType(question: Question, subType: QuestionSubType) {
+    this.questionsApiService
+      .editQuestion(question.uuid, {
+        subType
+      })
+      .subscribe({
+        next: () => {
+          this.uiService.displayToast(
+            `Question ${question.uuid} type updated ${subType}`
+          );
+        },
+        error: (err: HttpErrorResponse) => {
+          this.uiService.displayToast(err.error.description, true);
+        }
+      });
   }
 
   public setLabel() {
