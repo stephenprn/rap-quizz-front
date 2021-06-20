@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ConfirmationDialogComponent implements OnInit {
   public texts = {
-    main: 'Are you sure you want to perform this action?',
+    main: 'Êtes-vous sûr de vouloir faire cela ?',
     yes: 'Oui',
     no: 'Non'
   };

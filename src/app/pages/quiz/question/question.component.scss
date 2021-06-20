@@ -20,6 +20,8 @@ $ranking-response-height: 50px;
       max-width: 100%;
       border-radius: 40px;
       box-shadow: $base-shadow;
+
+      animation-name: blur-to-net;
     }
   }
 
@@ -83,5 +85,17 @@ $ranking-response-height: 50px;
         }
       }
     }
+  }
+}
+
+
+
+@keyframes blur-to-net {
+  0% {
+    filter: blur(15px);
+  }
+
+  100% {
+    filter: blur(0);
   }
 }

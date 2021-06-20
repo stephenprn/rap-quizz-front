@@ -16,9 +16,75 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+
+    <style>
+      body {
+        background-image: linear-gradient(135deg, #923c7a 10%, #2d26fb 100%);
+        background-attachment: fixed;
+
+        background-blend-mode: overlay, hard-light, normal;
+      }
+
+      .lds-ring-initial-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .lds-ring {
+        display: inline-block;
+        position: relative;
+      }
+
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+
+        width: 100%;
+        height: 100%;
+        max-width: 64px;
+        max-height: 64px;
+
+        border: 8px solid #ffffff;
+
+        border-color: #ffffff transparent transparent transparent;
+        border-radius: 50%;
+
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      }
+
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
   </head>
   <body class="mat-typography">
-    <app-root></app-root>
+    <app-root>
+      <div class="lds-ring-initial-container">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </app-root>
     <noscript
       >Please enable JavaScript to continue using this application.</noscript
     >

@@ -69,7 +69,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   public logout() {
     this.authenticationService.removeAuthData();
-    this.uiService.displayToast('You have been logged out');
+    this.uiService.displayToast('Vous êtes déconnecté');
 
     // check if current route require auth
     const currentRouteConfig = this.router.config.find(

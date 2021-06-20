@@ -130,8 +130,8 @@ export class DataComponent implements OnInit {
     }
 
     this.adminApiService.crawlArtists(ids).subscribe({
-      next: () => {
-        this.uiService.displayToast('Crawl succeed');
+      next: (res: any) => {
+        this.uiService.displayToast(`Crawl lancé en fond`);
         this.loadingCrawl = false;
       },
       error: (err: HttpErrorResponse) => {

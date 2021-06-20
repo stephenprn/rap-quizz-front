@@ -40,6 +40,9 @@ export class QuestionComponent implements OnChanges {
   @Input()
   me: Player;
 
+  @Input()
+  questionDuration: number;
+
   public ICONS = AppConstants.ICONS;
   public PlayerAnswerStatus = PlayerAnswerStatus;
   public QuestionSubType = QuestionSubType;

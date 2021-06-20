@@ -7,6 +7,9 @@
     id="question-picture-container"
     class="centered"
     *ngIf="question.picture"
+    [ngStyle]="{
+      'animation-duration': (questionDuration ? questionDuration : 20) - 3 + 's'
+    }"
   >
     <img id="question-picture" [src]="question.picture" />
   </div>
